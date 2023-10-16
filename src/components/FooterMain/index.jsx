@@ -7,27 +7,27 @@ const FooterMain = () => {
         <Box h={'350px'} bg={primaryBgColor} pt={'25px'} color={'white'}>
             <Flex h={'300px'} w={'90rem'} m={'auto'} justify={'center'}>
                 <Box w={'300px'} p={'30px'} h={'100%'} textTransform={'capitalize'}>
-                    <Box mb={'10px'} ><Image src="/ticketo.png" h={'100px'} /></Box>
+                    <Box mb={'25px'} ><Image src="/logowhite.svg" h={'65px'} /></Box>
                     <Box >best app for ticketing management system in indonesia! ticketo. ticketing platform that ease your event.</Box>
                 </Box>
-                <Box w={'300px'} p={'30px'} h={'100%'} textTransform={'capitalize'} fontSize={'20px'} as={'b'}>
-                    <Text textDecoration={'underline'} lineHeight={'2'}>Our Services</Text>
+                <Flex w={'300px'} p={'30px'} h={'100%'} textTransform={'capitalize'} fontSize={'20px'} as={'b'} align={'center'}>
+                    {/* <Text textDecoration={'underline'} lineHeight={'2'}>Our Services</Text> */}
                     <List spacing={'1.5'}>
                         <ListItem>upcoming event</ListItem>
                         <ListItem>spotlight</ListItem>
                         <ListItem>promos</ListItem>
                         <ListItem>pricing</ListItem>
                     </List>
-                </Box>
-                <Box w={'300px'} p={'30px'} h={'100%'} textTransform={'capitalize'} fontSize={'20px'} as={'b'}>
-                    <Text textDecoration={'underline'} lineHeight={'2'}>About us</Text>
+                </Flex>
+                <Flex w={'300px'} p={'30px'} h={'100%'} textTransform={'capitalize'} fontSize={'20px'} as={'b'} align={'center'}>
+                    {/* <Text textDecoration={'underline'} lineHeight={'2'}>About us</Text> */}
                     <List spacing={'1.5'}>
                         <ListItem>careers</ListItem>
                         <ListItem>contact us</ListItem>
                         <ListItem>privacy policy</ListItem>
                         <ListItem>terms & conditions</ListItem>
                     </List>
-                </Box>
+                </Flex>
                 <Box w={'300px'} p={'30px'} h={'100%'} as={'b'}>
                     <Text lineHeight={'2'} fontSize={'20px'}>Ticketo. Support</Text>
                     <Text fontSize={'15px'}>E-Mail: help@ticketo.id</Text>
