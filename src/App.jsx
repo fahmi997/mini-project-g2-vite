@@ -1,3 +1,4 @@
+import LoginPage from "./pages/Login"
 import StagingPage from "./pages/staging"
 
 
@@ -5,7 +6,8 @@ function App() {
 
   return (
     <>
-      <StagingPage/>
+      {/* <StagingPage/> */}
+      <LoginPage/>
     </>
   )
 }
