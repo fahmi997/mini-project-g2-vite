@@ -1,6 +1,7 @@
 import { Box, Flex, Heading, Text, Input, Button, HStack, InputGroup, InputRightAddon, Select } from "@chakra-ui/react"
 import { FcGoogle } from "react-icons/fc"
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai"
+import "./styles.css"
 
 const SignupCard = (props) => {
     return <>
@@ -22,12 +23,12 @@ const SignupCard = (props) => {
                     </InputRightAddon>
                 </InputGroup>
                 <InputGroup>
-                    <Input placeholder="Confirm Password" type={props.isVisible ? "text" : "password"} />
-                    <InputRightAddon onClick={props.onClick}>
-                        {props.isVisible ? <AiOutlineEyeInvisible /> : <AiOutlineEye />}
+                    <Input placeholder="Confirm Password" type={props.isVisibleConfirm ? "text" : "password"} />
+                    <InputRightAddon onClick={props.onClickConfirm}>
+                        {props.isVisibleConfirm ? <AiOutlineEyeInvisible /> : <AiOutlineEye />}
                     </InputRightAddon>
                 </InputGroup>
-                <Select _peerHover={{bg:"black"}}>            
+                <Select color="gray.500">
                     <option style={{display:"none"}}>Select your role</option>
                     <option>Attendee</option>
                     <option>Event Organizer</option>
