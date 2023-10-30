@@ -8,8 +8,10 @@ import FooterBottom from "../../components/FooterBottom";
 const StagingPage = () => {
     return <>
     <Navbar/>
-    
     <Box h={'384px'}></Box>
+    <Box h={'434px'}>
+        <Image src="./logoblack1.svg"/>
+    </Box>
     <FooterMain/>
     <FooterBottom/>
     </>
