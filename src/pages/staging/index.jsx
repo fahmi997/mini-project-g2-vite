@@ -4,13 +4,20 @@ import { primary } from "../../assets/color";
 import Navbar from "../../components/Navbar";
 import FooterMain from "../../components/FooterMain";
 import FooterBottom from "../../components/FooterBottom";
+import LandingPage from "../LandingPage";
+import DetailEventPage from "../DetailEventPage";
+
 
 const StagingPage = () => {
     return <>
-    <Navbar/>
-    <Box h={'384px'}></Box>
-    <FooterMain/>
-    <FooterBottom/>
+    {/* <Navbar/> */}
+    <Box h={'384px'}>
+        {/* <DetailEventPage/> */}
+        <LandingPage/>
+        
+    </Box>
+    {/* <FooterMain/>
+    <FooterBottom/> */}
     </>
 };
 
