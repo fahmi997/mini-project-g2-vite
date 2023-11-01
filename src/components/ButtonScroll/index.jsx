@@ -3,8 +3,9 @@ import { IconButton } from '@chakra-ui/react';
 import { BiLeftArrowAlt, BiRightArrowAlt } from 'react-icons/bi';
 
 const ButtonScroll = ({ scrollLeft, scrollRight, hideLeft, hideRight }) => {
+
   return (
-    <div>
+    <>
       <IconButton
         aria-label="left-arrow"
         color="#202020"
@@ -15,7 +16,7 @@ const ButtonScroll = ({ scrollLeft, scrollRight, hideLeft, hideRight }) => {
         transform="translate(0%, -50%)"
         zIndex={2}
         onClick={scrollLeft}
-        opacit={hideLeft ? 0 : 1}
+        opacity={hideLeft ? 0 : 1}
         pointerEvents={hideLeft ? 'none' : 'auto'}
       >
         <BiLeftArrowAlt />
@@ -36,7 +37,7 @@ const ButtonScroll = ({ scrollLeft, scrollRight, hideLeft, hideRight }) => {
       >
         <BiRightArrowAlt />
       </IconButton>
-    </div>
+    </>
   );
 };
 
