@@ -16,7 +16,7 @@ const Navbar = () => {
             gridTemplateAreas={`"logo search search button button"`}
             alignItems={'center'}
         >
-            <Image src="./ticketo.png" alt="logo" h={'80px'} gridArea={'logo'} />
+            <Image src="./logowhite.svg" alt="logo" h={'50px'} gridArea={'logo'}/>
             <InputGroup gridArea={'search'} justifyContent={'center'}>
                 <Input
                     w={'60%'}
