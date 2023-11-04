@@ -26,7 +26,7 @@ const Navbar = () => {
                 />
                 <InputRightAddon color={'black'}><BiSearch /></InputRightAddon>
             </InputGroup>
-            <Stack gridArea={'button'} direction={'row'} spacing={'25px'} justify={'center'} >
+            <Stack gridArea={'button'} direction={'row'} spacing={'25px'} justify={'flex-end'} >
                 <Box w={'7rem'} display={'inline-flex'} alignItems={'center'} gap={'5px'} cursor={'pointer'}>
                     <FiCompass fontSize={'30px'} color={primary} />
                     <Text fontSize={'16px'}> Explore</Text>

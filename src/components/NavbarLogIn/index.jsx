@@ -33,6 +33,17 @@ const NavbarLogIn = () => {
                     <Text fontSize={'16px'}> Explore</Text>
                 </Box>
 
+                <Button
+                    w={'110px'}
+                    color={primary}
+                    border={'1px'} borderColor={primary}
+                    bg={'none'}
+                    _hover={{}}
+                    _active={{ bg: primary, color: 'black'}}
+                >
+                    Create Event
+                </Button>
+
                 
             <Box height={'40px'} width={'40px'} borderRadius={'full'} alignContent={'center'} mr={'0'} ml={'auto'}>
                 <Image src="https://tse3.mm.bing.net/th?id=OIP.0fRNzG8iXEQE4ZerH-2U-AHaHa&pid=Api&P=0&h=220"

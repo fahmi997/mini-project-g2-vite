@@ -6,14 +6,16 @@ import FooterMain from "../../components/FooterMain";
 import FooterBottom from "../../components/FooterBottom";
 import LandingPage from "../LandingPage";
 import DetailEventPage from "../DetailEventPage";
+import DetailEv from "../DetailEv";
 
 
 const StagingPage = () => {
     return <>
     {/* <Navbar/> */}
     <Box h={'384px'}>
-        {/* <DetailEventPage/> */}
-        <LandingPage/>
+        {/* <DetailEv/> */}
+        <DetailEventPage/>
+        {/* <LandingPage/> */}
         
     </Box>
     {/* <FooterMain/>

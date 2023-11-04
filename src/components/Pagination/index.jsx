@@ -3,6 +3,7 @@ import { useDisclosure } from "@chakra-ui/react";
 import { Flex, Text, Select, Button, Input, Drawer, DrawerOverlay, DrawerContent, DrawerCloseButton, DrawerHeader, DrawerBody, DrawerFooter } from "@chakra-ui/react";
 import CardEvent from '../CardEvent';
 import eventData from '../../data/eventData';
+import { primary, primaryBgColor } from "../../assets/color";
 
 const itemsPerPageOptions = [4, 8, 12, 16];
 
@@ -27,14 +28,13 @@ const Pagination = () => {
 
   // Mengambil data yang sesuai dengan indeks yang dihitung
   const paginatedData = eventData.slice(startIndex, endIndex);
+  console.log(paginatedData);
 
   const prevPage = () => {
     if (activePage > 0) {
       setActivePage(activePage - 1);
     }
   };
-
-  
 
   const nextPage = () => {
     if (activePage < totalPages - 1) {
@@ -47,7 +47,7 @@ const Pagination = () => {
       <Text fontWeight='bold' mt='16' ml='5%' mr='5%' w='90%' fontSize='25px'>Explore</Text>
 
       <Flex ml='5%' mr='5%' mb='2' mt='2' h='50px' width='90%' justifyContent='space-between'>
-        <Button ref={btnRef} colorScheme='teal' onClick={onOpen}>
+        <Button ref={btnRef} bg={primary} onClick={onOpen} >
           Filter
         </Button>
 
@@ -70,7 +70,7 @@ const Pagination = () => {
             <Button variant='outline' mr={3} onClick={onClose}>
               Cancel
             </Button>
-            <Button colorScheme='blue'>Save</Button>
+            <Button bg={primary}>Save</Button>
           </DrawerFooter>
         </DrawerContent>
       </Drawer>
@@ -88,7 +88,7 @@ const Pagination = () => {
 
       <Flex ml='5%' mr='5%' mb='6' h='330px' width='90%' height='auto' flexWrap='wrap'>
         {paginatedData.map((event, index) => (
-          <CardEvent key={index} event={event} />
+          <CardEvent key={index} {...event} />
         ))}
       </Flex>
 
@@ -106,11 +106,11 @@ const Pagination = () => {
           ))}
         </Select>
         
-        <Button onClick={prevPage} disabled={activePage === 0}>
+        <Button onClick={prevPage} disabled={activePage === 0} bg={primary}>
           Previous
         </Button>
         <Text>{`${activePage + 1} dari ${Math.ceil(eventData.length / itemsPerPage)}`}</Text>
-        <Button onClick={nextPage} disabled={activePage === Math.ceil(eventData.length / itemsPerPage) - 1}>
+        <Button onClick={nextPage} disabled={activePage === Math.ceil(eventData.length / itemsPerPage) - 1} bg={primary}>
           Next
         </Button>
       </Flex>
