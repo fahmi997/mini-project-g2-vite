@@ -1,25 +1,24 @@
-import { Box, Button, Image, Input, InputGroup, InputRightAddon, Stack } from "@chakra-ui/react";
-import { BiSearch } from "react-icons/bi"
-import { primary } from "../../assets/color";
+import { Box } from "@chakra-ui/react";
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Navbar from "../../components/Navbar";
 import FooterMain from "../../components/FooterMain";
 import FooterBottom from "../../components/FooterBottom";
 import LandingPage from "../LandingPage";
 import DetailEventPage from "../DetailEventPage";
-import DetailEv from "../DetailEv";
+import ExplorePage from "../ExplorePage.jsx";
 
 
 const StagingPage = () => {
     return <>
-    {/* <Navbar/> */}
-    <Box h={'384px'}>
-        {/* <DetailEv/> */}
-        <DetailEventPage/>
-        {/* <LandingPage/> */}
         
-    </Box>
-    {/* <FooterMain/>
-    <FooterBottom/> */}
+            <Navbar />
+            <Routes>
+                <Route path="/" element={<LandingPage/>} />
+                <Route path="/explore" element={<ExplorePage/>} />
+            </Routes>
+            <FooterMain/>
+            <FooterBottom/>
+        
     </>
 };
 

@@ -60,7 +60,7 @@ const Pagination = () => {
         <DrawerOverlay />
         <DrawerContent>
           <DrawerCloseButton />
-          <DrawerHeader>Create your account</DrawerHeader>
+          <DrawerHeader>Filter Berdasarkan</DrawerHeader>
 
           <DrawerBody>
             <Input placeholder='Type here...' />

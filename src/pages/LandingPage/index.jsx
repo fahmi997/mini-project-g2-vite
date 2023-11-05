@@ -64,8 +64,6 @@ const LandingPage = () => {
     <>
       <Flex display={'flex'} flexDirection={'column'} height={'auto'} >
 
-        <NavbarLogIn />
-
         <Carousel />
 
         <Text fontWeight={'bold'} mt={'16'} ml={'5%'} mr={'5%'} w={'90%'} fontSize={'25px'}>Event Pilihan</Text>
@@ -87,8 +85,6 @@ const LandingPage = () => {
 
           <ButtonScroll scrollLeft={scrollLeft} scrollRight={scrollRight} hideLeft={hideLeft} hideRight={hideRight} />
         </Flex>
-
-        <Pagination />
 
         <Box mt={'16'} backgroundColor={'#202020'} height={'200px'} width={'100%'} >
         </Box>
@@ -202,8 +198,6 @@ const LandingPage = () => {
           <ButtonScroll scrollLeft={scrollLeft} scrollRight={scrollRight} hideLeft={hideLeft} hideRight={hideRight} />
         </Flex>
 
-        <FooterMain />
-        <FooterBottom />
       </Flex>
 
     </>

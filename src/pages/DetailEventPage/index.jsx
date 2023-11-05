@@ -20,7 +20,6 @@ import {
   const DetailEv = () => {
     return (
       <>
-        <Navbar />
   
         <Flex
           flexDirection={"column"}
@@ -182,9 +181,6 @@ import {
           </Flex>
   
         </Flex>
-  
-        <FooterMain />
-        <FooterBottom />
       </>
     );
   };

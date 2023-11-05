@@ -25,7 +25,7 @@ const Carousel = () => {
     const cards = [
         'https://loket-production-sg.s3.ap-southeast-1.amazonaws.com/images/ss/1694850845_x0hYtf.jpg',
         'https://loket-production-sg.s3.ap-southeast-1.amazonaws.com/images/ss/1690260495_PraZyu.jpg',
-        'https://loket-production-sg.s3.ap-southeast-1.amazonaws.com/images/ss/1694850845_x0hYtf.jpg', 'https://loket-production-sg.s3.ap-southeast-1.amazonaws.com/images/ss/1696357756_Z9XJhc.jpg']
+        'https://loket-production-sg.s3.ap-southeast-1.amazonaws.com/images/ss/1698737209_oPJidf.jpg']
 
     return (
         <>
