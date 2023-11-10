@@ -33,16 +33,16 @@ const LoginCard = (props) => {
   const [inRole, setInRole] = React.useState("user");
 
   const onLogin = async () => {
-    console.log("tes");
-    let response = await axios.post(`http://localhost:2099/account/login`, {
+    // console.log("tes");
+    const response = await axios.post(`http://localhost:2099/account/login`, {
       email: inEmail,
-      password: inPassword,
-      role: inRole
+      password: inPassword
+      // role: inRole
     });
-    console.log(response);
-    if(response){
-      navigate("*")
-    }
+    console.log("INI RESPON",response);
+    // if(response){
+    //   navigate("*")
+    // }
   };
 
   return (
