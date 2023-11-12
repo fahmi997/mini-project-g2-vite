@@ -39,9 +39,11 @@ const LoginCard = (props) => {
       password: inPassword
       // role: inRole
     });
-    console.log("INI RESPON",response);
+    console.log("INI RESPON",response.data.result.token);
+    localStorage.setItem("login", response.data.result.token)
+    dispatch(login(dataAccount))
     // if(response){
-    //   navigate("*")
+      //   navigate("*")
     // }
   };
 

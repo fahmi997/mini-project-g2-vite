@@ -11,12 +11,13 @@ const accountSlice = createSlice({
   },
   reducers: {
     login: (state, action) => {
+        console.log("INI ACTION PAYLOAD", action);
         state.email = action.payload.email
         state.password = action.payload.password
         state.role = action.payload.role
     },
     logout: (state, action) =>{
-        state= {
+        state = {
             email: "",
             password: "",
             role: ""
@@ -31,25 +32,23 @@ export default accountSlice.reducer
 export const checkDataAccount = () =>{
     return async(dispatch) =>{
         try {
-            // let token = localStorage.getItem("login_token")
-            // if(token){
-                const getAccount = await axios.get( `${API_CALL}/account/login`, {
+            let token = localStorage.getItem("login")
+            if(token){
+                const getAccount = await axios.get(`http://localhost:2099/account/login`, {
                     headers: {
                         Authorization: `Bearer ${token}`
                     }
                 })
-                localStorage.setItem("login_token", getAccount.data.result.token)
+                console.log("GET ACCOUNT BREE", getAccount);
+                localStorage.setItem("login", getAccount.data.result.token)
 
-                dispatch({
-                    type: "LOGIN_SUCCES",
-                    payload: getAccount.data
-                })
-            // }
+                dispatch(login(getAccount.data))
+            }
             console.log();
 
         } catch (error) {
             console.log(error);
-            // dispatch(logout())
+            dispatch(logout())
         }
     }
 }
