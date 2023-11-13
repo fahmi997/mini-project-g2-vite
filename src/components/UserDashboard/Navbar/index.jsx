@@ -1,8 +1,13 @@
 import { Box, Image } from "@chakra-ui/react";
 import { LuCalendarClock } from "react-icons/lu";
 import { GoChevronDown } from "react-icons/go";
+import { BsFillPersonFill } from "react-icons/bs";
+import React from "react";
 
 const NavbarDash = (props) => {
+  const [defaultProfile, setDefaultProfile] = React.useState("avatar.svg")
+
+
   return (
     <div style={{width:"79.8%", flexDirection:"column", position:"absolute", right:"0px"}}>
       <Box
@@ -79,10 +84,8 @@ const NavbarDash = (props) => {
                   height={"30px"}
                   width={"30px"}
                   borderRadius={"100px"}
-                  backgroundColor={"red"}
-                >
-                  <Image src="ticketo.png" />
-                </Box>
+                  backgroundImage={defaultProfile}
+                />
                 <Box
                   display={"flex"}
                   justifyContent={"space-between"}

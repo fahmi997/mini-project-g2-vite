@@ -1,5 +1,8 @@
-import { Tab, TabList, Tabs } from "@chakra-ui/react"
+import { Box, Icon, Image, Tab, TabList, Tabs, Text } from "@chakra-ui/react"
 import Posisi from "./posisi"
+import "./index.css"
+import {FaPen} from "react-icons/fa"
+
 
 const ContentDashProfile = () =>{
     return(
@@ -23,6 +26,20 @@ const ContentDashProfile = () =>{
               Informasi Dasar
             </Tab>
             </TabList>
+            <div style={{ display:"flex", width:"100%", height:"auto", marginTop:"15px", justifyContent:"center"}}>
+              <Box display={"flex"} width={"88%"} height={"auto"} backgroundColor={"blue"} justifyContent={"center"}>
+                <Box width={"90%"} height={"auto"} backgroundColor={"white"} display={"grid"}>
+                  <Text height={"20px"} className="judulProfile">Gambar Profil</Text>
+                  <Text height={"20px"} className="tulisan">Avatar dan foto sampul adalah gambar pertama yang akan dilihat di akun profilmu.</Text>
+                  <Box display={"flex"} backgroundColor={"red"} height={"120px"}>
+                    <Box width={"20%"} backgroundColor={"green"}><Box className="editPhotoProfile" backgroundColor={"red"} border={"1px solid grey"} backgroundImage={"contoh.jpg"} backgroundSize={"cover"} display={"flex"} justifyContent={"center"} alignItems={"center"} height={"120px"} width={"120px"} borderRadius={"100px"}><Icon><FaPen style={{color:"rgb(138, 169, 195)"}} size={"25px"}/></Icon></Box></Box>
+                    <Box>
+
+                    </Box>
+                  </Box>
+                </Box>
+              </Box>
+            </div>
         </Tabs>
        </div>
         </>
