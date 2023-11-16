@@ -55,10 +55,10 @@ const SignupCard = (props) => {
             }else{
                 alert('Is error!')
             }
-        }
-            
-            
+        }        
     }
+
+
     return <>
         <Box boxShadow={"rgba(100, 100, 111, 0.2) 0px 7px 29px 0px"} p={"35px 15px"} borderRadius={"25px"} borderColor={"gray.100"}>
             <Box lineHeight={"2"} display={"grid"} justifyContent={"center"} alignContent={"center"} textAlign={"center"}>

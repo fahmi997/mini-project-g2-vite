@@ -15,6 +15,7 @@ const accountSlice = createSlice({
         state.email = action.payload.email
         state.password = action.payload.password
         state.role = action.payload.role
+        state.name = action.payload.nama_Lengkap
     },
     logout: (state, action) =>{
         state = {

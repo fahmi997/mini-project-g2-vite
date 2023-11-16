@@ -41,11 +41,13 @@ const LoginCard = (props) => {
     });
     console.log("INI RESPON",response.data.result.token);
     localStorage.setItem("login", response.data.result.token)
-    dispatch(login(dataAccount))
-    // if(response){
-      //   navigate("*")
-    // }
+    dispatch(login(response.data.result))
+    if(response){
+        navigate("*")
+    }
   };
+
+//   console.log("BRE BRE DATA ACCOUNT",dataAccount);
 
   return (
     <>
