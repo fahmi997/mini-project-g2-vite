@@ -5,7 +5,7 @@ import CardEvent from '../CardEvent';
 import eventData from '../../data/eventData';
 import { primary, primaryBgColor } from "../../assets/color";
 
-const itemsPerPageOptions = [4, 8, 12, 16];
+const itemsPerPageOptions = [8, 12, 16];
 
 const Pagination = () => {
   const [activePage, setActivePage] = useState(0);

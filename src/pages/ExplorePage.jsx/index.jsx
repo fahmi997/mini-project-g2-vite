@@ -1,29 +1,84 @@
-import React, { useState } from 'react';
-import { useDisclosure, Select, Text, Flex, Button, Input, Drawer, DrawerOverlay, DrawerContent, DrawerCloseButton, DrawerHeader, DrawerBody, DrawerFooter } from "@chakra-ui/react";
+import React, { useState, useEffect } from 'react';
+import { useDisclosure, Select, Text, Flex, Button, Drawer, DrawerOverlay, DrawerContent, DrawerCloseButton, DrawerHeader, DrawerBody, DrawerFooter } from "@chakra-ui/react";
 import CardEvent from '../../components/CardEvent';
-import eventData from '../../data/eventData';
 import { primary } from "../../assets/color";
+import axios from 'axios';
+import { API_URL } from '../../helper/helper';
+import BottomBox from '../../components/BottomBox';
+import FooterBottom from '../../components/FooterBottom';
+import FooterMain from '../../components/FooterMain';
 
 const itemsPerPageOptions = [20, 15, 10];
 
 const ExplorePage = () => {
   const [activePage, setActivePage] = useState(0);
   const [itemsPerPage, setItemsPerPage] = useState(itemsPerPageOptions[0]);
-  const [sortingOption, setSortingOption] = useState('startTimeAsc'); // Opsi pengurutan
+  const [sortingOption, setSortingOption] = useState('startTimeAsc');
+  const [eventData, setEventData] = useState([]);
+  const [cities, setCities] = useState([]);
+  const [method, setMethod] = useState([]);
+  const [type, setType] = useState([]);
+  const [categories, setCategories] = useState([]);
+  const [province, setProvince] = useState([]);
+  const [selectedCategory, setSelectedCategory] = useState('');
+  const [selectedProvince, setSelectedProvince] = useState('');
+  const [selectedCities, setSelectedCities] = useState('');
+  const [selectedMethod, setSelectedMethod] = useState('');
+  const [selectedType, setSelectedType] = useState('');
 
-  const { isOpen, onOpen, onClose } = useDisclosure()
+  const { isOpen, onOpen, onClose } = useDisclosure();
   const btnRef = React.useRef();
 
-  // Fungsi untuk mengurutkan event data berdasarkan opsi pengurutan
+
+  useEffect(() => {
+    axios
+      .get(API_URL + `/events`)
+      .then((response) => {
+        setEventData(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+
+    axios
+      .get(API_URL + `/events/categories`)
+      .then((response) => {
+        setCategories(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+
+    axios
+      .get(API_URL + `/cities`)
+      .then((response) => {
+        setCities(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+
+    axios
+      .get(API_URL + `/events/provinces`)
+      .then((response) => {
+        setProvince(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
+
+  // console.log(province);
+
   const sortEventData = (data, sortingOption) => {
     if (sortingOption === 'startTimeAsc') {
-      return data.slice().sort((a, b) => new Date(a.eventDate) - new Date(b.eventDate));
+      return data.slice().sort((a, b) => new Date(a.startDate) - new Date(b.startDate));
     } else if (sortingOption === 'startTimeDesc') {
-      return data.slice().sort((a, b) => new Date(b.eventDate) - new Date(a.eventDate));
+      return data.slice().sort((a, b) => new Date(b.startDate) - new Date(a.startDate));
     } else if (sortingOption === 'nameAsc') {
-      return data.slice().sort((a, b) => a.eventName.localeCompare(b.eventName));
+      return data.slice().sort((a, b) => a.name.localeCompare(b.name));
     } else if (sortingOption === 'nameDesc') {
-      return data.slice().sort((a, b) => b.eventName.localeCompare(a.eventName));
+      return data.slice().sort((a, b) => b.name.localeCompare(a.name));
     } else {
       return data;
     }
@@ -37,7 +92,56 @@ const ExplorePage = () => {
   };
 
   const [startIndex, endIndex] = calculateDataIndex(activePage);
-  const sortedEventData = sortEventData(eventData, sortingOption); // Mengurutkan event data
+  const sortedEventData = sortEventData(eventData, sortingOption);
+
+  const applyFilters = (event) => {
+    // Pastikan selectedProvince adalah string
+    const selectedProvinceId = Number(selectedProvince);
+  
+    // Dapatkan ID kota dari kolom cityId dalam tabel events
+    const cityId = event.cityId;
+  
+    // Gunakan ID kota untuk mencari baris terkait dalam tabel cities
+    const city = cities.find((city) => city.id === cityId);
+  
+    // Jika city tidak ditemukan, kembalikan false
+    if (!city) {
+      return false;
+    }
+  
+    // Dapatkan nilai provId dari baris cities
+    const provId = city.provId;
+  
+    // Gunakan nilai provId untuk mencari baris terkait dalam tabel provinces
+    const provinceInArray = province.find((prov) => prov.id === provId);
+  
+    // Jika provinsi tidak ditemukan, kembalikan false
+    if (!provinceInArray) {
+      return false;
+    }
+  
+    // Dapatkan ID provinsi
+    const provinceId = provinceInArray.id;
+  
+    // Gunakan ID provinsi untuk memfilter event
+    if (
+      (!selectedCategory || event.categoryId === Number(selectedCategory)) &&
+      (!selectedProvince || provinceId === selectedProvinceId) &&
+      (!selectedCities || event.cityId === Number(selectedCities)) &&
+      (!selectedMethod || event.method === selectedMethod) &&
+      (!selectedType || event.type === selectedType)
+    ) {
+      return true;
+    }
+  
+    // Jika tidak ada filter yang dipilih, tampilkan semua event
+    return !selectedCategory && !selectedProvince && !selectedCities && !selectedMethod && !selectedType;
+  };
+  
+
+  const paginatedFilteredData = sortedEventData
+    .slice(startIndex, endIndex)
+    .filter(applyFilters);
 
   const prevPage = () => {
     if (activePage > 0) {
@@ -51,17 +155,17 @@ const ExplorePage = () => {
     }
   };
 
-  // Mengambil data yang sesuai dengan indeks yang dihitung
-  const paginatedData = sortedEventData.slice(startIndex, endIndex);
-
   return (
     <div>
-      <Flex direction="column" ml="auto" mr="auto" width="100%" px={'4'}>
+      <Flex direction="column" ml="auto" mr="auto" width="100%" >
         <Text fontWeight='bold' mt='16' ml='5%' mr='5%' w='90%' fontSize='25px' textAlign={'center'}>Explore✨</Text>
+
         <Flex ml={'5%'} mr={'5%'} mb={'2'} mt={'8'} flexDirection={'column'} width={'auto'}>
+
           <Button ref={btnRef} bg={primary} onClick={onOpen} width={'50px'} h={'30px'} mb={'2'}>
             Filter
           </Button>
+
           <Drawer
             isOpen={isOpen}
             placement='right'
@@ -71,15 +175,94 @@ const ExplorePage = () => {
             <DrawerOverlay />
             <DrawerContent>
               <DrawerCloseButton />
+
               <DrawerHeader>Filter Berdasarkan</DrawerHeader>
+
               <DrawerBody>
-                <Input placeholder='Type here...' />
+                <Select
+                  variant="flushed"
+                  placeholder="Kategori"
+                  size="md"
+                  mb={'4'}
+                  value={selectedCategory}
+                  onChange={(e) => setSelectedCategory(e.target.value)}
+                >
+                  {categories.map((category) => (
+                    <option key={category.id} value={category.id}>
+                      {category.name}
+                    </option>
+                  ))}
+                </Select>
+
+                <Select
+                  variant="flushed"
+                  placeholder="Provinsi"
+                  size="md"
+                  mb={'4'}
+                  value={selectedProvince}
+                  onChange={(e) => setSelectedProvince(e.target.value)}
+                >
+                  {province.map((province) => (
+                    <option key={province.id} value={province.id}>
+                      {province.name}
+                    </option>
+                  ))}
+                </Select>
+
+                <Select
+                  variant="flushed"
+                  placeholder="Kota"
+                  size="md"
+                  mb={'4'}
+                  value={selectedCities}
+                  onChange={(e) => setSelectedCities(e.target.value)}
+                >
+                  {cities.map((cities) => (
+                    <option key={cities.id} value={cities.id}>
+                      {cities.name}
+                    </option>
+                  ))}
+                </Select>
+
+                <Select
+                  variant="flushed"
+                  placeholder="Metode"
+                  size="md"
+                  mb={'4'}
+                  value={selectedMethod}
+                  onChange={(e) => setSelectedMethod(e.target.value)}
+                >
+                  {method.map((method) => (
+                    <option key={method.id} value={method.id}>
+                      {method.name}
+                    </option>
+                  ))}
+                </Select>
+
+                <Select
+                  variant="flushed"
+                  placeholder="Tipe"
+                  size="md"
+                  mb={'4'}
+                  value={selectedType}
+                  onChange={(e) => setSelectedType(e.target.value)}
+                >
+                  {type.map((type) => (
+                    <option key={type.id} value={type.id}>
+                      {type.name}
+                    </option>
+                  ))}
+                </Select>
+
               </DrawerBody>
+
               <DrawerFooter>
                 <Button variant='outline' mr={3} onClick={onClose}>
                   Cancel
                 </Button>
-                <Button bg={primary}>Save</Button>
+                <Button bg={primary} onClick={() => { onClose(); }} >
+                  Save
+                </Button>
               </DrawerFooter>
             </DrawerContent>
           </Drawer>
@@ -94,8 +277,8 @@ const ExplorePage = () => {
           </Flex>
         </Flex>
         <Flex ml='5%' mr='5%' mb={'16'} h='330px' width='90%' height='auto' flexWrap='wrap'>
-          {paginatedData.map((event, index) => (
-            <CardEvent key={index} {...event} />
+          {paginatedFilteredData.map((event, index) => (
+            <CardEvent key={index} {...event} isExplorePage={true} />
           ))}
         </Flex>
         <Flex justifyContent="center" alignItems="center" ml="5%" mr="5%" mb="6" flexDirection={'column'} gap={'8'}>
@@ -114,8 +297,8 @@ const ExplorePage = () => {
           w={'70px'}
           mb={'8'}
           value={itemsPerPage}
-          onChange={(e) => setItemsPerPage(Number(e.target.value))
-          }>
+          onChange={(e) => setItemsPerPage(Number(e.target.value))}
+        >
           {itemsPerPageOptions.map((option) => (
             <option key={option} value={option}>
               {option}
@@ -123,6 +306,9 @@ const ExplorePage = () => {
           ))}
         </Select>
       </Flex>
+      <FooterMain />
+      <FooterBottom />
+      <BottomBox />
     </div>
   );
 }

@@ -1,26 +1,32 @@
 import { Box, Flex, Image, Text } from "@chakra-ui/react";
 import CardEvent from "../../components/CardEvent";
-import Navbar from "../../components/Navbar";
-import FooterMain from "../../components/FooterMain";
-import FooterBottom from "../../components/FooterBottom";
-import CardCreator from "../../components/CardCreator";
-import React from "react";
 import Carousel from "../../components/Carousel";
 import { useState, useRef, useEffect } from 'react';
 import ButtonScroll from "../../components/ButtonScroll";
-import NavbarLogIn from "../../components/NavbarLogIn";
-import Pagination from "../../components/Pagination";
-import eventData from "../../data/eventData";
+import { API_URL } from "../../helper/helper";
+import axios from "axios";
+
+import { useSelector } from "react-redux";
+import { selectEventData } from "../../redux/slices/eventSlice";
+import { useDispatch } from "react-redux";
+import { setEventData } from "../../redux/slices/eventSlice";
+import BottomBox from "../../components/BottomBox";
+import FooterMain from "../../components/FooterMain";
+import FooterBottom from "../../components/FooterBottom";
 
 const LandingPage = () => {
-
   const [scrollX, setScrollX] = useState(0);
   const scrollableGridRef = useRef(null);
   const [hideLeft, setHideLeft] = useState(false);
   const [hideRight, setHideRight] = useState(false);
 
+  const eventData = useSelector(selectEventData);
+  const dispatch = useDispatch ();  
+
   const scrollRight = (index) => {
     const newScrollX = scrollX - 230;
+    const maxScroll = 230 * (eventData.length - 1);
+
     if (newScrollX < -maxScroll) {
       setHideRight(true);
       setHideLeft(false);
@@ -29,11 +35,12 @@ const LandingPage = () => {
       setHideRight(true);
       setHideLeft(false);
     }
-    scrollableGridRefs[index].current.style.transform = `translateX(${newScrollX}px)`;
+    scrollableGridRef.current.style.transform = `translateX(${newScrollX}px)`;
   };
 
   const scrollLeft = (index) => {
     const newScrollX = scrollX + 230;
+
     if (newScrollX > 0) {
       setHideLeft(true);
     } else {
@@ -41,7 +48,7 @@ const LandingPage = () => {
       setHideLeft(true);
       setHideRight(false);
     }
-    scrollableGridRefs[index].current.style.transform = `translateX(${newScrollX}px)`;
+    scrollableGridRef.current.style.transform = `translateX(${newScrollX}px)`;
   };
 
   useEffect(() => {
@@ -51,6 +58,8 @@ const LandingPage = () => {
       setHideLeft(false);
     }
 
+    const maxScroll = 230 * (eventData.length - 1);
+
     if (scrollX === maxScroll) {
       setHideRight(true);
     } else {
@@ -58,13 +67,26 @@ const LandingPage = () => {
     }
   }, [scrollX]);
 
-  const maxScroll = 230 * (eventData.length - 1);
+  useEffect(() => {
+    // Lakukan permintaan ke API untuk mengambil data acara
+    axios.get(API_URL + `/events`)
+    .then ((response) => { 
+      dispatch(setEventData(response.data));
+    })
+    .catch((error) => {
+      console.log(error);
+    })
+    
+  }, [dispatch]); 
+  // console.log(eventData);
 
   return (
     <>
       <Flex display={'flex'} flexDirection={'column'} height={'auto'} >
 
         <Carousel />
+
+        
 
         <Text fontWeight={'bold'} mt={'16'} ml={'5%'} mr={'5%'} w={'90%'} fontSize={'25px'}>Event Pilihan</Text>
 
@@ -115,25 +137,23 @@ const LandingPage = () => {
           <Image w={'100%'} height={'150px'} borderRadius={'lg'} objectFit={'cover'} src="https://loket-production-sg.s3.ap-southeast-1.amazonaws.com/images/temporary/20230916/1694851228_wsZ3Xw.jpg" />
 
         </Box>
+        <Box mt={'16'} ml={'6%'} mr={'6%'} height={'auto'}  >
+          <Image w={'100%'} height={'150px'} borderRadius={'lg'} objectFit={'cover'} src="https://loket-production-sg.s3.ap-southeast-1.amazonaws.com/images/temporary/20231102/1698912373_uLDpoU.jpg" />
+
+        </Box>
 
         <Box ml={'5%'} mr={'5%'} >
           <Text fontWeight={'bold'} mt={'16'} w={'92%'} fontSize={'25px'}>Creator Favorit</Text>
 
-          <Flex display={'flex'} overflowX={'auto'} flexDirection={'row'} h={'150px'} mt={'4'}>
-
-            <CardCreator />
-
-          </Flex>
+          {/* <Flex display={'flex'} overflowX={'auto'} flexDirection={'row'} mt={'4'}>
+            {creatorData.map((creator, index) => (
+              <CardCreatorList key={index} creatorIndex={index} />
+            ))}
+          </Flex> */}
         </Box>
 
-        <Box mt={'16'} ml={'6%'} mr={'6%'} height={'auto'}  >
-          <Image w={'100%'} height={'150px'} borderRadius={'lg'} objectFit={'cover'} src="https://loket-production-sg.s3.ap-southeast-1.amazonaws.com/images/temporary/20230916/1694851228_wsZ3Xw.jpg" />
-
-        </Box>
-
-
-        <Box>
-          <Text fontWeight={'bold'} mt={'16'} ml={'5%'} mr={'5%'} w={'90%'} fontSize={'25px'}>Populer di Surabaya</Text>
+        <Box mt={'16'} ml={'5%'} mr={'5%'} >
+          <Text fontWeight={'bold'} w={'90%'} fontSize={'25px'}>Populer di Surabaya</Text>
         </Box>
 
         <Flex ml="5%" mr="5%" mb="6" h="330px" position="relative" overflow="hidden">
@@ -154,8 +174,8 @@ const LandingPage = () => {
           <ButtonScroll scrollLeft={scrollLeft} scrollRight={scrollRight} hideLeft={hideLeft} hideRight={hideRight} />
         </Flex>
 
-        <Box>
-          <Text fontWeight={'bold'} mt={'16'} ml={'5%'} mr={'5%'} w={'90%'} fontSize={'25px'}>Nikmati Keseruan di Minggu Ini</Text>
+        <Box mt={'16'} ml={'5%'} mr={'5%'} >
+          <Text fontWeight={'bold'} w={'90%'} fontSize={'25px'}>Nikmati Keseruan di Minggu Ini</Text>
         </Box>
 
         <Flex ml="5%" mr="5%" mb="6" h="330px" position="relative" overflow="hidden">
@@ -176,8 +196,8 @@ const LandingPage = () => {
           <ButtonScroll scrollLeft={scrollLeft} scrollRight={scrollRight} hideLeft={hideLeft} hideRight={hideRight} />
         </Flex>
 
-        <Box>
-          <Text fontWeight={'bold'} mt={'16'} ml={'5%'} mr={'5%'} w={'90%'} fontSize={'25px'}>Festival Fair</Text>
+        <Box mt={'16'} ml={'5%'} mr={'5%'} >
+          <Text fontWeight={'bold'} w={'90%'} fontSize={'25px'}>Festival Fair</Text>
         </Box>
 
         <Flex ml="5%" mr="5%" mb="6" h="330px" position="relative" overflow="hidden">
@@ -199,11 +219,12 @@ const LandingPage = () => {
         </Flex>
 
       </Flex>
+      <FooterMain/>
+      <FooterBottom/>
+      <BottomBox/>
 
     </>
-
-
-  )
+  );
 }
 
 export default LandingPage;

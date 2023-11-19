@@ -45,7 +45,7 @@ const NavbarLogIn = () => {
                 </Button>
 
                 
-            <Box height={'40px'} width={'40px'} borderRadius={'full'} alignContent={'center'} mr={'0'} ml={'auto'}>
+            <Box height={'40px'} width={'40px'} borderRadius={'full'} alignContent={'center'} mr={'0'} ml={'auto'} cursor={'pointer'}>
                 <Image src="https://tse3.mm.bing.net/th?id=OIP.0fRNzG8iXEQE4ZerH-2U-AHaHa&pid=Api&P=0&h=220"
                         height={'37px'} width={'37px'} borderRadius={'full'} />
             </Box>

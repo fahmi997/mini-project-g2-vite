@@ -4,8 +4,10 @@ import Navbar from "../../components/Navbar";
 import FooterMain from "../../components/FooterMain";
 import FooterBottom from "../../components/FooterBottom";
 import LandingPage from "../LandingPage";
-import DetailEventPage from "../DetailEventPage";
+import DetailEvent from "../DetailEventPage/index.jsx";
 import ExplorePage from "../ExplorePage.jsx";
+import NavbarLogIn from "../../components/NavbarLogIn/index.jsx";
+import BottomBox from "../../components/BottomBox/index.jsx";
 
 
 const StagingPage = () => {
@@ -15,9 +17,8 @@ const StagingPage = () => {
             <Routes>
                 <Route path="/" element={<LandingPage/>} />
                 <Route path="/explore" element={<ExplorePage/>} />
+                <Route path="/event/:id" element={<DetailEvent />} />
             </Routes>
-            <FooterMain/>
-            <FooterBottom/>
         
     </>
 };
