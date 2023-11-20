@@ -35,7 +35,7 @@ export const checkDataAccount = () =>{
         try {
             let token = localStorage.getItem("login")
             if(token){
-                const getAccount = await axios.get(`http://localhost:2099/account/login`, {
+                const getAccount = await axios.get(`http://localhost:2099/account/keeplogin`, {
                     headers: {
                         Authorization: `Bearer ${token}`
                     }

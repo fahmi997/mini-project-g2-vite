@@ -16,6 +16,7 @@ function App() {
 
   useEffect(() => {
     dispatch(checkDataAccount());
+    console.log(loginAcc);
   }, []);
 
   return (

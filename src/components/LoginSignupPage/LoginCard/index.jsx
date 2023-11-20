@@ -42,12 +42,12 @@ const LoginCard = (props) => {
     console.log("INI RESPON",response.data.result.token);
     localStorage.setItem("login", response.data.result.token)
     dispatch(login(response.data.result))
-    if(response){
+    if(response.data.result.role === "user"){
         navigate("*")
     }
   };
 
-//   console.log("BRE BRE DATA ACCOUNT",dataAccount);
+  console.log("BRE BRE DATA ACCOUNT",dataAccount.role);
 
   return (
     <>
