@@ -123,9 +123,8 @@ const ContentDashTiket = () => {
               </div>
             </TabPanel>
             <TabPanel style={{ height:"180px", borderRadius:"0px 0px 10px 10px", boxShadow:"rgba(17, 12, 46, 0.15) 0px 20px 90px 0px"}}/>
-        </div>
-            
-            <TabPanel>hi</TabPanel>
+      </div>
+            <TabPanel></TabPanel>
           </TabPanels>
         </Tabs>
       </div>
