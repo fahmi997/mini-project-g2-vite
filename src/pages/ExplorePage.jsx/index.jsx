@@ -97,47 +97,51 @@ const ExplorePage = () => {
   const applyFilters = (event) => {
     // Pastikan selectedProvince adalah string
     const selectedProvinceId = Number(selectedProvince);
-  
+
     // Dapatkan ID kota dari kolom cityId dalam tabel events
     const cityId = event.cityId;
-  
+
     // Gunakan ID kota untuk mencari baris terkait dalam tabel cities
     const city = cities.find((city) => city.id === cityId);
-  
+
     // Jika city tidak ditemukan, kembalikan false
     if (!city) {
       return false;
     }
-  
+
     // Dapatkan nilai provId dari baris cities
     const provId = city.provId;
-  
+
     // Gunakan nilai provId untuk mencari baris terkait dalam tabel provinces
     const provinceInArray = province.find((prov) => prov.id === provId);
-  
+
     // Jika provinsi tidak ditemukan, kembalikan false
     if (!provinceInArray) {
       return false;
     }
-  
+
     // Dapatkan ID provinsi
     const provinceId = provinceInArray.id;
-  
+
+    console.log('Event:', event);
+    console.log('Selected Type:', selectedType);
+
     // Gunakan ID provinsi untuk memfilter event
     if (
       (!selectedCategory || event.categoryId === Number(selectedCategory)) &&
       (!selectedProvince || provinceId === selectedProvinceId) &&
       (!selectedCities || event.cityId === Number(selectedCities)) &&
-      (!selectedMethod || event.method === selectedMethod) &&
-      (!selectedType || event.type === selectedType)
+      (!selectedMethod || event.method.toLowerCase() === selectedMethod.toLowerCase()) &&
+      (!selectedType || event.type.toLowerCase() === selectedType.toLowerCase())
+
     ) {
       return true;
     }
-  
+
     // Jika tidak ada filter yang dipilih, tampilkan semua event
     return !selectedCategory && !selectedProvince && !selectedCities && !selectedMethod && !selectedType;
   };
-  
+
 
   const paginatedFilteredData = sortedEventData
     .slice(startIndex, endIndex)
@@ -232,11 +236,8 @@ const ExplorePage = () => {
                   value={selectedMethod}
                   onChange={(e) => setSelectedMethod(e.target.value)}
                 >
-                  {method.map((method) => (
-                    <option key={method.id} value={method.id}>
-                      {method.name}
-                    </option>
-                  ))}
+                  <option >Online</option>
+                  <option >Offline</option>
                 </Select>
 
                 <Select
@@ -247,11 +248,8 @@ const ExplorePage = () => {
                   value={selectedType}
                   onChange={(e) => setSelectedType(e.target.value)}
                 >
-                  {type.map((type) => (
-                    <option key={type.id} value={type.id}>
-                      {type.name}
-                    </option>
-                  ))}
+                  <option>Gratis</option>
+                  <option >Berbayar</option>
                 </Select>
 
               </DrawerBody>
