@@ -6,20 +6,24 @@ import bannerImg from "../../assets/banner-event.jpg";
 import { BsPlusCircle } from "react-icons/bs";
 import { IoLocationSharp } from "react-icons/io5";
 import LocationModal from "./LocationModal";
+import { useDispatch, useSelector } from "react-redux";
+import { setEvent } from "../../redux/action/createEvent";
 
 const CreateEvent = (props) => {
     const addLocation = useDisclosure();
-    const [ isOnline, setIsOnline ] = useState(false);
-    const [ value, setValue ] = useState({});
+    const [isOnline, setIsOnline] = useState(false);
+    const [value, setValue] = useState({});
     const fileInputRef = useRef(null);
+    const dispatch = useDispatch();
 
     const categories = props.categories;
     const provinces = props.provinces;
     const cities = props.cities;
+    const locationDetails = useSelector((state) => state.createEvent.location);
 
     useEffect(() => {
-        props.getVal(value)
-    }, [value, setValue, props])
+        dispatch(setEvent(value));
+    })
 
     // useEffect(() => {
     //     fileInputRef.current.addEventListener('change', (e) => {
@@ -33,9 +37,25 @@ const CreateEvent = (props) => {
     //         }
     //     });
     // })
-    
+
+    const handleLocationDetails = (data) => {
+        if (data.method === 'online') {
+            return <>
+                <Text as={'b'}>Online Event</Text>
+                <Text>{data.url}</Text>
+            </>
+        } else if (data.method === 'offline') {
+            return <>
+                <Text as={'b'}>{data.venue}</Text>
+                <Text>{data.address}, {data.detail.city}, {data.detail.province.name}</Text>
+            </>
+        } else {
+            return <Text fontSize={'16px'} color={'#888296'}>Add location</Text>
+        }
+    };
+
     return <>
-    
+
         <Flex
             border={'1px'}
             borderColor={'gray.200'}
@@ -62,10 +82,10 @@ const CreateEvent = (props) => {
             </Flex>
             <Flex flex={'1'} p={'15px 40px 40px 40px'} flexDirection={'column'}>
                 <Flex flexDirection={'column'} gap={'2'} borderBottom={'1px'} borderColor={'#D8D8D8'} mb={'15px'}>
-                    <Input variant={'unstyled'} placeholder="event name" fontSize={'24px'} onChange={(e) => setValue({...value, eventName: e.target.value})}/>
-                    <Select variant={'unstyled'} w={'25%'} mb={'15px'} onChange={(e) => setValue({...value, category: e.target.value})}>
+                    <Input variant={'unstyled'} placeholder="event name" fontSize={'24px'} onChange={(e) => setValue({ ...value, eventName: e.target.value })} />
+                    <Select variant={'unstyled'} w={'25%'} mb={'15px'} onChange={(e) => setValue({ ...value, category: e.target.value })}>
                         <option style={{ display: 'none' }}>Select Category</option>
-                        {categories.map(({id, name}) => {
+                        {categories.map(({ id, name }) => {
                             return <option key={id} value={id}>{name}</option>
                         })}
                     </Select>
@@ -83,11 +103,11 @@ const CreateEvent = (props) => {
                         <Flex mt={'10px'} flexDirection={'column'} gap={'2'}>
                             <FormControl>
                                 <FormLabel>Start</FormLabel>
-                                <Input type="datetime-local" onChange={(e) => setValue({...value, startEvent: e.target.value})}/>
+                                <Input type="datetime-local" onChange={(e) => setValue({ ...value, startEvent: e.target.value })} />
                             </FormControl>
                             <FormControl>
                                 <FormLabel>End</FormLabel>
-                                <Input type="datetime-local" onChange={(e) => setValue({...value, endEvent: e.target.value})}/>
+                                <Input type="datetime-local" onChange={(e) => setValue({ ...value, endEvent: e.target.value })} />
                             </FormControl>
                         </Flex>
                     </Flex>
@@ -96,17 +116,15 @@ const CreateEvent = (props) => {
                         <Flex mt={'10px'} gap={'2'} cursor={'pointer'} onClick={addLocation.onOpen} >
                             <IoLocationSharp size={'28px'} color="#ADB6C9" fontSize={'16px'} />
                             <Flex flexDirection={'column'} justify={'center'} flex={'1'}>
-                                {/* <Text fontSize={'16px'} color={'#888296'}>Add location</Text> */}
-                                {/* <Text as={'b'}>PIK Avenue</Text>
-                                <Text>Pantai Indah Kapuk St Boulevard, RT.6/RW.2, Kamal Muara, Jakarta Utara, DKI Jakarta</Text> */}
-                                <LocationModal 
-                                isOpen={addLocation.isOpen} 
-                                onClose={addLocation.onClose} 
-                                isOnline={isOnline} 
-                                switchVal={() => setIsOnline(!isOnline)} 
-                                provinces={provinces} 
-                                provinceId={props.getProvinceId}
-                                cities={cities}
+                                {handleLocationDetails(locationDetails)}
+                                <LocationModal
+                                    isOpen={addLocation.isOpen}
+                                    onClose={addLocation.onClose}
+                                    isOnline={isOnline}
+                                    switchVal={() => setIsOnline(!isOnline)}
+                                    provinces={provinces}
+                                    provinceId={props.getProvinceId}
+                                    cities={cities}
                                 />
                             </Flex>
                         </Flex>

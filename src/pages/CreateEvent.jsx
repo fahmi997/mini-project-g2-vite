@@ -1,5 +1,5 @@
-import { Box, Button, Flex, Text, HStack, Image, FormLabel, Textarea, Tabs, TabList, Tab, TabPanels, TabPanel, FormControl, VStack } from "@chakra-ui/react";
-import { primary, primaryActive } from "../assets/color";
+import { Box, Button, Flex, Text, HStack, Image, FormLabel, Textarea, Tabs, TabList, Tab, TabPanels, TabPanel, FormControl, VStack, useToast } from "@chakra-ui/react";
+import { primary } from "../assets/color";
 import CreateEvent from "../components/CreateEventPage/CreateEventCard";
 import { AiOutlinePlus } from "react-icons/ai";
 import Ticket from "../components/CreateEventPage/Ticket";
@@ -7,14 +7,19 @@ import { useDisclosure } from "@chakra-ui/react";
 import TicketModal from "../components/CreateEventPage/TicketModal";
 import { useEffect, useState } from "react";
 import API_CALL from "../helper";
+import { useSelector } from "react-redux";
 
 const CreateEventPage = () => {
     const addTicket = useDisclosure();
+    const toast = useToast();
     const [categories, setCategories] = useState([]);
     const [ticketTypes, setTicketTypes] = useState([]);
     const [provinces, setProvinces] = useState([]);
     const [cities, setCities] = useState([]);
     const [provinceId, setProvinceId] = useState(null);
+    const tickets = useSelector((state) => state.createEvent.ticket);
+    const eventData = useSelector((state) => state.createEvent);
+    const [description, setDescription] = useState({});
 
     useEffect(() => {
         getCategories();
@@ -64,12 +69,76 @@ const CreateEventPage = () => {
         }
     };
 
+    const createEvent = async () => {
+        try {
+            const event = await API_CALL.post('/event/create', {
+                userId: 1,
+                categoryId: eventData.event.category,
+                cityId: eventData.location.city,
+                name: eventData.event.eventName,
+                image: "/tes",
+                startDate: eventData.event.startEvent,
+                endDate: eventData.event.endEvent,
+                description: description.description,
+                tnc: description.tnc,
+                method: eventData.location.method,
+                url: eventData.location.url,
+                venue: eventData.location.venue,
+            })
+            // console.log("Event Id: ", event.data.id);
+            const createTicket = tickets.map( (t) => {
+                if(t.type.type === 'free'){
+                    return {
+                        eventId: event.data.id,
+                        ticketTypeId: t.type.id,
+                        startSale: t.startSale,
+                        endSale: t.endSale,
+                        stock: t.stock,
+                        price: 0
+                    }    
+                }
+
+                return {
+                    eventId: event.data.id,
+                    ticketTypeId: t.type.id,
+                    startSale: t.startSale,
+                    endSale: t.endSale,
+                    stock: t.stock,
+                    price: t.price
+                }
+            })
+
+            await API_CALL.post('/ticket/create', createTicket);
+            console.log("Ticketing:", createTicket);
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
+    const onCreate = async () => {
+        console.log(eventData);
+        console.log(description);
+        if (!eventData.ticket.length) {
+            return toast({
+                title: 'You should add at least one ticket!',
+                status: 'error',
+                isClosable: true
+            })
+        }
+        createEvent();
+    };
+
     return <>
         <Flex shadow={'xl'} w={'100%'} h={'125px'} p={'25px 0'} justify={'center'} align={'center'}>
             <Image src="./logoblack1.svg" objectFit={"contain"} alt="logo" w={"100%"} h={"100%"} />
         </Flex>
 
-        <CreateEvent categories={categories} provinces={provinces} cities={cities} getProvinceId={(e) => setProvinceId(e)} getVal={(val) => console.log(val)}/>
+        <CreateEvent
+            categories={categories}
+            provinces={provinces}
+            cities={cities}
+            getProvinceId={(e) => setProvinceId(e)}
+        />
         <Flex
             w={{ base: '80%', md: '70%', xl: '50%' }}
             m={'0 auto'}
@@ -90,21 +159,20 @@ const CreateEventPage = () => {
                             <TicketModal isOpen={addTicket.isOpen} onClose={addTicket.onClose} ticketTypes={ticketTypes} />
                         </Flex>
                         <VStack gap={'8'}>
-                            <Ticket type={'REGULAR'} price={'RP.250.000'} stock={'100'} />
-                            <Ticket type={'VIP'} price={'RP.250.000'} stock={'100'} />
-                            <Ticket type={'VVIP'} price={'RP.250.000'} stock={'100'} />
-                            <Ticket type={'FREE'} stock={'100'} />
+                            {tickets.map((data, index) => {
+                                if (data.type.type === 'free') return <Ticket key={index} type={data.type.type.toUpperCase()} stock={data.stock} startSale={data.startSale.split('T').join(' ')} endSale={data.endSale.split('T').join(' ')} />
+                                return <Ticket key={index} type={data.type.type.toUpperCase()} price={parseInt(data.price).toLocaleString('ID', { style: "currency", currency: "IDR", maximumFractionDigits: 0 })} stock={data.stock} startSale={data.startSale.split('T').join(' ')} endSale={data.endSale.split('T').join(' ')} />
+                            })}
                         </VStack>
-                        {/* <Text>Ticketing</Text> */}
                     </TabPanel>
                     <TabPanel>
                         <FormControl>
                             <FormLabel>Event Description</FormLabel>
-                            <Textarea placeholder="Description" resize={'none'} h={'250px'} />
+                            <Textarea placeholder="Description" resize={'none'} h={'250px'} onChange={(e) => setDescription({ ...description, description: e.target.value })} />
                         </FormControl>
                         <FormControl mt={'15px'}>
                             <FormLabel>Terms and Condition</FormLabel>
-                            <Textarea placeholder="Terms and Condition" resize={'none'} h={'250px'} />
+                            <Textarea placeholder="Terms and Condition" resize={'none'} h={'250px'} onChange={(e) => setDescription({ ...description, tnc: e.target.value })} />
                         </FormControl>
                     </TabPanel>
                 </TabPanels>
@@ -127,8 +195,8 @@ const CreateEventPage = () => {
                 >Cancel</Button>
                 <Button
                     bg={primary}
-                    _hover={{}}
-                    _active={{ bg: primaryActive }}
+                    colorScheme={"yellow"}
+                    onClick={onCreate}
                 >
                     Create</Button>
             </HStack>
