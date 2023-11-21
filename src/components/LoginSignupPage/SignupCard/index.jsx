@@ -1,7 +1,8 @@
+/* eslint-disable react/prop-types */
 import { Box, Flex, Heading, Text, Input, Button, HStack, InputGroup, InputRightAddon, Select } from "@chakra-ui/react"
 import { FcGoogle } from "react-icons/fc"
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai"
-import "./styles.css"
+// import "./styles.css"
 
 const SignupCard = (props) => {
     return <>
