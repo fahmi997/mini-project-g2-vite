@@ -5,7 +5,7 @@ import { BiLogoYoutube, BiLogoInstagramAlt, BiLogoLinkedin, BiLogoTwitter } from
 const FooterMain = () => {
     return <>
         <Box h={'350px'} bg={primaryBgColor} pt={'25px'} color={'white'}>
-            <Flex h={'300px'} w={'90rem'} m={'auto'} justify={'center'}>
+            <Flex h={'300px'} w={'100%'} m={'auto'} justify={'center'}>
                 <Box w={'300px'} p={'30px'} h={'100%'} textTransform={'capitalize'}>
                     <Box mb={'25px'} ><Image src="/logowhite.svg" h={'65px'} /></Box>
                     <Box >best app for ticketing management system in indonesia! ticketo. ticketing platform that ease your event.</Box>
