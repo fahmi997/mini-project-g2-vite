@@ -9,13 +9,14 @@ import React from "react";
 const ContentDashProfile = () =>{
   const [inInputNama, setInInputNama] = React.useState("Bree")
   const [inInputTanggal, setInInputTanggal] = React.useState("1990-01-01")
+  const [inPhone, setInPhone] = React.useState(0)
 
     return(
-        <>
+      <>
        <Posisi berada={"Informasi Dasar"}/>
        <div style={{ display: "flex", justifyContent: "center", marginTop: "30px" }}>
-        <Tabs width={"92%"} height={"40px"}>
-            <TabList>
+      <Tabs width={"92%"} height={"40px"}>
+          <TabList>
             <Tab
             _selected={{
                 borderBottom:"2px solid rgb(226, 232, 240)"
@@ -30,7 +31,7 @@ const ContentDashProfile = () =>{
             >
               Informasi Dasar
             </Tab>
-            </TabList>
+          </TabList>
             <div style={{ display:"flex", width:"100%", height:"auto", marginTop:"15px", justifyContent:"center"}}>
               <Box display={"flex"} width={"88%"} height={"auto"} justifyContent={"center"}>
                 <Box width={"90%"} height={"auto"} display={"grid"}>
@@ -50,7 +51,7 @@ const ContentDashProfile = () =>{
                   <Text height={"20px"} className="judulProfile" marginTop={"35px"}>No. Ponsel</Text>
                   <InputGroup marginTop={"5px"} className="tulisan">
                     <Select width={"15%"} variant='flushed' placeholder='+62' icon={<HiSelector size={"10px"}/>} />
-                    <Input marginLeft={"15px"} variant='flushed' type="number" />
+                    <Input marginLeft={"15px"} variant='flushed' type="number" onChange={() => setInPhone()} value={inPhone} />
                   </InputGroup>
                   <Text height={"20px"} className="judulProfile" marginTop={"35px"}>Nama Lengkap</Text>
                   <Input className="tulisan" variant='flushed' onChange={() => setInInputNama()} value={inInputNama} type="text" />
@@ -59,19 +60,14 @@ const ContentDashProfile = () =>{
                     <Input className="tulisan" variant='flushed' onChange={() => setInInputTanggal()} value={inInputTanggal} type="text"/>
                     <InputRightElement />
                   </InputGroup>
-                  <Text height={"20px"} className="judulProfile" marginTop={"35px"}>Jenis Kelamin</Text>
-                    <RadioGroup className="tulisan" onChange={"?belum diisi?"}>
-                      <Stack spacing={5} direction={"row"}>
-                        <Radio value="male" name="gender" size='lg'>Laki-Laki</Radio>
-                        <Radio value="female" name="gender" size='lg'>Perempuan</Radio>
-                      </Stack>
-                    </RadioGroup>
-                  <Text height={"200px"} className="judulProfile">tester kolom nanti dihapus</Text>
+                  <Box style={{height:"100px"}}/>
+                  {/* <Text height={"200px"} className="judulProfile"></Text> */}
                 </Box>
               </Box>
             </div>
         </Tabs>
-       </div>
+      </div>
+        <Box position={"fixed"} alignItems={"center"} bottom={"0px"} display={"flex"} width={"100%"} height={"10%"} backgroundColor={"red"}></Box>
         </>
     )
 }
