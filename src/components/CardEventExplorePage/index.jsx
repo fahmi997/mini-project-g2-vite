@@ -4,7 +4,7 @@ import axios from "axios";
 import { API_URL } from "../../helper/helper";
 import React, { useState, useEffect } from 'react';
 
-const CardEvent = (props) => {
+const CardEventExplorePage = (props) => {
     const navigate = useNavigate();
     const location = useLocation();
     const [eventData, setEventData] = useState(null);
@@ -116,4 +116,4 @@ const CardEvent = (props) => {
     );
 };
 
-export default CardEvent;
+export default CardEventExplorePage;

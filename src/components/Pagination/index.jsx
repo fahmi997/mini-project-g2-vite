@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { useDisclosure } from "@chakra-ui/react";
 import { Flex, Text, Select, Button, Input, Drawer, DrawerOverlay, DrawerContent, DrawerCloseButton, DrawerHeader, DrawerBody, DrawerFooter } from "@chakra-ui/react";
-import CardEvent from '../CardEvent/coba';
 import { primary, primaryBgColor } from "../../assets/color";
+// import CardEvent from '../CardEvent';
 
 
 

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useDisclosure, Select, Text, Flex, Button, Drawer, DrawerOverlay, DrawerContent, DrawerCloseButton, DrawerHeader, DrawerBody, DrawerFooter } from "@chakra-ui/react";
-import CardEvent from '../../components/CardEvent/coba';
+import CardEventExplorePage from '../../components/CardEventExplorePage';
 import { primary } from "../../assets/color";
 import axios from 'axios';
 import { API_URL } from '../../helper/helper';
@@ -305,7 +305,7 @@ const ExplorePage = () => {
         </Flex>
         <Flex ml='5%' mr='5%' mb={'16'} h='330px' width='90%' height='auto' flexWrap='wrap'>
           {paginatedFilteredData.map((event, index) => (
-            <CardEvent key={index} {...event} isExplorePage={true} />
+            <CardEventExplorePage key={index} {...event} isExplorePage={true} />
           ))}
         </Flex>
         <Flex justifyContent="center" alignItems="center" ml="5%" mr="5%" mb="6" flexDirection={'column'} gap={'8'}>
