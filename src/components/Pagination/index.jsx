@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
 import { useDisclosure } from "@chakra-ui/react";
 import { Flex, Text, Select, Button, Input, Drawer, DrawerOverlay, DrawerContent, DrawerCloseButton, DrawerHeader, DrawerBody, DrawerFooter } from "@chakra-ui/react";
-import CardEvent from '../CardEvent';
-import eventData from '../../data/eventData';
+import CardEvent from '../CardEvent/coba';
 import { primary, primaryBgColor } from "../../assets/color";
 
-const itemsPerPageOptions = [8, 12, 16];
+
 
 const Pagination = () => {
+
+  const itemsPerPageOptions = [4, 8, 12];
   const [activePage, setActivePage] = useState(0);
   const [itemsPerPage, setItemsPerPage] = useState(itemsPerPageOptions[0]);
 

@@ -8,6 +8,8 @@ const CardEvent = (props) => {
   const navigate = useNavigate();
   const [eventData, setEventData] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [containerWidth, setContainerWidth] = useState(window.innerWidth);
+  const [columnCount, setColumnCount] = useState(4);
 
   const handleCardClick = async () => {
     try {

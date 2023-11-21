@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { useDisclosure, Select, Text, Flex, Button, Drawer, DrawerOverlay, DrawerContent, DrawerCloseButton, DrawerHeader, DrawerBody, DrawerFooter } from "@chakra-ui/react";
-import CardEvent from '../../components/CardEvent';
+import CardEvent from '../../components/CardEvent/coba';
 import { primary } from "../../assets/color";
 import axios from 'axios';
 import { API_URL } from '../../helper/helper';
 import BottomBox from '../../components/BottomBox';
 import FooterBottom from '../../components/FooterBottom';
 import FooterMain from '../../components/FooterMain';
+import Pagination from '../../components/Pagination';
 
-const itemsPerPageOptions = [20, 15, 10];
+const itemsPerPageOptions = [4, 8, 12];
 
 const ExplorePage = () => {
   const [activePage, setActivePage] = useState(0);
@@ -25,6 +26,9 @@ const ExplorePage = () => {
   const [selectedCities, setSelectedCities] = useState('');
   const [selectedMethod, setSelectedMethod] = useState('');
   const [selectedType, setSelectedType] = useState('');
+
+  const [hideLeft, setHideLeft] = useState(false);
+  const [hideRight, setHideRight] = useState(false);
 
   const { isOpen, onOpen, onClose } = useDisclosure();
   const btnRef = React.useRef();
@@ -145,19 +149,44 @@ const ExplorePage = () => {
 
   const paginatedFilteredData = sortedEventData
     .slice(startIndex, endIndex)
-    .filter(applyFilters);
-
   const prevPage = () => {
     if (activePage > 0) {
       setActivePage(activePage - 1);
+      window.scrollTo(0, 0);
+
+      // Sembunyikan tombol "Previous" jika kembali ke halaman pertama
+      if (activePage - 1 === 0) {
+        setHideLeft(true);
+        console.log('Hide Left:', true);
+      } else {
+        // Pastikan tombol "Next" selalu tampil setelah kembali ke halaman apapun
+        setHideLeft(false);
+        console.log('Hide Right:', false);
+      }
     }
   };
+
 
   const nextPage = () => {
     if (activePage < totalPages - 1) {
       setActivePage(activePage + 1);
+      window.scrollTo(0, 0);
+
+      // Sembunyikan tombol "Next" jika mencapai halaman terakhir
+      if (activePage + 1 === totalPages - 1) {
+        setHideRight(true);
+        console.log('Hide Right:', true);
+      }
+
+      // Pastikan tombol "Previous" selalu tampil setelah pindah ke halaman apapun
+      setHideLeft(false);
+      console.log('Hide Left:', false);
     }
   };
+
+
+
+
 
   return (
     <div>
@@ -265,7 +294,7 @@ const ExplorePage = () => {
             </DrawerContent>
           </Drawer>
           <Flex width={'270px'}>
-            <Text fontWeight='bold' mr='2'>Urutkan:</Text>
+            <Text fontWeight='bold' mr='2'mb={'4'}>Urutkan:</Text>
             <Select size='sm' value={sortingOption} onChange={(e) => setSortingOption(e.target.value)}>
               <option value='startTimeAsc'>Waktu Mulai (Terdekat)</option>
               <option value='startTimeDesc'>Waktu Mulai (Terjauh)</option>
@@ -281,19 +310,20 @@ const ExplorePage = () => {
         </Flex>
         <Flex justifyContent="center" alignItems="center" ml="5%" mr="5%" mb="6" flexDirection={'column'} gap={'8'}>
           <Flex>
-            <Button onClick={prevPage} disabled={activePage === 0} bg={primary} w={'auto'} mr={'2'}>
+            <Button onClick={prevPage} disabled={hideLeft} bg={primary} w={'auto'} mr={'2'}>
               Previous
             </Button>
             <Text mt={'2'}>{`${activePage + 1} dari ${Math.ceil(eventData.length / itemsPerPage)}`}</Text>
-            <Button ml={'2'} onClick={nextPage} disabled={activePage === Math.ceil(eventData.length / itemsPerPage) - 1} bg={primary}>
+            <Button ml={'2'} onClick={nextPage} disabled={hideRight} bg={primary}>
               Next
             </Button>
           </Flex>
         </Flex>
         <Select
+          ml={'0'}
+          width={'65px'}
           m={'auto'}
-          w={'70px'}
-          mb={'8'}
+          mb={'16'}
           value={itemsPerPage}
           onChange={(e) => setItemsPerPage(Number(e.target.value))}
         >

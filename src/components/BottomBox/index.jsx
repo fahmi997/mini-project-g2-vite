@@ -9,7 +9,7 @@ const BottomBox = () => {
 
   const navigateToExplorePage = () => {
     navigate('/');
-};
+  };
 
   return <>
     <Flex
@@ -24,14 +24,16 @@ const BottomBox = () => {
       alignItems={'center'}
     >
 
-      <Box display="flex" flexDirection="column" alignItems="center" justifyContent="center">
-        <Box textAlign="center">
-          <FiCompass fontSize="25px" color={primary} />
+      <Link to="/explore" onClick={navigateToExplorePage}>
+        <Box display="flex" flexDirection="column" alignItems="center" justifyContent="center">
+          <Box textAlign="center">
+            <FiCompass fontSize="25px" color={primary} />
+          </Box>
+          <Text fontSize="10px" color="white" align="center">
+            Explore
+          </Text>
         </Box>
-        <Text fontSize="10px" color="white" align="center">
-          Explore
-        </Text>
-      </Box>
+      </Link>
       <Box display="flex" flexDirection="column" alignItems="center" justifyContent="center">
         <Box textAlign="center">
           <TbCalendarPlus fontSize="25px" color={primary} />
@@ -40,8 +42,8 @@ const BottomBox = () => {
           Buat Event
         </Text>
       </Box>
-      
-      <Link to="/explore" onClick={navigateToExplorePage}>
+
+
       <Box display="flex" flexDirection="column" alignItems="center" justifyContent="center">
         <Box textAlign="center">
           < AiOutlineSearch fontSize="25px" color={primary} />
@@ -50,7 +52,7 @@ const BottomBox = () => {
           Cari
         </Text>
       </Box>
-      </Link>
+
 
 
 
