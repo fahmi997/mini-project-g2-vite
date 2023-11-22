@@ -3,16 +3,16 @@ import ReactDOM from 'react-dom/client'
 import App from './App.jsx'
 import './index.css'
 import { ChakraProvider } from '@chakra-ui/react'
+import { Provider } from 'react-redux'
+import { globalStore } from './redux/index.js'
 import { BrowserRouter } from 'react-router-dom'
-import { Provider } from 'react-redux';
-import { globalState } from './redux/index.js'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-  <Provider store={globalState}>
+  <Provider store={globalStore}>
     <BrowserRouter>
       <ChakraProvider>
         <App />
-      </ChakraProvider>
+      </ChakraProvider>,
     </BrowserRouter>
   </Provider>
 )

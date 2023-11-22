@@ -7,7 +7,7 @@ import { API_URL } from "../../helper/helper";
 import axios from "axios";
 
 import { useSelector } from "react-redux";
-import { selectEventData } from "../../redux/slices/eventSlice";
+// import { selectEventData } from "../../redux/slices/eventSlice";
 import { useDispatch } from "react-redux";
 import { setEventData } from "../../redux/slices/eventSlice";
 import BottomBox from "../../components/BottomBox";
@@ -23,7 +23,12 @@ const LandingPage = () => {
   const [hideLeft2, setHideLeft2] = useState(false);
   const [hideRight2, setHideRight2] = useState(false);
 
-  const eventData = useSelector(selectEventData);
+  const eventData = useSelector( (state) => {
+    return state.eventSlice.eventData
+  });
+
+  console.log(eventData);
+
   const dispatch = useDispatch ();  
 
   const scrollRight = (index) => {

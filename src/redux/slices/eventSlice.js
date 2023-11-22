@@ -13,6 +13,11 @@ const eventSlice = createSlice({
 });
 
 export const { setEventData } = eventSlice.actions;
-export const selectEventData = (state) => state.event.eventData;
+// export const selectEventData = (state) => state.event.eventData;
 
 export default eventSlice.reducer;
+
+// Middleware 
+// export const selectEventData = () => {
+//   try
+// }

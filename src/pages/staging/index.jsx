@@ -20,6 +20,13 @@ const StagingPage = () => {
                 <Route path="/events/:id" element={<DetailEvent />} />
             </Routes>
         
+    <Navbar/>
+    <Box h={'384px'}></Box>
+    <Box h={'434px'}>
+        <Image src="./logoblack1.svg"/>
+    </Box>
+    <FooterMain/>
+    <FooterBottom/>
     </>
 };
 

@@ -1,9 +1,12 @@
-// src/redux/index.js
 import { configureStore } from "@reduxjs/toolkit";
-import eventReducer from "./slices/eventSlice";
+import createEvent from "./action/createEvent"
+import eventSlice from "./slices/eventSlice";
 
-export const globalState = configureStore({
-  reducer: {
-    event : eventReducer
-  }
-});
+export const globalStore = configureStore({
+    reducer:{
+        // place reducer here
+        createEvent,
+        eventSlice
+        
+    }
+})
