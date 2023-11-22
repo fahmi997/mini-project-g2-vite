@@ -17,7 +17,7 @@ const StagingPage = () => {
             <Routes>
                 <Route path="/" element={<LandingPage/>} />
                 <Route path="/explore" element={<ExplorePage/>} />
-                <Route path="/event/:id" element={<DetailEvent />} />
+                <Route path="/events/:id" element={<DetailEvent />} />
             </Routes>
         
     </>
