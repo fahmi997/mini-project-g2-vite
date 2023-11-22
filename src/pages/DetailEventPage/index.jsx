@@ -51,10 +51,10 @@ const DetailEvent = () => {
           px={4} // Add horizontal padding for better mobile layout
         >
           <Flex flexDirection={'column'} className="banner dan hari tanggal">
-            <Box mt={16} bg={"#DCDCDC"} borderRadius={"lg"}>
+            <Box mt={16} bg={"#DCDCDC"} borderRadius={"lg"} w={'auto'}>
               <Image
                 m={"auto"}
-                maxW={"100%"}
+                // maxW={"100%"}
                 src={eventData.image}
               />
             </Box>

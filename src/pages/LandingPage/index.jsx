@@ -19,6 +19,9 @@ const LandingPage = () => {
   const scrollableGridRef = useRef(null);
   const [hideLeft, setHideLeft] = useState(false);
   const [hideRight, setHideRight] = useState(false);
+  const scrollableGridRef2 = useRef(null);
+  const [hideLeft2, setHideLeft2] = useState(false);
+  const [hideRight2, setHideRight2] = useState(false);
 
   const eventData = useSelector(selectEventData);
   const dispatch = useDispatch ();  
@@ -158,7 +161,7 @@ const LandingPage = () => {
 
         <Flex ml="5%" mr="5%" mb="6" h="330px" position="relative" overflow="hidden">
           <div
-            ref={scrollableGridRef}
+            ref={scrollableGridRef2}
             style={{
               display: 'flex',
               flexDirection: 'row',
@@ -171,7 +174,7 @@ const LandingPage = () => {
             ))}
           </div>
 
-          <ButtonScroll scrollLeft={scrollLeft} scrollRight={scrollRight} hideLeft={hideLeft} hideRight={hideRight} />
+          <ButtonScroll scrollLeft={() => scrollLeft(scrollableGridRef2)} scrollRight={() => scrollRight(scrollableGridRef2)} hideLeft={hideLeft2} hideRight={hideRight2} />
         </Flex>
 
         <Box mt={'16'} ml={'5%'} mr={'5%'} >
