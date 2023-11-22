@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { Box, Flex, Heading, Text, Input, Button, HStack, InputGroup, InputRightAddon, Select, InputRightElement } from "@chakra-ui/react"
 import { FcGoogle } from "react-icons/fc"
 import { FaFacebook } from "react-icons/fa"

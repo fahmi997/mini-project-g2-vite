@@ -1,6 +1,7 @@
-import DashboardTiket from "./pages/dashboard/indexTiket";
+import CreateEventPage from "./pages/CreateEvent";
+// import DashboardTiket from "./pages/dashboard/indexTiket";
 import StagingPage from "./pages/staging";
-import DashboardProfile from "./pages/dashboard/indexProfile";
+// import DashboardProfile from "./pages/dashboard/indexProfile";
 import TransactionPageEnded from "./pages/transaction/ended";
 import TransactionPageActive from "./pages/transaction/active";
 import { Route, Routes, useNavigate } from "react-router-dom";

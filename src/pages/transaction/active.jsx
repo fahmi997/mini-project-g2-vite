@@ -1,6 +1,6 @@
 import FooterMain from "../../components/FooterMain"
 import ContentTransactionActive from "../../components/TransactionPage/ContentActive"
-import NavbarTransaction from "../../components/TransactionPage/Navbar"
+import NavbarTransaction from "../../components/TransactionPage/"
 
 const TransactionPageActive = () =>{
     return<>
