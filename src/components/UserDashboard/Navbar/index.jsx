@@ -1,4 +1,4 @@
-import { Box, Image } from "@chakra-ui/react";
+import { Box, Image, Text } from "@chakra-ui/react";
 import { LuCalendarClock } from "react-icons/lu";
 import { GoChevronDown } from "react-icons/go";
 import { BsFillPersonFill } from "react-icons/bs";
@@ -78,6 +78,12 @@ const NavbarDash = (props) => {
                 justifyContent={"space-around"}
                 width={"90%"}
               >
+                <Box top={"65px"} cursor={"default"} borderRadius={"10px"} marginRight={"100px"} height={"150px"} zIndex={"10"} width={"270px"} backgroundColor={"green"} position={"absolute"}>
+                  <Text display={"flex"} justifyContent={"center"} fontSize={"16px"} fontWeight={"700"} height={"auto"} width={"100%"} marginTop={"10px"}>Menu</Text>
+                  <Box display={"flex"} justifyContent={"center"} width={"100%"} marginTop={"10px"}>
+                    <hr style={{width:"90%"}}/>
+                  </Box>
+                </Box>
                 <Box
                   display={"flex"}
                   backgroundSize={"cover"}
