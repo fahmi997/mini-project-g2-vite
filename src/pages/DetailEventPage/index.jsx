@@ -81,7 +81,7 @@ const DetailEvent = () => {
             <Flex
               flexDirection={"column"}
               p={4} // Add padding
-              maxWidth={'600px'}
+              maxWidth={{base : "100%", lg: '600px'}}
               mb={'8'}
             >
               <Text fontSize={"40px"} fontWeight={"bold"}>
