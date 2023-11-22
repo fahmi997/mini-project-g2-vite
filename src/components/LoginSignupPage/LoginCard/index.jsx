@@ -40,10 +40,10 @@ import {
         // role: inRole
       });
       console.log("INI RESPON",response.data.result.token);
-      localStorage.setItem("login", response.data.result.token)
+      localStorage.setItem("token", response.data.result.token)
       dispatch(login(response.data.result))
       if(response.data.result.role === "user"){
-          navigate("*")
+          navigate("/dashProfile")
       }
     };
   

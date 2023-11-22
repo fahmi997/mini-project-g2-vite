@@ -31,7 +31,7 @@ function App() {
         <Route path="/" element={<SignupPage />} />
         <Route path="/dashTiket" element={<DashboardTiket />} />
         <Route path="/dashProfile" element={<DashboardProfile />} />
-        <Route path="/checkoutTiket" element={<TransactionPageEnded />} />
+        <Route path="/checkoutTiketEnded" element={<TransactionPageEnded />} />
         <Route path="/checkoutTiketActive" element={<TransactionPageActive />} />
       </Routes>
     </>

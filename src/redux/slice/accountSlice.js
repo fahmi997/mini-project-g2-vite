@@ -33,7 +33,7 @@ export default accountSlice.reducer
 export const checkDataAccount = () =>{
     return async(dispatch) =>{
         try {
-            let token = localStorage.getItem("login")
+            let token = localStorage.getItem("token")
             if(token){
                 const getAccount = await axios.get(`http://localhost:2099/account/keeplogin`, {
                     headers: {
@@ -41,7 +41,7 @@ export const checkDataAccount = () =>{
                     }
                 })
                 console.log("GET ACCOUNT BREE", getAccount);
-                localStorage.setItem("login", getAccount.data.result.token)
+                localStorage.setItem("token", getAccount.data.result.token)
 
                 dispatch(login(getAccount.data))
             }
