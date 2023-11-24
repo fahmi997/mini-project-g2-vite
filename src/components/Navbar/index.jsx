@@ -1,13 +1,12 @@
 import { Box, Button, Image, Input, InputGroup, InputRightAddon, Flex, Stack, Text, Popover, PopoverTrigger, PopoverArrow, PopoverCloseButton, PopoverHeader, PopoverBody, PopoverContent, IconButton, Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, ModalBody, ModalFooter, Avatar } from "@chakra-ui/react";
 import { BiSearch } from "react-icons/bi"
 import { FiCompass } from "react-icons/fi"
-import { FaAlignJustify } from "react-icons/fa"
+import { IoMenuOutline } from "react-icons/io5"
 import { primary, primaryBgColor } from "../../assets/color";
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import { useDisclosure } from "@chakra-ui/react";
 import { TbCalendarPlus } from "react-icons/tb";
-
 
 const Navbar = () => {
 
@@ -16,6 +15,14 @@ const Navbar = () => {
 
     const navigateToExplorePage = () => {
         navigate('/');
+    };
+
+    const navigateToLogin = () => {
+        navigate('/login');
+    };
+
+    const navigateSignUp = () => {
+        navigate('/sign-up');
     };
 
     return <>
@@ -60,6 +67,7 @@ const Navbar = () => {
                 </Link>
 
 
+                <Link to="/login" onClick={navigateToLogin} >
                 <Button
                     color={primary}
                     border={'1px'} borderColor={primary}
@@ -70,7 +78,9 @@ const Navbar = () => {
                 >
                     Log In
                 </Button>
+                </Link>
 
+                <Link to="/sign-up" onClick={navigateSignUp} >
                 <Button
                     bg={primary}
                     color={'black'}
@@ -80,8 +90,11 @@ const Navbar = () => {
                 >
                     Sign Up
                 </Button>
+                </Link>
 
-                <Avatar size='sm' src='https://bit.ly/tioluwani-kolawole' display={{ base: "block", md: "none" }} onClick={onOpen} mt={'1'} />
+                {/* <Avatar size='sm' src='https://bit.ly/tioluwani-kolawole' display={{ base: "block", md: "none" }} onClick={onOpen} mt={'1'} /> */}
+
+                <IoMenuOutline size='35px' display={{ base: "block", md: "none" }} onClick={onOpen}/>
 
                 <Modal isOpen={isOpen} onClose={onClose} isCentered >
                     <ModalOverlay />

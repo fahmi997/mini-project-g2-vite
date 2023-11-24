@@ -36,7 +36,7 @@ const ExplorePage = () => {
 
   useEffect(() => {
     axios
-      .get(API_URL + `/events`)
+      .get(API_URL + `/event`)
       .then((response) => {
         setEventData(response.data);
       })
@@ -45,7 +45,7 @@ const ExplorePage = () => {
       });
 
     axios
-      .get(API_URL + `/events/categories`)
+      .get(API_URL + `/event/categories`)
       .then((response) => {
         setCategories(response.data);
       })
@@ -63,7 +63,7 @@ const ExplorePage = () => {
       });
 
     axios
-      .get(API_URL + `/events/provinces`)
+      .get(API_URL + `/event/provinces`)
       .then((response) => {
         setProvince(response.data);
       })
