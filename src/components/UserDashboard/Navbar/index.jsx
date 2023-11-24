@@ -1,14 +1,11 @@
-import { Box, Icon, Image, Text } from "@chakra-ui/react";
+import { Box, Image, Text } from "@chakra-ui/react";
 import { LuCalendarClock } from "react-icons/lu";
 import { GoChevronDown } from "react-icons/go";
-import { MdOutlineKeyboardArrowRight } from "react-icons/md";
 import { BsFillPersonFill } from "react-icons/bs";
 import React from "react";
-import { useNavigate } from "react-router";
 
 const NavbarDash = (props) => {
-  const [defaultProfile, setDefaultProfile] = React.useState("avatar.svg");
-  const navigate = useNavigate()
+  const [defaultProfile, setDefaultProfile] = React.useState("avatar.svg")
 
 
   return (
@@ -81,25 +78,10 @@ const NavbarDash = (props) => {
                 justifyContent={"space-around"}
                 width={"90%"}
               >
-                <Box display={"flex"} flexDirection={"column"} alignItems={"center"} top={"65px"} cursor={"default"} borderRadius={"10px"} marginRight={"100px"} height={"auto"} zIndex={"10"} width={"270px"} backgroundColor={"green"} position={"absolute"}>
+                <Box top={"65px"} cursor={"default"} borderRadius={"10px"} marginRight={"100px"} height={"150px"} zIndex={"10"} width={"270px"} backgroundColor={"green"} position={"absolute"}>
                   <Text display={"flex"} justifyContent={"center"} fontSize={"16px"} fontWeight={"700"} height={"auto"} width={"100%"} marginTop={"10px"}>Menu</Text>
                   <Box display={"flex"} justifyContent={"center"} width={"100%"} marginTop={"10px"}>
-                    <hr style={{width:"85%"}}/>
-                  </Box>
-                  <Box display={"flex"} alignItems={"center"} color={"grey"} justifyContent={"space-between"} width={"85%"} height={"30px"} marginTop={"10px"}>
-                    <Text fontWeight={"500"} width={"auto"}>Jelajah Event</Text>
-                    <Icon><MdOutlineKeyboardArrowRight size={"26px"}/></Icon>
-                  </Box>
-                  <Box display={"flex"} alignItems={"center"} color={"grey"} justifyContent={"space-between"} width={"85%"} height={"30px"} marginTop={"10px"}>
-                    <Text fontWeight={"500"} width={"auto"}>Informasi Dasar</Text>
-                    <Icon><MdOutlineKeyboardArrowRight size={"26px"}/></Icon>
-                  </Box>
-                  <Box display={"flex"} alignItems={"center"} color={"grey"} justifyContent={"space-between"} width={"85%"} height={"30px"} marginTop={"10px"}>
-                    <Text fontWeight={"500"} width={"auto"}>Tiket Saya</Text>
-                    <Icon><MdOutlineKeyboardArrowRight size={"26px"}/></Icon>
-                  </Box>
-                  <Box display={"flex"} alignItems={"center"} color={"red"} justifyContent={"space-between"} width={"85%"} height={"30px"} marginBottom={"20px"} marginTop={"10px"}>
-                    <Text fontWeight={"500"} width={"auto"}>Keluar</Text>
+                    <hr style={{width:"90%"}}/>
                   </Box>
                 </Box>
                 <Box
