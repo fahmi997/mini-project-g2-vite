@@ -10,18 +10,11 @@ import SignupPage from "./pages/Signup";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { checkDataAccount, login } from "../src/redux/slice/accountSlice";
-import { Route, Routes } from "react-router-dom"
-import LoginPage from "./pages/Login"
-import SignupPage from "./pages/Signup"
-// import StagingPage from "./pages/staging"
-import CreateEventPage from "./pages/CreateEvent"
-import DashboardProfile from "./pages/dashboard/indexProfile"
-import TransactionPageEnded from "./pages/transaction/ended"
-import TransactionPageActive from "./pages/transaction/active"
 import LandingPage from "./pages/LandingPage"
 import ExplorePage from "./pages/ExplorePage.jsx"
 import DetailEvent from "./pages/DetailEventPage"
 import Navbar from "./components/Navbar/index.jsx"
+// import accountSlice from "./redux/slice/accountSlice";
 
 function App() {
   const dispatch = useDispatch();
@@ -29,15 +22,19 @@ function App() {
   const loginAcc = useSelector((state) => {
     return state.accountSlice;
   });
+  const checkLocal = localStorage.getItem("token")
 
+  if(!checkLocal){
+    navigate("/login")
+  }
   useEffect(() => {
     dispatch(checkDataAccount());
-    console.log(loginAcc);
+    console.log("ini loginAcc", loginAcc);
   }, []);
 
   return (
     <>
-      <Navbar />
+      {/* <Navbar /> */}
       <Routes>
         <Route path="/login" element={<LoginPage />} />
         <Route path="/signup" element={<SignupPage />} />

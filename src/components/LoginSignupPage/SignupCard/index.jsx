@@ -7,6 +7,7 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import React from "react";
 import axios from "axios";
+import API_CALL from "../../../helper";
 
 
 const SignupCard = (props) => {
@@ -36,15 +37,15 @@ const SignupCard = (props) => {
             if(inNamaLengkap === '' || inEmail === '' || inRole === '' || inPassword === '' || inConfirmPassword===''){
                 alert('Mohon di isi')
             }else{
-                let response = await axios.post(`http://localhost:2099/account/register`,
+                let response = await API_CALL.post(`/account/register`,
                 {
-                    nama_Lengkap: inNamaLengkap,
+                    name: inNamaLengkap,
                     email: inEmail,
                     password: inPassword,
                     role: inRole,
-                    refferal_Code: kodeRefferal
+                    refCode: kodeRefferal
                 })
-                console.log(response);
+                console.log("bree ini response signup",response);
                 alert('Register is SUCCES')
                 navigate("/login")
             }
@@ -86,7 +87,7 @@ const SignupCard = (props) => {
                 <Select onChange={(e) => setInRole(e.target.value)} color="gray.500">
                     <option style={{display:"none"}}>Select your role</option>
                     <option value={`user`}>Attendee</option>
-                    <option value={`promotor`}>Event Organizer</option>
+                    <option value={`eo`}>Event Organizer</option>
                 </Select>
             </Box>
             
