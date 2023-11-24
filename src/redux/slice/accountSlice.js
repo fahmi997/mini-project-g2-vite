@@ -15,10 +15,7 @@ const accountSlice = createSlice({
         state.email = action.payload.email
         state.password = action.payload.password
         state.role = action.payload.role
-        state.name = action.payload.name
-        state.avatar = action.payload.avatar
-        state.phone = action.payload.phone
-        state.address = action.payload.address
+        state.name = action.payload.nama_Lengkap
     },
     logout: (state, action) =>{
         state = {
@@ -38,7 +35,7 @@ export const checkDataAccount = () =>{
         try {
             let token = localStorage.getItem("token")
             if(token){
-                const getAccount = await API_CALL.get(`/account/keeplogin`, {
+                const getAccount = await axios.get(`http://localhost:2099/account/keeplogin`, {
                     headers: {
                         Authorization: `Bearer ${token}`
                     }
@@ -46,14 +43,13 @@ export const checkDataAccount = () =>{
                 console.log("GET ACCOUNT BREE", getAccount);
                 localStorage.setItem("token", getAccount.data.result.token)
 
-                dispatch(login(getAccount.data.result))
+                dispatch(login(getAccount.data))
             }
             console.log();
 
         } catch (error) {
             console.log(error);
             dispatch(logout())
-            localStorage.removeItem("token")
         }
     }
 }

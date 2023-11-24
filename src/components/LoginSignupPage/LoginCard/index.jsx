@@ -25,7 +25,7 @@ import {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const dataAccount = useSelector((state) => {
-      // console.log(state.accountSlice);
+      console.log(state.accountSlice);
       return state.accountSlice;
     });
     const [inEmail, setInEmail] = React.useState("");
@@ -34,20 +34,20 @@ import {
   
     const onLogin = async () => {
       // console.log("tes");
-      const response = await API_CALL.post(`/account/login`, {
+      const response = await axios.post(`http://localhost:2099/account/login`, {
         email: inEmail,
         password: inPassword
         // role: inRole
       });
-      console.log("INI RESPON",response.data.result);
+      console.log("INI RESPON",response.data.result.token);
       localStorage.setItem("token", response.data.result.token)
       dispatch(login(response.data.result))
-      if(response.data.result.role === "user" || response.data.result.role === "promotor"){
+      if(response.data.result.role === "user"){
           navigate("/dashProfile")
       }
     };
   
-    // console.log("BRE BRE DATA ACCOUNT",dataAccount);
+    // console.log("BRE BRE DATA ACCOUNT",dataAccount.role);
   
     return (
       <>
