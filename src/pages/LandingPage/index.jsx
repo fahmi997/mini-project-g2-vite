@@ -3,9 +3,6 @@ import CardEvent from "../../components/CardEvent";
 import Carousel from "../../components/Carousel";
 import { useState, useRef, useEffect } from 'react';
 import ButtonScroll from "../../components/ButtonScroll";
-import { API_URL } from "../../helper/helper";
-import axios from "axios";
-
 import { useSelector } from "react-redux";
 // import { selectEventData } from "../../redux/slices/eventSlice";
 import { useDispatch } from "react-redux";
@@ -13,6 +10,7 @@ import { setEventData } from "../../redux/slices/eventSlice";
 import BottomBox from "../../components/BottomBox";
 import FooterMain from "../../components/FooterMain";
 import FooterBottom from "../../components/FooterBottom";
+import API_CALL from "../../helper";
 
 const LandingPage = () => {
   const [scrollX, setScrollX] = useState(0);
@@ -74,7 +72,7 @@ const LandingPage = () => {
 
   useEffect(() => {
     // Lakukan permintaan ke API untuk mengambil data acara
-    axios.get(API_URL + `/event`)
+    API_CALL.get(`/event`)
     .then ((response) => { 
       dispatch(setEventData(response.data));
     })

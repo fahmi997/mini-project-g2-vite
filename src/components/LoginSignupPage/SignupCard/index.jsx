@@ -1,12 +1,12 @@
 /* eslint-disable react/prop-types */
 import { Box, Flex, Heading, Text, Input, Button, HStack, InputGroup, InputRightAddon, Select, InputRightElement } from "@chakra-ui/react"
+import React from "react"
 import { FcGoogle } from "react-icons/fc"
 import { FaFacebook } from "react-icons/fa"
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai"
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import React from "react";
-import axios from "axios";
+import API_CALL from "../../../helper";
 
 
 const SignupCard = (props) => {
@@ -36,7 +36,8 @@ const SignupCard = (props) => {
             if(inNamaLengkap === '' || inEmail === '' || inRole === '' || inPassword === '' || inConfirmPassword===''){
                 alert('Mohon di isi')
             }else{
-                let response = await axios.post(`http://localhost:2099/account/register`,
+                // let response = await axios.post(`http://localhost:2099/account/register`, // Changes to API_CALL
+                let response = await API_CALL.post(`/account/register`,
                 {
                     nama_Lengkap: inNamaLengkap,
                     email: inEmail,

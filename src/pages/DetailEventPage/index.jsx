@@ -18,8 +18,7 @@ import { BiSolidShareAlt } from "react-icons/bi";
 import { MdDateRange } from "react-icons/md";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import axios from "axios";
-import { API_URL } from "../../helper/helper";
+import API_CALL from "../../helper";
 
 
 
@@ -32,7 +31,7 @@ const DetailEvent = () => {
   console.log(eventData);
 
   useEffect(() => {
-    axios.get(API_URL + `/event/${id}`)
+    API_CALL.get(`/event/${id}`)
       .then((response) => {
         setEventData(response.data);
       })
