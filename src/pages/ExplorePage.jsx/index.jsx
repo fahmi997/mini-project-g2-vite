@@ -2,12 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { useDisclosure, Select, Text, Flex, Button, Drawer, DrawerOverlay, DrawerContent, DrawerCloseButton, DrawerHeader, DrawerBody, DrawerFooter } from "@chakra-ui/react";
 import CardEventExplorePage from '../../components/CardEventExplorePage';
 import { primary } from "../../assets/color";
-import axios from 'axios';
-import { API_URL } from '../../helper/helper';
 import BottomBox from '../../components/BottomBox';
 import FooterBottom from '../../components/FooterBottom';
 import FooterMain from '../../components/FooterMain';
 import Pagination from '../../components/Pagination';
+import API_CALL from '../../helper';
 
 const itemsPerPageOptions = [4, 8, 12];
 
@@ -35,8 +34,8 @@ const ExplorePage = () => {
 
 
   useEffect(() => {
-    axios
-      .get(API_URL + `/event`)
+    API_CALL
+      .get(`/event`)
       .then((response) => {
         setEventData(response.data);
       })
@@ -44,8 +43,8 @@ const ExplorePage = () => {
         console.log(error);
       });
 
-    axios
-      .get(API_URL + `/event/categories`)
+    API_CALL
+      .get(`/event/categories`)
       .then((response) => {
         setCategories(response.data);
       })
@@ -53,8 +52,8 @@ const ExplorePage = () => {
         console.log(error);
       });
 
-    axios
-      .get(API_URL + `/cities`)
+    API_CALL
+      .get(`/cities`)
       .then((response) => {
         setCities(response.data);
       })
@@ -62,8 +61,8 @@ const ExplorePage = () => {
         console.log(error);
       });
 
-    axios
-      .get(API_URL + `/event/provinces`)
+    API_CALL
+      .get(`/event/provinces`)
       .then((response) => {
         setProvince(response.data);
       })

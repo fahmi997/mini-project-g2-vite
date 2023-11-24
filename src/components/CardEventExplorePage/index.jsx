@@ -1,8 +1,7 @@
 import { Card, Image, Box, Text } from "@chakra-ui/react";
 import { useNavigate, useLocation } from "react-router-dom";
-import axios from "axios";
-import { API_URL } from "../../helper/helper";
 import React, { useState, useEffect } from 'react';
+import API_CALL from "../../helper";
 
 const CardEventExplorePage = (props) => {
     const navigate = useNavigate();
@@ -18,7 +17,7 @@ const CardEventExplorePage = (props) => {
 
     const handleCardClick = async () => {
         try {
-            const response = await axios.get(API_URL + `/event`);
+            const response = await API_CALL.get(`/event`);
             setEventData(response.data);
             setIsModalOpen(true);
             navigate(`/event/${props.id}`);
