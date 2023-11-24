@@ -13,10 +13,10 @@ const CardEvent = (props) => {
 
   const handleCardClick = async () => {
     try {
-      const response = await axios.get(API_URL + `/events`);
+      const response = await axios.get(API_URL + `/event`);
       setEventData(response.data);
       setIsModalOpen(true);
-      navigate(`/events/${props.id}`);
+      navigate(`/event/${props.id}`);
     } catch (error) {
       console.log(error);
     }
