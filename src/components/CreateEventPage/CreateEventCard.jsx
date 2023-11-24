@@ -13,6 +13,8 @@ const CreateEvent = (props) => {
     const addLocation = useDisclosure();
     const [isOnline, setIsOnline] = useState(false);
     const [value, setValue] = useState({});
+    const [banner, setBanner] = useState();
+    const [bannerPreview, setBannerPreview] = useState();
     const fileInputRef = useRef(null);
     const dispatch = useDispatch();
 
@@ -23,7 +25,17 @@ const CreateEvent = (props) => {
 
     useEffect(() => {
         dispatch(setEvent(value));
-    })
+    },[value, setValue])
+
+    useEffect(() => {
+        if(banner){
+            const reader = new FileReader();
+            reader.onload = () => setBannerPreview(reader.result);
+            reader.readAsDataURL(banner)
+        }else{
+            setBannerPreview(null);
+        }
+    },[banner])
 
     // useEffect(() => {
     //     fileInputRef.current.addEventListener('change', (e) => {
@@ -53,7 +65,7 @@ const CreateEvent = (props) => {
             return <Text fontSize={'16px'} color={'#888296'}>Add location</Text>
         }
     };
-
+// console.log(bannerPreview);
     return <>
 
         <Flex
@@ -70,9 +82,21 @@ const CreateEvent = (props) => {
             w={{ base: '80%', md: '70%', xl: '50%' }}
             h={'65vh'}
         >
-            <Flex flex={'1'} bgImage={bannerImg} borderTopRadius={'10px'} justify={'center'} align={'center'} cursor={'pointer'} onClick={() => fileInputRef.current.click()}>
-                <Input display='none' type="file" ref={fileInputRef} onChange={(e) => props.file(e.target.files[0]) }></Input> {/*Upload File*/}
-                <Flex flexDirection={'column'} justify={'center'} align={'center'} color={'white'} gap={'3'}>
+            <Flex flex={'1'} bgSize={'cover'} bgImage={bannerPreview ? bannerPreview : bannerImg} borderTopRadius={'10px'} justify={'center'} align={'center'} cursor={'pointer'} onClick={() => fileInputRef.current.click()}>
+                <Input display='none' type="file" ref={fileInputRef}
+                    onChange={(e) => {
+                        const fileImage = e.target.files[0];
+                        
+                        if(fileImage && fileImage.type.substring(0, 5) === 'image'){
+                            props.file(fileImage)
+                            setBanner(fileImage)
+                        } else {
+                            props.file(null)
+                            setBanner(null)
+                        }
+                    }}
+                /> {/*Upload File*/}
+                <Flex flexDirection={'column'} justify={'center'} align={'center'} color={'white'} gap={'3'} display={bannerPreview ? 'none' : 'flex'}>
                     <BsPlusCircle size={'60px'} />
                     <Box textAlign={'center'}>
                         <Text fontSize={'24px'} as={'b'}>Upload an image/banner/poster</Text>

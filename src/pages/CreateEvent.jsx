@@ -69,23 +69,51 @@ const CreateEventPage = () => {
             console.log(error);
         }
     };
-console.log("File from create event:", file);
+// console.log("File from create event:", file);
     const createEvent = async () => {
         try {
-            const event = await API_CALL.post('/event/create', {
-                userId: 1,
-                categoryId: eventData.event.category,
-                cityId: eventData.location.city,
-                name: eventData.event.eventName,
-                image: "/tes",
-                startDate: eventData.event.startEvent,
-                endDate: eventData.event.endEvent,
-                description: description.description,
-                tnc: description.tnc,
-                method: eventData.location.method,
-                url: eventData.location.url,
-                venue: eventData.location.venue,
-            })
+            const formData = new FormData();
+            if(eventData.location.method === 'online'){
+                console.log(eventData.location);
+                formData.append('url', eventData.location.url);
+            }else {
+                console.log(eventData.location);
+                formData.append('venue', eventData.location.venue);
+                formData.append('address', eventData.location.address);
+                formData.append('cityId', eventData.location.city);
+            }
+            formData.append('userId', 1);
+            formData.append('categoryId', eventData.event.category);
+            
+            formData.append('name', eventData.event.eventName);
+            formData.append('image', file);
+            formData.append('startDate', eventData.event.startEvent);
+            formData.append('endDate', eventData.event.endEvent);
+            formData.append('description', description.description);
+            formData.append('tnc', description.tnc);
+            formData.append('method', eventData.location.method);
+            // formData.append('venue', eventData.location.venue);
+
+            const event = await API_CALL.post('/event/create', formData, {
+                headers: {
+                    'Content-Type':'multipart/form-data'
+                }
+            });
+
+            // const event = await API_CALL.post('/event/create', {
+            //     userId: 1,
+            //     categoryId: eventData.event.category,
+            //     cityId: eventData.location.city,
+            //     name: eventData.event.eventName,
+            //     image: file,
+            //     startDate: eventData.event.startEvent,
+            //     endDate: eventData.event.endEvent,
+            //     description: description.description,
+            //     tnc: description.tnc,
+            //     method: eventData.location.method,
+            //     url: eventData.location.url,
+            //     venue: eventData.location.venue,
+            // })
             // console.log("Event Id: ", event.data.id);
             const createTicket = tickets.map( (t) => {
                 if(t.type.type === 'free'){
