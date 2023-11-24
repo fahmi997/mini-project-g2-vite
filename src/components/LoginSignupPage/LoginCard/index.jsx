@@ -34,7 +34,7 @@ import {
   
     const onLogin = async () => {
       // console.log("tes");
-      const response = await axios.post(`http://localhost:2099/account/login`, {
+      const response = await API_CALL.post(`/account/login`, {
         email: inEmail,
         password: inPassword
         // role: inRole
