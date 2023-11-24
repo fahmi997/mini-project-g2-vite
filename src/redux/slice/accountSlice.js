@@ -17,6 +17,8 @@ const accountSlice = createSlice({
         state.role = action.payload.role
         state.name = action.payload.name
         state.avatar = action.payload.avatar
+        state.phone = action.payload.phone
+        state.address = action.payload.address
     },
     logout: (state, action) =>{
         state = {
@@ -36,7 +38,7 @@ export const checkDataAccount = () =>{
         try {
             let token = localStorage.getItem("token")
             if(token){
-                const getAccount = await axios.get(`http://localhost:2099/account/keeplogin`, {
+                const getAccount = await API_CALL.get(`/account/keeplogin`, {
                     headers: {
                         Authorization: `Bearer ${token}`
                     }
