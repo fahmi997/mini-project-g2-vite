@@ -32,7 +32,7 @@ const DetailEvent = () => {
   console.log(eventData);
 
   useEffect(() => {
-    axios.get(API_URL + `/events/${id}`)
+    axios.get(API_URL + `/event/${id}`)
       .then((response) => {
         setEventData(response.data);
       })
@@ -76,12 +76,12 @@ const DetailEvent = () => {
             </Flex>
           </Flex>
 
-          <Flex className="wadah-tulisan-button" display={'flex'} flexWrap={'wrap'} justifyContent={'space-between'}>
+          <Flex className="wadah-tulisan-button" display={'flex'} justifyContent={'space-between'}>
 
             <Flex
               flexDirection={"column"}
               p={4} // Add padding
-              maxWidth={{base : "100%", lg: '600px'}}
+              maxWidth={{ base: "100%", lg: '100%' }}
               mb={'8'}
             >
               <Text fontSize={"40px"} fontWeight={"bold"}>
@@ -140,7 +140,7 @@ const DetailEvent = () => {
 
               <Text fontSize={'17px'} mt={'2'} >{eventData.description}</Text>
               <Text fontSize={'17px'} mt={'2'} >Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quisquam ea nulla eveniet est iste! Maiores incidunt quasi fugit molestiae cupiditate voluptate adipisci consequatur quos, qui, eos delectus ad voluptas dignissimos. Lorem ipsum dolor sit amet consectetur adipisicing elit. Odio, aliquid ipsam minima corrupti obcaecati neque iure, eos molestias ipsum est dolores quis accusamus consectetur laborum optio maxime? Molestiae, pariatur consequuntur? Lorem ipsum dolor sit amet consectetur adipisicing elit. Dignissimos blanditiis, ad minus nobis perferendis error vero enim id veritatis vel similique cupiditate, molestiae dicta placeat perspiciatis aperiam deserunt suscipit temporibus! Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium nostrum accusamus nisi aliquid, nulla illo porro voluptatibus neque alias aliquam vel sequi accusantium saepe vero harum beatae. Tenetur, delectus atque?</Text>
-              
+
 
 
             </Flex>
@@ -164,10 +164,10 @@ const DetailEvent = () => {
             // bottom={{ base: '0' }}
             >
               <Box>
-                <Text textAlign={'center'}>Free</Text>
+                <Text textAlign={'center'}>{eventData.type}</Text>
               </Box>
               <Button w={"100%"} mt={4} bg={"#202020"} color={"white"} size={'lg'}>
-                BUY
+                BELI
               </Button>
             </Box>
 
@@ -195,7 +195,7 @@ const DetailEvent = () => {
           <Text textAlign={'center'}>Free</Text>
         </Box>
         <Button w={"100%"} mt={4} bg={"#202020"} color={"white"} size={'lg'}>
-          BUY
+          BELI        
         </Button>
       </Box>
     </>

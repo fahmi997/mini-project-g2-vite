@@ -43,7 +43,10 @@ function App() {
         <Route path="/events/:id" element={<DetailEvent />} />
         <Route path="/dashTiket" element={<DashboardTiket />} />
         <Route path="/dashProfile" element={<DashboardProfile />} />
-        <Route path="/checkoutTiketEnded" element={<TransactionPageEnded />} />
+        <Route path="/checkoutTiket" element={<TransactionPageEnded />} />
+        {/* <Route path="/" element={<TransactionPageActive />} /> */}
+        <Route path="/login" element={<LoginPage/>}/>
+        <Route path="/sign-up" element={<SignupPage/>}/>
         <Route path="/checkoutTiketActive" element={<TransactionPageActive />} />
       </Routes>
     </>

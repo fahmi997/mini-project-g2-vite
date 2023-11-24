@@ -19,9 +19,6 @@ const LandingPage = () => {
   const scrollableGridRef = useRef(null);
   const [hideLeft, setHideLeft] = useState(false);
   const [hideRight, setHideRight] = useState(false);
-  const scrollableGridRef2 = useRef(null);
-  const [hideLeft2, setHideLeft2] = useState(false);
-  const [hideRight2, setHideRight2] = useState(false);
 
   const eventData = useSelector( (state) => {
     return state.eventSlice.eventData
@@ -77,7 +74,7 @@ const LandingPage = () => {
 
   useEffect(() => {
     // Lakukan permintaan ke API untuk mengambil data acara
-    axios.get(API_URL + `/events`)
+    axios.get(API_URL + `/event`)
     .then ((response) => { 
       dispatch(setEventData(response.data));
     })
@@ -166,7 +163,7 @@ const LandingPage = () => {
 
         <Flex ml="5%" mr="5%" mb="6" h="330px" position="relative" overflow="hidden">
           <div
-            ref={scrollableGridRef2}
+            ref={scrollableGridRef}
             style={{
               display: 'flex',
               flexDirection: 'row',
@@ -179,7 +176,7 @@ const LandingPage = () => {
             ))}
           </div>
 
-          <ButtonScroll scrollLeft={() => scrollLeft(scrollableGridRef2)} scrollRight={() => scrollRight(scrollableGridRef2)} hideLeft={hideLeft2} hideRight={hideRight2} />
+          <ButtonScroll scrollLeft={() => scrollLeft(scrollableGridRef)} scrollRight={() => scrollRight(scrollableGridRef)} hideLeft={hideLeft} hideRight={hideRight} />
         </Flex>
 
         <Box mt={'16'} ml={'5%'} mr={'5%'} >
