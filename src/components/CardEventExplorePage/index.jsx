@@ -13,15 +13,15 @@ const CardEventExplorePage = (props) => {
     const [columnCount, setColumnCount] = useState(4);
 
     const handleClick = () => {
-        navigate(`/events/${props.id}`);
+        navigate(`/event/${props.id}`);
     };
 
     const handleCardClick = async () => {
         try {
-            const response = await axios.get(API_URL + `/events`);
+            const response = await axios.get(API_URL + `/event`);
             setEventData(response.data);
             setIsModalOpen(true);
-            navigate(`/events/${props.id}`);
+            navigate(`/event/${props.id}`);
         } catch (error) {
             console.log(error);
         }
