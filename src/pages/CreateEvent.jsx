@@ -12,6 +12,7 @@ import { useSelector } from "react-redux";
 const CreateEventPage = () => {
     const addTicket = useDisclosure();
     const toast = useToast();
+    const [file, setFile] = useState();
     const [categories, setCategories] = useState([]);
     const [ticketTypes, setTicketTypes] = useState([]);
     const [provinces, setProvinces] = useState([]);
@@ -68,7 +69,7 @@ const CreateEventPage = () => {
             console.log(error);
         }
     };
-
+console.log("File from create event:", file);
     const createEvent = async () => {
         try {
             const event = await API_CALL.post('/event/create', {
@@ -138,6 +139,7 @@ const CreateEventPage = () => {
             provinces={provinces}
             cities={cities}
             getProvinceId={(e) => setProvinceId(e)}
+            file={(file) => setFile(file)}
         />
         <Flex
             w={{ base: '80%', md: '70%', xl: '50%' }}

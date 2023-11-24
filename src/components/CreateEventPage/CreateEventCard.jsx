@@ -71,7 +71,7 @@ const CreateEvent = (props) => {
             h={'65vh'}
         >
             <Flex flex={'1'} bgImage={bannerImg} borderTopRadius={'10px'} justify={'center'} align={'center'} cursor={'pointer'} onClick={() => fileInputRef.current.click()}>
-                <Input display='none' type="file" ref={fileInputRef}></Input> {/*Upload File*/}
+                <Input display='none' type="file" ref={fileInputRef} onChange={(e) => props.file(e.target.files[0]) }></Input> {/*Upload File*/}
                 <Flex flexDirection={'column'} justify={'center'} align={'center'} color={'white'} gap={'3'}>
                     <BsPlusCircle size={'60px'} />
                     <Box textAlign={'center'}>
