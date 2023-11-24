@@ -15,7 +15,8 @@ const accountSlice = createSlice({
         state.email = action.payload.email
         state.password = action.payload.password
         state.role = action.payload.role
-        state.name = action.payload.nama_Lengkap
+        state.name = action.payload.name
+        state.avatar = action.payload.avatar
     },
     logout: (state, action) =>{
         state = {
@@ -43,13 +44,14 @@ export const checkDataAccount = () =>{
                 console.log("GET ACCOUNT BREE", getAccount);
                 localStorage.setItem("token", getAccount.data.result.token)
 
-                dispatch(login(getAccount.data))
+                dispatch(login(getAccount.data.result))
             }
             console.log();
 
         } catch (error) {
             console.log(error);
             dispatch(logout())
+            localStorage.removeItem("token")
         }
     }
 }

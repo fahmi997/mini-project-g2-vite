@@ -25,7 +25,7 @@ import {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const dataAccount = useSelector((state) => {
-      console.log(state.accountSlice);
+      // console.log(state.accountSlice);
       return state.accountSlice;
     });
     const [inEmail, setInEmail] = React.useState("");
@@ -39,15 +39,15 @@ import {
         password: inPassword
         // role: inRole
       });
-      console.log("INI RESPON",response.data.result.token);
+      console.log("INI RESPON",response.data.result);
       localStorage.setItem("token", response.data.result.token)
       dispatch(login(response.data.result))
-      if(response.data.result.role === "user"){
+      if(response.data.result.role === "user" || response.data.result.role === "promotor"){
           navigate("/dashProfile")
       }
     };
   
-    // console.log("BRE BRE DATA ACCOUNT",dataAccount.role);
+    // console.log("BRE BRE DATA ACCOUNT",dataAccount);
   
     return (
       <>

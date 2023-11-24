@@ -11,6 +11,7 @@ import SignupPage from "./pages/Signup";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { checkDataAccount, login } from "../src/redux/slice/accountSlice";
+// import accountSlice from "./redux/slice/accountSlice";
 
 function App() {
   const dispatch = useDispatch();
@@ -18,10 +19,14 @@ function App() {
   const loginAcc = useSelector((state) => {
     return state.accountSlice;
   });
+  const checkLocal = localStorage.getItem("token")
 
+  if(!checkLocal){
+    navigate("/login")
+  }
   useEffect(() => {
     dispatch(checkDataAccount());
-    console.log(loginAcc);
+    console.log("ini loginAcc", loginAcc);
   }, []);
 
   return (

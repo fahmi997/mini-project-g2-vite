@@ -38,11 +38,11 @@ const SignupCard = (props) => {
             }else{
                 let response = await axios.post(`http://localhost:2099/account/register`,
                 {
-                    nama_Lengkap: inNamaLengkap,
+                    name: inNamaLengkap,
                     email: inEmail,
                     password: inPassword,
                     role: inRole,
-                    refferal_Code: kodeRefferal
+                    refCode: kodeRefferal
                 })
                 console.log(response);
                 alert('Register is SUCCES')
