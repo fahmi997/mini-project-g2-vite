@@ -9,6 +9,7 @@ import React from "react";
 const ContentDashProfile = () =>{
   const [inInputNama, setInInputNama] = React.useState("Bree")
   const [inInputTanggal, setInInputTanggal] = React.useState("1990-01-01")
+  const [inInputAlamat, setInInputAlamat] = React.useState("Jl.")
   const [inPhone, setInPhone] = React.useState(0)
 
     return(
@@ -55,11 +56,13 @@ const ContentDashProfile = () =>{
                   </InputGroup>
                   <Text height={"20px"} className="judulProfile" marginTop={"35px"}>Nama Lengkap</Text>
                   <Input className="tulisan" variant='flushed' onChange={() => setInInputNama()} value={inInputNama} type="text" />
-                  <Text height={"20px"} className="judulProfile" marginTop={"35px"}>Tanggal Lahir</Text>
+                  {/* <Text height={"20px"} className="judulProfile" marginTop={"35px"}>Tanggal Lahir</Text>
                   <InputGroup>
                     <Input className="tulisan" variant='flushed' onChange={() => setInInputTanggal()} value={inInputTanggal} type="text"/>
                     <InputRightElement />
-                  </InputGroup>
+                  </InputGroup> */}
+                  <Text height={"20px"} className="judulProfile" marginTop={"35px"}>Alamat</Text>
+                  <Input className="tulisan" variant='flushed' onChange={() => setInInputAlamat()} value={inInputAlamat} type="text" />
                   <Box style={{height:"100px"}}/>
                   {/* <Text height={"200px"} className="judulProfile"></Text> */}
                 </Box>
