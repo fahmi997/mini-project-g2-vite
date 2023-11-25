@@ -7,20 +7,29 @@ import { useDisclosure } from "@chakra-ui/react";
 import TicketModal from "../components/CreateEventPage/TicketModal";
 import { useEffect, useState } from "react";
 import API_CALL from "../helper";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { deleteTicket } from "../redux/action/createEvent";
+// import { deleteTicket } from "../redux/action/createEvent";
 
 const CreateEventPage = () => {
+    const dispatch = useDispatch();
     const addTicket = useDisclosure();
     const toast = useToast();
+    const [file, setFile] = useState();
     const [categories, setCategories] = useState([]);
     const [ticketTypes, setTicketTypes] = useState([]);
     const [provinces, setProvinces] = useState([]);
     const [cities, setCities] = useState([]);
     const [provinceId, setProvinceId] = useState(null);
+    const [inTicket, setInTicket] = useState();
     const tickets = useSelector((state) => state.createEvent.ticket);
     const eventData = useSelector((state) => state.createEvent);
     const [description, setDescription] = useState({});
 
+    useEffect(() => {
+        setInTicket(tickets)
+    }, [tickets])
+    
     useEffect(() => {
         getCategories();
         getTicketTypes();
@@ -68,24 +77,33 @@ const CreateEventPage = () => {
             console.log(error);
         }
     };
-
+// console.log("File from create event:", file);
     const createEvent = async () => {
         try {
-            const event = await API_CALL.post('/event/create', {
-                userId: 1,
-                categoryId: eventData.event.category,
-                cityId: eventData.location.city,
-                name: eventData.event.eventName,
-                image: "/tes",
-                startDate: eventData.event.startEvent,
-                endDate: eventData.event.endEvent,
-                description: description.description,
-                tnc: description.tnc,
-                method: eventData.location.method,
-                url: eventData.location.url,
-                venue: eventData.location.venue,
-            })
-            // console.log("Event Id: ", event.data.id);
+            const formData = new FormData();
+            if(eventData.location.method === 'online'){
+                formData.append('url', eventData.location.url);
+            }else {
+                formData.append('venue', eventData.location.venue);
+                formData.append('address', eventData.location.address);
+                formData.append('cityId', eventData.location.city);
+            }
+            formData.append('userId', 1);
+            formData.append('categoryId', eventData.event.category);
+            formData.append('name', eventData.event.eventName);
+            formData.append('image', file);
+            formData.append('startDate', eventData.event.startEvent);
+            formData.append('endDate', eventData.event.endEvent);
+            formData.append('description', description.description);
+            formData.append('tnc', description.tnc);
+            formData.append('method', eventData.location.method);
+
+            const event = await API_CALL.post('/event/create', formData, {
+                headers: {
+                    'Content-Type':'multipart/form-data'
+                }
+            });
+
             const createTicket = tickets.map( (t) => {
                 if(t.type.type === 'free'){
                     return {
@@ -127,7 +145,7 @@ const CreateEventPage = () => {
         }
         createEvent();
     };
-
+// console.log(tickets);
     return <>
         <Flex shadow={'xl'} w={'100%'} h={'125px'} p={'25px 0'} justify={'center'} align={'center'}>
             <Image src="./logoblack1.svg" objectFit={"contain"} alt="logo" w={"100%"} h={"100%"} />
@@ -138,6 +156,7 @@ const CreateEventPage = () => {
             provinces={provinces}
             cities={cities}
             getProvinceId={(e) => setProvinceId(e)}
+            file={(file) => setFile(file)}
         />
         <Flex
             w={{ base: '80%', md: '70%', xl: '50%' }}
@@ -155,13 +174,13 @@ const CreateEventPage = () => {
                 <TabPanels>
                     <TabPanel>
                         <Flex justify={'end'} align={'center'} mb={'24px'}>
-                            <Button colorScheme="yellow" leftIcon={<AiOutlinePlus />} onClick={addTicket.onOpen}>Add</Button>
+                            <Button colorScheme="yellow" leftIcon={<AiOutlinePlus />} onClick={addTicket.onOpen} isDisabled={false}>Add</Button>
                             <TicketModal isOpen={addTicket.isOpen} onClose={addTicket.onClose} ticketTypes={ticketTypes} />
                         </Flex>
                         <VStack gap={'8'}>
-                            {tickets.map((data, index) => {
-                                if (data.type.type === 'free') return <Ticket key={index} type={data.type.type.toUpperCase()} stock={data.stock} startSale={data.startSale.split('T').join(' ')} endSale={data.endSale.split('T').join(' ')} />
-                                return <Ticket key={index} type={data.type.type.toUpperCase()} price={parseInt(data.price).toLocaleString('ID', { style: "currency", currency: "IDR", maximumFractionDigits: 0 })} stock={data.stock} startSale={data.startSale.split('T').join(' ')} endSale={data.endSale.split('T').join(' ')} />
+                            {tickets.length && inTicket.map((data, index) => {
+                                if (data.type.type === 'free') return <Ticket key={index} type={data.type.type.toUpperCase()} stock={data.stock} startSale={data.startSale.split('T').join(' ')} endSale={data.endSale.split('T').join(' ')} onDelete={() => dispatch(deleteTicket(index))} />
+                                return <Ticket key={index} type={data.type.type.toUpperCase()} price={parseInt(data.price).toLocaleString('ID', { style: "currency", currency: "IDR", maximumFractionDigits: 0 })} stock={data.stock} startSale={data.startSale.split('T').join(' ')} endSale={data.endSale.split('T').join(' ')} onDelete={() => dispatch(deleteTicket(index))} />
                             })}
                         </VStack>
                     </TabPanel>
