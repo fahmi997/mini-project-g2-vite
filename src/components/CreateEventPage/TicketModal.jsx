@@ -20,7 +20,7 @@ const TicketModal = (props) => {
         // console.log(ticketTypes.find((t) => t.type === 'free'));
         const type = ticketTypes.find((t) => t.type === 'free')
         if (isFree) setFreeTicket({ ...freeTicket, type })
-    }, [isFree, setIsFree]);
+    }, [isFree, setIsFree, tickets]);
 
     const handleOnSave = () => {
         if (isFree) {
