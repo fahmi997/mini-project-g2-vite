@@ -22,6 +22,7 @@ import LandingPage from "./pages/LandingPage"
 import ExplorePage from "./pages/ExplorePage.jsx"
 import DetailEvent from "./pages/DetailEventPage"
 import Navbar from "./components/Navbar/index.jsx"
+import MyPromo from "./pages/MyPromo/index.jsx";
 
 function App() {
   const dispatch = useDispatch();
@@ -37,7 +38,7 @@ function App() {
 
   return (
     <>
-      <Navbar />
+      {/* <Navbar /> */}
       <Routes>
         <Route path="/login" element={<LoginPage />} />
         <Route path="/signup" element={<SignupPage />} />
@@ -51,6 +52,7 @@ function App() {
         <Route path="/login" element={<LoginPage/>}/>
         <Route path="/sign-up" element={<SignupPage/>}/>
         <Route path="/checkoutTiketActive" element={<TransactionPageActive />} />
+        <Route path="/my-promo" element={<MyPromo />} />
       </Routes>
     </>
   );
