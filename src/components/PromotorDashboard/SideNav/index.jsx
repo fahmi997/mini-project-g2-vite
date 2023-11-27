@@ -27,7 +27,7 @@ const SideNav = () => {
             <Icon fontSize={"20px"} marginLeft={"20px"}><CgProfile/></Icon>
             <Text marginLeft={"10px"}>Informasi Dasar</Text>
         </Box>
-        <Box onClick={() => navigate("")} _hover={{color:"white", marginLeft:"10px", transition:"all 0.5s ease"}} display={"flex"} height={"40px"} width={"100%"} alignItems={"center"} justifyContent={"flex-start"}  cursor={"pointer"} color={"grey"}>
+        <Box onClick={() => navigate("/my-event")} _hover={{color:"white", marginLeft:"10px", transition:"all 0.5s ease"}} display={"flex"} height={"40px"} width={"100%"} alignItems={"center"} justifyContent={"flex-start"}  cursor={"pointer"} color={"grey"}>
             <Icon fontSize={"20px"} marginLeft={"20px"}><MdEvent /></Icon>
             <Text marginLeft={"10px"}>My Event</Text>
         </Box>

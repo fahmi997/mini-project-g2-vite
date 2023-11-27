@@ -88,7 +88,7 @@ const CreateEventPage = () => {
                 formData.append('address', eventData.location.address);
                 formData.append('cityId', eventData.location.city);
             }
-            formData.append('userId', 1);
+            formData.append('userId', 3);
             formData.append('categoryId', eventData.event.category);
             formData.append('name', eventData.event.eventName);
             formData.append('image', file);

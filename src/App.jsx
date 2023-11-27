@@ -23,6 +23,7 @@ import ExplorePage from "./pages/ExplorePage.jsx"
 import DetailEvent from "./pages/DetailEventPage"
 import Navbar from "./components/Navbar/index.jsx"
 import MyPromo from "./pages/MyPromo/index.jsx";
+import MyEvent from "./pages/MyEvent/index.jsx";
 
 function App() {
   const dispatch = useDispatch();
@@ -33,7 +34,7 @@ function App() {
 
   useEffect(() => {
     dispatch(checkDataAccount());
-    console.log(loginAcc);
+    // console.log(loginAcc);
   }, []);
 
   return (
@@ -53,6 +54,8 @@ function App() {
         <Route path="/sign-up" element={<SignupPage/>}/>
         <Route path="/checkoutTiketActive" element={<TransactionPageActive />} />
         <Route path="/my-promo" element={<MyPromo />} />
+        <Route path="/create-event" element={<CreateEventPage />} />
+        <Route path="/my-event" element={<MyEvent />} />
       </Routes>
     </>
   );
