@@ -11,6 +11,8 @@ import BottomBox from "../../components/BottomBox";
 import FooterMain from "../../components/FooterMain";
 import FooterBottom from "../../components/FooterBottom";
 import API_CALL from "../../helper";
+import Navbar from "../../components/Navbar";
+import NavbarLogIn from "../../components/NavbarLogIn";
 
 const LandingPage = () => {
   const [scrollX, setScrollX] = useState(0);
@@ -18,12 +20,12 @@ const LandingPage = () => {
   const [hideLeft, setHideLeft] = useState(false);
   const [hideRight, setHideRight] = useState(false);
 
-  const dataAccount = useSelector((state) => {
-    return state.accountSlice;
-  });
-
   const eventData = useSelector( (state) => {
     return state.eventSlice.eventData
+  });
+
+  const dataAccount = useSelector((state) => {
+    return state.accountSlice;
   });
 
   console.log(eventData);
@@ -89,6 +91,7 @@ const LandingPage = () => {
 
   return (
     <>
+    {dataAccount.role === ""? <Navbar/> : <NavbarLogIn/>}
       <Flex display={'flex'} flexDirection={'column'} height={'auto'} >
 
         <Carousel />
