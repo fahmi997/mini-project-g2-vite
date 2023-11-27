@@ -55,7 +55,7 @@ const DetailEvent = () => {
               <Image
                 m={"auto"}
                 // maxW={"100%"}
-                src={`${import.meta.env.VITE_API_URL}/${props.image}`}
+                src={`${import.meta.env.VITE_API_URL}/${eventData.image}`}
               />
             </Box>
 
