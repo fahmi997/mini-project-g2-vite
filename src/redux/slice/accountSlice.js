@@ -38,7 +38,7 @@ export const checkDataAccount = () =>{
         try {
             let token = localStorage.getItem("token")
             if(token){
-                const getAccount = await API_CALL.get(`/account/keeplogin`, {
+                const getAccount = await API_CALL.get(`/accounts/keeplogin`, {
                     headers: {
                         Authorization: `Bearer ${token}`
                     }

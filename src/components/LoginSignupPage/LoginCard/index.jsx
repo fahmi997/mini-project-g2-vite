@@ -38,7 +38,7 @@ const LoginCard = (props) => {
       if(inEmail === '' || inPassword === ''){
         alert("Mohon diisi")
       }else{
-        const response = await API_CALL.post(`/account/login`, {
+        const response = await API_CALL.post(`/accounts/login`, {
           email: inEmail,
           password: inPassword
           // role: inRole

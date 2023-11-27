@@ -39,7 +39,7 @@ const SignupCard = (props) => {
             }else if( inConfirmPassword != inPassword) {
                 alert('Confirm password salah')
             }else{
-                let response = await API_CALL.post(`/account/register`,
+                let response = await API_CALL.post(`/accounts/register`,
                 {
                     name: inNamaLengkap,
                     email: inEmail,

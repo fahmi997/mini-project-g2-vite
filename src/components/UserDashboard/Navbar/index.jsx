@@ -30,7 +30,7 @@ const NavbarDash = (props) => {
   }
 
   useEffect(() => {
-    if (window.location.pathname != ("/login" && "/signup" && "/" && `/event/${props.id}`) || !dataAccount || !checkLocal) {
+    if (window.location.pathname != ("/login" && "/signup" && "/" && `/event/${props.id}`) && !dataAccount || !checkLocal) {
       alert("Otorisasi gagal. Login lagi")
       navigate("/login")
     }
