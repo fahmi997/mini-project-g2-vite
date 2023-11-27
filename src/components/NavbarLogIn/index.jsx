@@ -76,6 +76,7 @@ const NavbarLogIn = () => {
                     _hover={{}}
                     _active={dataAccount.role === "eo" ? { bg: primary, color: 'black'} : {bg: "grey", color: "white"}}
                     cursor={dataAccount.role === "eo" ? "pointer" : "not-allowed"}
+                    onClick={() => navigate(dataAccount.role === "eo" ? '/create-event' : "")}
                 >
                     Create Event
                 </Button>
@@ -98,8 +99,8 @@ const NavbarLogIn = () => {
                     <Text fontWeight={"500"} width={"auto"}>Informasi Dasar</Text>
                     <Icon><MdOutlineKeyboardArrowRight size={"26px"}/></Icon>
                 </Box>
-                <Box onClick={() => navigate('/dashTiket')} cursor={"pointer"} borderRadius={"5px"} padding={"20px"} display={"flex"} alignItems={"center"} color={"grey"} justifyContent={"space-between"} width={"85%"} height={"30px"} marginTop={"10px"} fontWeight={"500"} _hover={{color:"rgb(67, 67, 71)", marginLeft:"8px", transition:"all 0.3s ease", backgroundColor:"rgb(238, 238, 238)"}}>
-                    <Text fontWeight={"500"} width={"auto"}>Tiket Saya</Text>
+                <Box onClick={() => navigate(dataAccount.role === "eo" ? '/my-event':'/dashTiket')} cursor={"pointer"} borderRadius={"5px"} padding={"20px"} display={"flex"} alignItems={"center"} color={"grey"} justifyContent={"space-between"} width={"85%"} height={"30px"} marginTop={"10px"} fontWeight={"500"} _hover={{color:"rgb(67, 67, 71)", marginLeft:"8px", transition:"all 0.3s ease", backgroundColor:"rgb(238, 238, 238)"}}>
+                    <Text fontWeight={"500"} width={"auto"}>{dataAccount.role === "eo" ? "Event Saya" : "Tiket Saya"}</Text>
                     <Icon><MdOutlineKeyboardArrowRight size={"26px"}/></Icon>
                 </Box>
                 <Box onClick={onLogout} cursor={"pointer"} display={"flex"} borderRadius={"5px"} padding={"20px"} alignItems={"center"} color={"rgb(252, 60, 60)"} justifyContent={"space-between"} width={"85%"} height={"30px"} marginBottom={"20px"} marginTop={"10px"} fontWeight={"500"} _hover={{color:"rgb(255, 0, 0)", marginLeft:"8px", transition:"all 0.3s ease", backgroundColor:"rgb(238, 238, 238)"}}>

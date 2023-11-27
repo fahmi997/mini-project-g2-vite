@@ -39,7 +39,7 @@ const ContentDashProfile = () =>{
 
   const getData = async () => {
     // console.log("tes");
-    const response = await API_CALL.get(`/account/keeplogin`, {
+    const response = await API_CALL.get(`/accounts/keeplogin`, {
       headers: {
         Authorization: `Bearer ${token}`
       }
@@ -77,7 +77,7 @@ const ContentDashProfile = () =>{
     console.log("INI INPHONE", inProfile);
   
     const token = localStorage.getItem("token")
-    const result = await API_CALL.patch('/account/update', formData, 
+    const result = await API_CALL.patch('/accounts/update', formData, 
     { 
       headers: {
         'Content-Type': 'multipart/form-data',
