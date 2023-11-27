@@ -21,8 +21,15 @@ const MyEvent = () => {
 
     const getEvents = async () => {
         try {
-            // const response = await API_CALL.get(`/event/all/${userId}`)
-            const response = await API_CALL.get('/event/all/3')
+            const token = localStorage.getItem("token")
+            const user = await API_CALL.get(`/accounts/keeplogin`, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            })
+            // console.log(user.data.result.id);
+            const response = await API_CALL.get(`/event/all/${user.data.result.id}`) //!
+            // const response = await API_CALL.get('/event/all/3')
             setRes(response.data);
         } catch (error) {
             console.log(error);
@@ -80,9 +87,6 @@ const MyEvent = () => {
     return <>
         {/* <Button onClick={tes}>TES</Button> */}
         <Wrap p={'25px'}justify={'normal'} spacing={'25px'} >
-            {/* <WrapItem>
-                <EventCard name={'tes'}/>
-            </WrapItem> */}
             {printEventCard()}
         </Wrap>
     </>

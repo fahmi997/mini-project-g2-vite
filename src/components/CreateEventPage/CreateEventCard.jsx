@@ -44,14 +44,20 @@ const CreateEvent = (props) => {
     },[banner])
 
     const getLoginUser = async () => {
-        const token = localStorage.getItem("token")
-        const response = await API_CALL.get(`/accounts/keeplogin`, {
-            headers: {
-                Authorization: `Bearer ${token}`
-            }
-        })
-        
-        setLoginUser({name: response.data.result.name, avatar: response.data.result.avatar});
+        try {
+            const token = localStorage.getItem("token")
+            const response = await API_CALL.get(`/accounts/keeplogin`, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            })
+    
+            setValue({...value, userId: response.data.result.id})
+            setLoginUser({name: response.data.result.name, avatar: response.data.result.avatar});
+            
+        } catch (error) {
+            console.log(error);
+        }
     }
 
     const handleLocationDetails = (data) => {
@@ -69,7 +75,7 @@ const CreateEvent = (props) => {
             return <Text fontSize={'16px'} color={'#888296'}>Add location</Text>
         }
     };
-console.log("Login Uset", loginUser);
+console.log("Login User", loginUser);
     return <>
 
         <Flex
@@ -84,7 +90,7 @@ console.log("Login Uset", loginUser);
             borderRadius={'10px'}
             // p={'20px 15px'}
             w={{ base: '80%', md: '70%', xl: '50%' }}
-            h={'65vh'}
+            h={'70vh'}
         >
             <Flex flex={'1'} minH={'300px'} bgSize={'cover'} bgImage={bannerPreview ? bannerPreview : bannerImg} borderTopRadius={'10px'} justify={'center'} align={'center'} cursor={'pointer'} onClick={() => fileInputRef.current.click()}>
                 <Input display='none' type="file" ref={fileInputRef}

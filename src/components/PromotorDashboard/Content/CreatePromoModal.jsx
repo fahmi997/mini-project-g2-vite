@@ -14,7 +14,14 @@ const CreatePromoModal = (props) => {
 
 
     const getEvent = async () => {
-        const result = await API_CALL.post('/promo/event', { userId: 3 })
+        const token = localStorage.getItem("token")
+        const user = await API_CALL.get(`/accounts/keeplogin`, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        })
+
+        const result = await API_CALL.get(`/promo/event/${user.data.result.id}`)
         const dataEvent = result.data.map((val) => {
             return {
                 eventId: val.eventId,

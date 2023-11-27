@@ -81,6 +81,7 @@ const CreateEventPage = () => {
         }
     };
     // console.log("File from create event:", file);
+    console.log("File from create event:", eventData.event.userId);
     const createEvent = async () => {
         try {
             const formData = new FormData();
@@ -91,7 +92,7 @@ const CreateEventPage = () => {
                 formData.append('address', eventData.location.address);
                 formData.append('cityId', eventData.location.city);
             }
-            formData.append('userId', 3);
+            formData.append('userId', eventData.event.userId);
             formData.append('categoryId', eventData.event.category);
             formData.append('name', eventData.event.eventName);
             formData.append('image', file);
@@ -137,8 +138,8 @@ const CreateEventPage = () => {
     };
 
     const onCreate = async () => {
-        console.log(eventData);
-        console.log(description);
+        // console.log(eventData);
+        // console.log(description);
         if (!eventData.ticket.length) {
             return toast({
                 title: 'You should add at least one ticket!',
