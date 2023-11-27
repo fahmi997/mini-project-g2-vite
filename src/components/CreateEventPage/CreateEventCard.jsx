@@ -8,6 +8,7 @@ import { IoLocationSharp } from "react-icons/io5";
 import LocationModal from "./LocationModal";
 import { useDispatch, useSelector } from "react-redux";
 import { setEvent } from "../../redux/action/createEvent";
+import API_CALL from "../../helper";
 
 const CreateEvent = (props) => {
     const addLocation = useDisclosure();
@@ -17,11 +18,16 @@ const CreateEvent = (props) => {
     const [bannerPreview, setBannerPreview] = useState();
     const fileInputRef = useRef(null);
     const dispatch = useDispatch();
+    const [loginUser, setLoginUser] = useState(null);
 
     const categories = props.categories;
     const provinces = props.provinces;
     const cities = props.cities;
     const locationDetails = useSelector((state) => state.createEvent.location);
+
+    useEffect(() => {
+        getLoginUser();
+    },[setLoginUser])
 
     useEffect(() => {
         dispatch(setEvent(value));
@@ -37,18 +43,16 @@ const CreateEvent = (props) => {
         }
     },[banner])
 
-    // useEffect(() => {
-    //     fileInputRef.current.addEventListener('change', (e) => {
-    //         const file = e.target.files[0];
-    //         if (file) {
-    //             const reader = new FileReader();
-    //             reader.readAsDataURL(file);
-    //             reader.onload = (e) => {
-    //                 setValue({...value, banner: e.target.result });
-    //             };
-    //         }
-    //     });
-    // })
+    const getLoginUser = async () => {
+        const token = localStorage.getItem("token")
+        const response = await API_CALL.get(`/accounts/keeplogin`, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        })
+        
+        setLoginUser({name: response.data.result.name, avatar: response.data.result.avatar});
+    }
 
     const handleLocationDetails = (data) => {
         if (data.method === 'online') {
@@ -65,7 +69,7 @@ const CreateEvent = (props) => {
             return <Text fontSize={'16px'} color={'#888296'}>Add location</Text>
         }
     };
-// console.log(bannerPreview);
+console.log("Login Uset", loginUser);
     return <>
 
         <Flex
@@ -82,7 +86,7 @@ const CreateEvent = (props) => {
             w={{ base: '80%', md: '70%', xl: '50%' }}
             h={'65vh'}
         >
-            <Flex flex={'1'} bgSize={'cover'} bgImage={bannerPreview ? bannerPreview : bannerImg} borderTopRadius={'10px'} justify={'center'} align={'center'} cursor={'pointer'} onClick={() => fileInputRef.current.click()}>
+            <Flex flex={'1'} minH={'300px'} bgSize={'cover'} bgImage={bannerPreview ? bannerPreview : bannerImg} borderTopRadius={'10px'} justify={'center'} align={'center'} cursor={'pointer'} onClick={() => fileInputRef.current.click()}>
                 <Input display='none' type="file" ref={fileInputRef}
                     onChange={(e) => {
                         const fileImage = e.target.files[0];
@@ -118,8 +122,8 @@ const CreateEvent = (props) => {
                     <Flex flex={'1'} flexDirection={'column'}>
                         <Text as={'b'}>Event Organizer</Text>
                         <Flex justify={'start'} align={'center'} gap={'5'} mt={'10px'} p={'0 10px'} >
-                            <Avatar name='Segun Adebayo' size={'lg'} src='https://bit.ly/sage-adebayo' />
-                            <Text>Segun Adebayo</Text>
+                            <Avatar size={'lg'} src={loginUser ? `${import.meta.env.VITE_API_URL}/assets/profile/${loginUser.avatar}` : `${import.meta.env.VITE_API_URL}/assets/profile/avatar.png`} />
+                            <Text>{loginUser && loginUser.name}</Text>
                         </Flex>
                     </Flex>
                     <Flex flex={'1'} flexDirection={'column'}>

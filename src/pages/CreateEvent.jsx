@@ -9,9 +9,12 @@ import { useEffect, useState } from "react";
 import API_CALL from "../helper";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteTicket } from "../redux/action/createEvent";
+import { useNavigate } from "react-router";
+
 // import { deleteTicket } from "../redux/action/createEvent";
 
 const CreateEventPage = () => {
+    const navigate = useNavigate();
     const dispatch = useDispatch();
     const addTicket = useDisclosure();
     const toast = useToast();
@@ -77,13 +80,13 @@ const CreateEventPage = () => {
             console.log(error);
         }
     };
-// console.log("File from create event:", file);
+    // console.log("File from create event:", file);
     const createEvent = async () => {
         try {
             const formData = new FormData();
-            if(eventData.location.method === 'online'){
+            if (eventData.location.method === 'online') {
                 formData.append('url', eventData.location.url);
-            }else {
+            } else {
                 formData.append('venue', eventData.location.venue);
                 formData.append('address', eventData.location.address);
                 formData.append('cityId', eventData.location.city);
@@ -100,12 +103,12 @@ const CreateEventPage = () => {
 
             const event = await API_CALL.post('/event/create', formData, {
                 headers: {
-                    'Content-Type':'multipart/form-data'
+                    'Content-Type': 'multipart/form-data'
                 }
             });
 
-            const createTicket = tickets.map( (t) => {
-                if(t.type.type === 'free'){
+            const createTicket = tickets.map((t) => {
+                if (t.type.type === 'free') {
                     return {
                         eventId: event.data.id,
                         ticketTypeId: t.type.id,
@@ -113,7 +116,7 @@ const CreateEventPage = () => {
                         endSale: t.endSale,
                         stock: t.stock,
                         price: 0
-                    }    
+                    }
                 }
 
                 return {
@@ -144,8 +147,9 @@ const CreateEventPage = () => {
             })
         }
         createEvent();
+        navigate('/my-event');
     };
-// console.log(tickets);
+    // console.log(tickets);
     return <>
         <Flex shadow={'xl'} w={'100%'} h={'125px'} p={'25px 0'} justify={'center'} align={'center'}>
             <Image src="./logoblack1.svg" objectFit={"contain"} alt="logo" w={"100%"} h={"100%"} />
@@ -211,6 +215,7 @@ const CreateEventPage = () => {
                     borderColor={'blackAlpha.200'}
                     bg={'whiteAlpha.500'}
                     _hover={{}}
+                    onClick={() => navigate('/my-event')}
                 >Cancel</Button>
                 <Button
                     bg={primary}
