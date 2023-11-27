@@ -35,7 +35,7 @@ const Navbar = () => {
             alignItems={'center'}
             justifyContent={'space-between'}
         >
-            <Image src="./logowhite.svg" alt="logo" h={'50px'} mb={'3'} />
+            <Image src="/logowhite.svg" alt="logo" h={'50px'} mb={'3'} />
 
             <InputGroup justifyContent={'center'} mt={'3'} alignItems={'center'}>
                 <Input
