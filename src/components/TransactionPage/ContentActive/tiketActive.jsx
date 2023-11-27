@@ -5,7 +5,7 @@ import "./index.css"
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { update_inventories } from "../../../redux/slice/checkoutSlice";
-import { update_cart } from "../../../redux/slice/cartSlice";
+import { update_cart } from "../../../redux/slice/cartSlice.js";
 
 const TiketActive = (props) => {
     const dispatch = useDispatch()
