@@ -16,39 +16,39 @@ const NavbarDash = (props) => {
   const [defaultProfile, setDefaultProfile] = React.useState();
   const [inMenu, setInMenu] = React.useState(false);
   const checkLocal = localStorage.getItem("token")
-console.log("INI LOG NAVBAR DASH", dataAccount.email);
+  console.log("INI LOG NAVBAR DASH", dataAccount.email);
 
-let waktu
-const onHover = () => {
-  setInMenu(true)
-  clearTimeout(waktu)
-}
-const offHover = () => {
-  waktu = setTimeout(() => {
-    setInMenu(false);
-  }, 1200);
-}
-
-useEffect(() => {
-  if(window.location.pathname != ("/login" && "/signup" && "/" && `/event/${props.id}`) ||  !dataAccount || !checkLocal ){
-    alert("Otorisasi gagal. Login lagi")
-    navigate("/login")
+  let waktu
+  const onHover = () => {
+    setInMenu(true)
+    clearTimeout(waktu)
   }
-}, [checkLocal, location])
+  const offHover = () => {
+    waktu = setTimeout(() => {
+      setInMenu(false);
+    }, 1200);
+  }
 
-const onLogout = async () => {
-  await navigate("/login")
-  localStorage.removeItem('token')
-  alert("Succes logout")
-};
+  useEffect(() => {
+    if (window.location.pathname != ("/login" && "/signup" && "/" && `/event/${props.id}`) || !dataAccount || !checkLocal) {
+      alert("Otorisasi gagal. Login lagi")
+      navigate("/login")
+    }
+  }, [checkLocal, location])
 
-useEffect(() => {
-  setDefaultProfile(`${import.meta.env.VITE_API_URL}/assets/profile/${dataAccount.avatar}`)
-}, [dataAccount])
+  const onLogout = async () => {
+    await navigate("/login")
+    localStorage.removeItem('token')
+    alert("Succes logout")
+  };
+
+  useEffect(() => {
+    setDefaultProfile(`${import.meta.env.VITE_API_URL}/assets/profile/${dataAccount.avatar}`)
+  }, [dataAccount])
 
 
   return (
-    <div style={{width:"79.8%", flexDirection:"column", position:"absolute", right:"0px"}}>
+    <div style={{ width: "79.8%", flexDirection: "column", position: "absolute", right: "0px" }}>
       <Box
         width={"100%"}
         height={"80px"}
@@ -67,7 +67,7 @@ useEffect(() => {
           fontSize={"23px"}
           justifyContent={"space-between"}
           alignItems={"center"}
-          // backgroundColor={"red"}
+        // backgroundColor={"red"}
         >
           <Box fontWeight={"500"}>{props.halaman}</Box>
           <Box
@@ -119,25 +119,25 @@ useEffect(() => {
                 borderRadius={"100px"}
                 justifyContent={"space-around"}
                 width={"90%"}
-              > 
-                <Box display={inMenu? "flex" : "none"} onMouseEnter={onHover} onMouseLeave={offHover} flexDirection={"column"} alignItems={"center"} top={"65px"} cursor={"default"} borderRadius={"10px"} marginRight={"100px"} height={"auto"} zIndex={"10"} width={"270px"} backgroundColor={"white"} boxShadow={"rgba(0, 0, 0, 0.24) 0px 3px 8px"} position={"absolute"}>
+              >
+                <Box display={inMenu ? "flex" : "none"} onMouseEnter={onHover} onMouseLeave={offHover} flexDirection={"column"} alignItems={"center"} top={"65px"} cursor={"default"} borderRadius={"10px"} marginRight={"100px"} height={"auto"} zIndex={"10"} width={"270px"} backgroundColor={"white"} boxShadow={"rgba(0, 0, 0, 0.24) 0px 3px 8px"} position={"absolute"}>
                   <Text display={"flex"} justifyContent={"center"} fontSize={"16px"} fontWeight={"700"} height={"auto"} width={"100%"} marginTop={"10px"}>Menu</Text>
                   <Box display={"flex"} justifyContent={"center"} width={"100%"} marginTop={"10px"}>
-                    <hr style={{width:"85%"}}/>
+                    <hr style={{ width: "85%" }} />
                   </Box>
-                  <Box onClick={() => navigate('/')} cursor={"pointer"} borderRadius={"5px"} padding={"20px"} display={"flex"} alignItems={"center"} color={"grey"} justifyContent={"space-between"} width={"85%"} height={"30px"} marginTop={"10px"} fontWeight={"500"} _hover={{color:"rgb(67, 67, 71)", marginLeft:"8px", transition:"all 0.3s ease", backgroundColor:"rgb(238, 238, 238)"}}>
+                  <Box onClick={() => navigate('/')} cursor={"pointer"} borderRadius={"5px"} padding={"20px"} display={"flex"} alignItems={"center"} color={"grey"} justifyContent={"space-between"} width={"85%"} height={"30px"} marginTop={"10px"} fontWeight={"500"} _hover={{ color: "rgb(67, 67, 71)", marginLeft: "8px", transition: "all 0.3s ease", backgroundColor: "rgb(238, 238, 238)" }}>
                     <Text width={"auto"}>Jelajah Event</Text>
-                    <Icon><MdOutlineKeyboardArrowRight size={"26px"}/></Icon>
+                    <Icon><MdOutlineKeyboardArrowRight size={"26px"} /></Icon>
                   </Box>
-                  <Box onClick={() => navigate('/dashProfile')} cursor={"pointer"} borderRadius={"5px"} padding={"20px"} display={"flex"} alignItems={"center"} color={"grey"} justifyContent={"space-between"} width={"85%"} height={"30px"} marginTop={"10px"} fontWeight={"500"} _hover={{color:"rgb(67, 67, 71)", marginLeft:"8px", transition:"all 0.3s ease", backgroundColor:"rgb(238, 238, 238)"}}>
+                  <Box onClick={() => navigate('/dashProfile')} cursor={"pointer"} borderRadius={"5px"} padding={"20px"} display={"flex"} alignItems={"center"} color={"grey"} justifyContent={"space-between"} width={"85%"} height={"30px"} marginTop={"10px"} fontWeight={"500"} _hover={{ color: "rgb(67, 67, 71)", marginLeft: "8px", transition: "all 0.3s ease", backgroundColor: "rgb(238, 238, 238)" }}>
                     <Text fontWeight={"500"} width={"auto"}>Informasi Dasar</Text>
-                    <Icon><MdOutlineKeyboardArrowRight size={"26px"}/></Icon>
+                    <Icon><MdOutlineKeyboardArrowRight size={"26px"} /></Icon>
                   </Box>
-                  <Box onClick={() => navigate('/dashTiket')} cursor={"pointer"} borderRadius={"5px"} padding={"20px"} display={"flex"} alignItems={"center"} color={"grey"} justifyContent={"space-between"} width={"85%"} height={"30px"} marginTop={"10px"} fontWeight={"500"} _hover={{color:"rgb(67, 67, 71)", marginLeft:"8px", transition:"all 0.3s ease", backgroundColor:"rgb(238, 238, 238)"}}>
+                  <Box onClick={() => navigate('/dashTiket')} cursor={"pointer"} borderRadius={"5px"} padding={"20px"} display={"flex"} alignItems={"center"} color={"grey"} justifyContent={"space-between"} width={"85%"} height={"30px"} marginTop={"10px"} fontWeight={"500"} _hover={{ color: "rgb(67, 67, 71)", marginLeft: "8px", transition: "all 0.3s ease", backgroundColor: "rgb(238, 238, 238)" }}>
                     <Text fontWeight={"500"} width={"auto"}>Tiket Saya</Text>
-                    <Icon><MdOutlineKeyboardArrowRight size={"26px"}/></Icon>
+                    <Icon><MdOutlineKeyboardArrowRight size={"26px"} /></Icon>
                   </Box>
-                  <Box onClick={onLogout} cursor={"pointer"} display={"flex"} borderRadius={"5px"} padding={"20px"} alignItems={"center"} color={"rgb(252, 60, 60)"} justifyContent={"space-between"} width={"85%"} height={"30px"} marginBottom={"20px"} marginTop={"10px"} fontWeight={"500"} _hover={{color:"rgb(255, 0, 0)", marginLeft:"8px", transition:"all 0.3s ease", backgroundColor:"rgb(238, 238, 238)"}}>
+                  <Box onClick={onLogout} cursor={"pointer"} display={"flex"} borderRadius={"5px"} padding={"20px"} alignItems={"center"} color={"rgb(252, 60, 60)"} justifyContent={"space-between"} width={"85%"} height={"30px"} marginBottom={"20px"} marginTop={"10px"} fontWeight={"500"} _hover={{ color: "rgb(255, 0, 0)", marginLeft: "8px", transition: "all 0.3s ease", backgroundColor: "rgb(238, 238, 238)" }}>
                     <Text fontWeight={"500"} width={"auto"}>Keluar</Text>
                   </Box>
                 </Box>
@@ -155,9 +155,9 @@ useEffect(() => {
                   alignItems={"center"}
                   width={"76%"}
                   marginRight={"0px"}
-                  // backgroundColor={"red"}
+                // backgroundColor={"red"}
                 >
-                  <Box fontWeight={"700"} color={"rgb(132, 129, 129)"}>{dataAccount.name && dataAccount.name.length > 14? `${dataAccount.name.slice(0,14)}...` : dataAccount.name}</Box>
+                  <Box fontWeight={"700"} color={"rgb(132, 129, 129)"}>{dataAccount.name && dataAccount.name.length > 14 ? `${dataAccount.name.slice(0, 14)}...` : dataAccount.name}</Box>
                   <Box
                     display={"flex"}
                     width={"15px"}
@@ -175,7 +175,7 @@ useEffect(() => {
       </Box>
       {props.children}
     </div>
-    
+
   );
 };
 

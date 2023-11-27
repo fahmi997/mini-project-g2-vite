@@ -22,7 +22,7 @@ const Navbar = () => {
     };
 
     const navigateSignUp = () => {
-        navigate('/sign-up');
+        navigate('/signup');
     };
 
     return <>
@@ -80,7 +80,7 @@ const Navbar = () => {
                     </Button>
                 </Link>
 
-                <Link to="/sign-up" onClick={navigateSignUp} >
+                <Link to="/signup" onClick={navigateSignUp} >
                     <Button
                         bg={primary}
                         color={'black'}
@@ -106,7 +106,7 @@ const Navbar = () => {
                                 </MenuItem>
                             </Link>
 
-                            <Link to="/sign-up" onClick={navigateSignUp} >
+                            <Link to="/signup" onClick={navigateSignUp} >
                             <MenuItem  textColor={'black'} >
                                 Sign Up
                             </MenuItem>
