@@ -18,6 +18,10 @@ const LandingPage = () => {
   const [hideLeft, setHideLeft] = useState(false);
   const [hideRight, setHideRight] = useState(false);
 
+  const dataAccount = useSelector((state) => {
+    return state.accountSlice;
+  });
+
   const eventData = useSelector( (state) => {
     return state.eventSlice.eventData
   });
