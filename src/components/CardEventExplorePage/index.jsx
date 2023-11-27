@@ -1,6 +1,5 @@
 import { Card, Image, Box, Text } from "@chakra-ui/react";
 import { useNavigate, useLocation } from "react-router-dom";
-import axios from "axios";
 import React, { useState, useEffect } from 'react';
 import API_CALL from "../../helper";
 
