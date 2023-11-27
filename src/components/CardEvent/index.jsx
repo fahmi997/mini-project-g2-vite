@@ -72,7 +72,7 @@ const CardEvent = (props) => {
         onClick={handleCardClick}
         cursor={'pointer'}
       >
-        <Image height={'115px'} width={'230px'} objectFit={'cover'} src={props.image} />
+        <Image height={'115px'} width={'230px'} objectFit={'cover'} src={`${import.meta.env.VITE_API_URL}/${props.image}`} />
 
         <Box ml={"3"}>
           <Text textOverflow={'ellipsis'} whiteSpace={'nowrap'} overflow='hidden' mt={"5"} mr={'4'}>{props.name}</Text>
