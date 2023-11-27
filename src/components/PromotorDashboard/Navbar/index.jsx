@@ -1,15 +1,54 @@
-import { Box, Image, Text } from "@chakra-ui/react";
+import { Box, Button, Icon, Image, Text } from "@chakra-ui/react";
 import { LuCalendarClock } from "react-icons/lu";
 import { GoChevronDown } from "react-icons/go";
+import { MdOutlineKeyboardArrowRight } from "react-icons/md";
 import { BsFillPersonFill } from "react-icons/bs";
-import React from "react";
+import React, { useEffect } from "react";
+import { useLocation, useNavigate } from "react-router";
+import { useSelector } from "react-redux";
 
 const NavbarDash = (props) => {
-  const [defaultProfile, setDefaultProfile] = React.useState("avatar.svg")
+  const navigate = useNavigate()
+  const location = useLocation()
+  const dataAccount = useSelector((state) => {
+    return state.accountSlice;
+  });
+  const [defaultProfile, setDefaultProfile] = React.useState();
+  const [inMenu, setInMenu] = React.useState(false);
+  const checkLocal = localStorage.getItem("token")
+  console.log("INI LOG NAVBAR DASH", dataAccount.email);
+
+  let waktu
+  const onHover = () => {
+    setInMenu(true)
+    clearTimeout(waktu)
+  }
+  const offHover = () => {
+    waktu = setTimeout(() => {
+      setInMenu(false);
+    }, 1200);
+  }
+
+  useEffect(() => {
+    if (window.location.pathname != ("/login" && "/signup" && "/" && `/event/${props.id}`) && !dataAccount || !checkLocal) {
+      alert("Otorisasi gagal. Login lagi")
+      navigate("/login")
+    }
+  }, [checkLocal, location])
+
+  const onLogout = async () => {
+    await navigate("/login")
+    localStorage.removeItem('token')
+    alert("Succes logout")
+  };
+
+  useEffect(() => {
+    setDefaultProfile(`${import.meta.env.VITE_API_URL}/assets/profile/${dataAccount.avatar}`)
+  }, [dataAccount])
 
 
   return (
-    <div style={{width:"79.8%", flexDirection:"column", position:"absolute", right:"0px"}}>
+    <div style={{ width: "79.8%", flexDirection: "column", position: "absolute", right: "0px" }}>
       <Box
         width={"100%"}
         height={"80px"}
@@ -28,7 +67,7 @@ const NavbarDash = (props) => {
           fontSize={"23px"}
           justifyContent={"space-between"}
           alignItems={"center"}
-          // backgroundColor={"red"}
+        // backgroundColor={"red"}
         >
           <Box fontWeight={"500"}>{props.halaman}</Box>
           <Box
@@ -38,24 +77,7 @@ const NavbarDash = (props) => {
             marginRight={"18px"}
             justifyContent={"space-between"}
           >
-            <Box
-              cursor={"not-allowed"}
-              display={"flex"}
-              backgroundColor={"rgb(173, 182, 201)"}
-              color={"white"}
-              width={"145px"}
-              borderRadius={"8px"}
-              height={"40px"}
-              fontWeight={"650"}
-              fontSize={"16px"}
-              alignItems={"center"}
-              justifyContent={"space-evenly"}
-            >
-              <Box paddingLeft={"5px"}>
-                <LuCalendarClock />
-              </Box>
-              <Box paddingRight={"5px"}>Buat Event</Box>
-            </Box>
+            <Button leftIcon={<LuCalendarClock/>} colorScheme={"yellow"} onClick={() => navigate('/create-event')}>Create Event</Button>
             <Box
               display={"flex"}
               alignItems={"center"}
@@ -70,6 +92,9 @@ const NavbarDash = (props) => {
                 display={"flex"}
                 cursor={"pointer"}
                 backgroundColor={"rgb(245, 247, 250)"}
+                onMouseEnter={onHover}
+                onMouseLeave={offHover}
+                onClick={() => setInMenu(!inMenu)}
                 color={"black"}
                 fontSize={"15px"}
                 alignItems={"center"}
@@ -78,12 +103,27 @@ const NavbarDash = (props) => {
                 justifyContent={"space-around"}
                 width={"90%"}
               >
-                {/* <Box top={"65px"} cursor={"default"} borderRadius={"10px"} marginRight={"100px"} height={"150px"} zIndex={"10"} width={"270px"} backgroundColor={"green"} position={"absolute"}>
+                <Box display={inMenu ? "flex" : "none"} onMouseEnter={onHover} onMouseLeave={offHover} flexDirection={"column"} alignItems={"center"} top={"65px"} cursor={"default"} borderRadius={"10px"} marginRight={"100px"} height={"auto"} zIndex={"10"} width={"270px"} backgroundColor={"white"} boxShadow={"rgba(0, 0, 0, 0.24) 0px 3px 8px"} position={"absolute"}>
                   <Text display={"flex"} justifyContent={"center"} fontSize={"16px"} fontWeight={"700"} height={"auto"} width={"100%"} marginTop={"10px"}>Menu</Text>
                   <Box display={"flex"} justifyContent={"center"} width={"100%"} marginTop={"10px"}>
-                    <hr style={{width:"90%"}}/>
+                    <hr style={{ width: "85%" }} />
                   </Box>
-                </Box> */}
+                  <Box onClick={() => navigate('/')} cursor={"pointer"} borderRadius={"5px"} padding={"20px"} display={"flex"} alignItems={"center"} color={"grey"} justifyContent={"space-between"} width={"85%"} height={"30px"} marginTop={"10px"} fontWeight={"500"} _hover={{ color: "rgb(67, 67, 71)", marginLeft: "8px", transition: "all 0.3s ease", backgroundColor: "rgb(238, 238, 238)" }}>
+                    <Text width={"auto"}>Jelajah Event</Text>
+                    <Icon><MdOutlineKeyboardArrowRight size={"26px"} /></Icon>
+                  </Box>
+                  <Box onClick={() => navigate('/dashProfile')} cursor={"pointer"} borderRadius={"5px"} padding={"20px"} display={"flex"} alignItems={"center"} color={"grey"} justifyContent={"space-between"} width={"85%"} height={"30px"} marginTop={"10px"} fontWeight={"500"} _hover={{ color: "rgb(67, 67, 71)", marginLeft: "8px", transition: "all 0.3s ease", backgroundColor: "rgb(238, 238, 238)" }}>
+                    <Text fontWeight={"500"} width={"auto"}>Informasi Dasar</Text>
+                    <Icon><MdOutlineKeyboardArrowRight size={"26px"} /></Icon>
+                  </Box>
+                  <Box onClick={() => navigate('/my-event')} cursor={"pointer"} borderRadius={"5px"} padding={"20px"} display={"flex"} alignItems={"center"} color={"grey"} justifyContent={"space-between"} width={"85%"} height={"30px"} marginTop={"10px"} fontWeight={"500"} _hover={{ color: "rgb(67, 67, 71)", marginLeft: "8px", transition: "all 0.3s ease", backgroundColor: "rgb(238, 238, 238)" }}>
+                    <Text fontWeight={"500"} width={"auto"}>My Event</Text>
+                    <Icon><MdOutlineKeyboardArrowRight size={"26px"} /></Icon>
+                  </Box>
+                  <Box onClick={onLogout} cursor={"pointer"} display={"flex"} borderRadius={"5px"} padding={"20px"} alignItems={"center"} color={"rgb(252, 60, 60)"} justifyContent={"space-between"} width={"85%"} height={"30px"} marginBottom={"20px"} marginTop={"10px"} fontWeight={"500"} _hover={{ color: "rgb(255, 0, 0)", marginLeft: "8px", transition: "all 0.3s ease", backgroundColor: "rgb(238, 238, 238)" }}>
+                    <Text fontWeight={"500"} width={"auto"}>Keluar</Text>
+                  </Box>
+                </Box>
                 <Box
                   display={"flex"}
                   backgroundSize={"cover"}
@@ -98,9 +138,9 @@ const NavbarDash = (props) => {
                   alignItems={"center"}
                   width={"76%"}
                   marginRight={"0px"}
-                  // backgroundColor={"red"}
+                // backgroundColor={"red"}
                 >
-                  <Box noOfLines={'1'}>Fahmi Ardiansyah</Box>
+                  <Box fontWeight={"700"} color={"rgb(132, 129, 129)"}>{dataAccount.name && dataAccount.name.length > 14 ? `${dataAccount.name.slice(0, 14)}...` : dataAccount.name}</Box>
                   <Box
                     display={"flex"}
                     width={"15px"}
@@ -118,7 +158,7 @@ const NavbarDash = (props) => {
       </Box>
       {props.children}
     </div>
-    
+
   );
 };
 
