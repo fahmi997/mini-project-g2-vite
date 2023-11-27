@@ -3,17 +3,48 @@ import {AiFillClockCircle, AiOutlinePlus, AiOutlineMinus} from "react-icons/ai"
 import {BsDot} from "react-icons/bs"
 import "./index.css"
 import React from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { update_inventories } from "../../../redux/slice/checkoutSlice";
+import { update_cart } from "../../../redux/slice/cartSlice";
 
 const TiketActive = (props) => {
+    const dispatch = useDispatch()
     const [tambah, setTambah] = React.useState(0)
+    const [data, setData] = React.useState([])
+    const checkout = useSelector((state) => {
+      return state.checkoutSlice
+    })
+    const cart = useSelector((state) => {
+      return state.cartSlice
+    })
+    console.log("INI CHECKOUT BRE", cart);
 
     const plus = () =>{
-        if(tambah === 5){
-            setTambah(tambah + 0)
-            alert("BANG UDAH BANG")
-        }else{
-            setTambah(tambah + 1)
-        }
+      if(tambah === 5){
+        setTambah(tambah + 0)
+        alert("BANG UDAH BANG")
+      }else{
+        setTambah(tambah + 1)
+      }
+
+      console.log(props.id);
+      const temp = {...checkout.inventories[props.id - 1], qty: 1};
+
+      const index = cart.cart.findIndex(hasil => {
+        console.log("INI HASIL", cart.cart);
+        return hasil.id === props.id
+      })
+      console.log("INI INDEX", index);
+      // console.log(cart.cart[index].qty += 1);
+      console.log([...data, temp]);
+      // console.log([temp][props.id - 1]);
+      
+      if(index >= 0){
+        dispatch(update_cart([cart.cart[index].qty +=1]))
+        // dispatch(update_cart([...cart.cart]))
+      }else{
+        dispatch(update_cart([...cart.cart, temp]))
+      }
     }
 
     const minus = () =>{
