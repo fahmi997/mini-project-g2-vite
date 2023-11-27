@@ -6,6 +6,7 @@ import BottomBox from '../../components/BottomBox';
 import FooterBottom from '../../components/FooterBottom';
 import FooterMain from '../../components/FooterMain';
 import API_CALL from '../../helper';
+import Navbar from '../../components/Navbar';
 
 const itemsPerPageOptions = [4, 8, 12];
 
@@ -207,6 +208,7 @@ const ExplorePage = () => {
 
   return (
     <div>
+      <Navbar />
       <Flex direction="column" ml="auto" mr="auto" width="100%" >
         <Text fontWeight='bold' mt='16' ml='5%' mr='5%' w='90%' fontSize='25px' textAlign={'center'}>Explore✨</Text>
 
