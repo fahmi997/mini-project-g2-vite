@@ -21,7 +21,7 @@ function App() {
       <Routes>
         <Route path="/" element={<LandingPage />} />
         <Route path="/explore" element={<ExplorePage />} />
-        <Route path="/events/:id" element={<DetailEvent />} />
+        <Route path="/event/:id" element={<DetailEvent />} />
         <Route path="/dashTiket" element={<DashboardTiket />} />
         <Route path="/dashProfile" element={<DashboardProfile />} />
         <Route path="/checkoutTiket" element={<TransactionPageEnded />} />

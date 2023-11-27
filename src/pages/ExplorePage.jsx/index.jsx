@@ -2,12 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { useDisclosure, Select, Text, Flex, Button, Drawer, DrawerOverlay, DrawerContent, DrawerCloseButton, DrawerHeader, DrawerBody, DrawerFooter } from "@chakra-ui/react";
 import CardEventExplorePage from '../../components/CardEventExplorePage';
 import { primary } from "../../assets/color";
-import axios from 'axios';
-import { API_URL } from '../../helper/helper';
 import BottomBox from '../../components/BottomBox';
 import FooterBottom from '../../components/FooterBottom';
 import FooterMain from '../../components/FooterMain';
-import Pagination from '../../components/Pagination';
+import API_CALL from '../../helper';
 
 const itemsPerPageOptions = [4, 8, 12];
 
@@ -27,6 +25,8 @@ const ExplorePage = () => {
   const [selectedMethod, setSelectedMethod] = useState('');
   const [selectedType, setSelectedType] = useState('');
 
+  const [filteredEventData, setFilteredEventData] = useState([]);
+
   const [hideLeft, setHideLeft] = useState(false);
   const [hideRight, setHideRight] = useState(false);
 
@@ -35,8 +35,8 @@ const ExplorePage = () => {
 
 
   useEffect(() => {
-    axios
-      .get(API_URL + `/event`)
+    API_CALL
+      .get(`/event`)
       .then((response) => {
         setEventData(response.data);
       })
@@ -44,8 +44,8 @@ const ExplorePage = () => {
         console.log(error);
       });
 
-    axios
-      .get(API_URL + `/event/categories`)
+    API_CALL
+      .get(`/event/categories`)
       .then((response) => {
         setCategories(response.data);
       })
@@ -53,8 +53,8 @@ const ExplorePage = () => {
         console.log(error);
       });
 
-    axios
-      .get(API_URL + `/cities`)
+    API_CALL
+      .get(`/cities`)
       .then((response) => {
         setCities(response.data);
       })
@@ -62,8 +62,8 @@ const ExplorePage = () => {
         console.log(error);
       });
 
-    axios
-      .get(API_URL + `/event/provinces`)
+    API_CALL
+      .get(`/event/provinces`)
       .then((response) => {
         setProvince(response.data);
       })
@@ -71,8 +71,6 @@ const ExplorePage = () => {
         console.log(error);
       });
   }, []);
-
-  // console.log(province);
 
   const sortEventData = (data, sortingOption) => {
     if (sortingOption === 'startTimeAsc') {
@@ -98,9 +96,12 @@ const ExplorePage = () => {
   const [startIndex, endIndex] = calculateDataIndex(activePage);
   const sortedEventData = sortEventData(eventData, sortingOption);
 
+  // PART 2 
   const applyFilters = (event) => {
-    // Pastikan selectedProvince adalah string
-    const selectedProvinceId = Number(selectedProvince);
+    // Pastikan event adalah objek dan memiliki properti cityId
+    if (!event || event.cityId === undefined) {
+      return false;
+    }
 
     // Dapatkan ID kota dari kolom cityId dalam tabel events
     const cityId = event.cityId;
@@ -130,25 +131,44 @@ const ExplorePage = () => {
     console.log('Event:', event);
     console.log('Selected Type:', selectedType);
 
+    // Pastikan selectedProvince adalah string
+    const selectedProvinceId = Number(selectedProvince);
+
     // Gunakan ID provinsi untuk memfilter event
-    if (
+    const isFiltered = (
       (!selectedCategory || event.categoryId === Number(selectedCategory)) &&
       (!selectedProvince || provinceId === selectedProvinceId) &&
       (!selectedCities || event.cityId === Number(selectedCities)) &&
       (!selectedMethod || event.method.toLowerCase() === selectedMethod.toLowerCase()) &&
       (!selectedType || event.type.toLowerCase() === selectedType.toLowerCase())
-
-    ) {
-      return true;
-    }
+    );
 
     // Jika tidak ada filter yang dipilih, tampilkan semua event
-    return !selectedCategory && !selectedProvince && !selectedCities && !selectedMethod && !selectedType;
+    return isFiltered || (!selectedCategory && !selectedProvince && !selectedCities && !selectedMethod && !selectedType);
+
   };
 
 
-  const paginatedFilteredData = sortedEventData
-    .slice(startIndex, endIndex)
+
+  console.log("isi dari eventdata", eventData);
+  // console.log('Category:', selectedCategory);
+  // console.log('Selected Category', setCategories);
+  // console.log('Selected Type:', selectedType);
+  // console.log("INI PROVINSI", province);
+  // console.log("INI CITY", cities);
+  // console.log("INI METHOD", method);
+  // console.log("INI tipe", type);
+
+  const getFilteredAndSortedData = () => {
+    const filteredData = sortedEventData.filter((event) => applyFilters(event));
+    return filteredData.slice(startIndex, endIndex);
+  };
+
+  const paginatedFilteredData = getFilteredAndSortedData();
+
+  // const paginatedFilteredData = sortedEventData
+  //   .slice(startIndex, endIndex)
+
   const prevPage = () => {
     if (activePage > 0) {
       setActivePage(activePage - 1);
@@ -183,9 +203,6 @@ const ExplorePage = () => {
       console.log('Hide Left:', false);
     }
   };
-
-
-
 
 
   return (
@@ -277,24 +294,28 @@ const ExplorePage = () => {
                   value={selectedType}
                   onChange={(e) => setSelectedType(e.target.value)}
                 >
-                  <option>Gratis</option>
-                  <option >Berbayar</option>
+                  <option>Free</option>
+                  <option >Paid</option>
                 </Select>
 
               </DrawerBody>
 
               <DrawerFooter>
                 <Button variant='outline' mr={3} onClick={onClose}>
-                  Cancel
+                  Kembali
                 </Button>
-                <Button bg={primary} onClick={() => { onClose(); }} >
-                  Save
+                <Button bg={primary} onClick={() => {
+                  applyFilters();
+                  onClose();
+                  setEventData(filteredData);
+                }} >
+                  Terapkan
                 </Button>
               </DrawerFooter>
             </DrawerContent>
           </Drawer>
           <Flex width={'270px'}>
-            <Text fontWeight='bold' mr='2'mb={'4'}>Urutkan:</Text>
+            <Text fontWeight='bold' mr='2' mb={'4'}>Urutkan:</Text>
             <Select size='sm' value={sortingOption} onChange={(e) => setSortingOption(e.target.value)}>
               <option value='startTimeAsc'>Waktu Mulai (Terdekat)</option>
               <option value='startTimeDesc'>Waktu Mulai (Terjauh)</option>
