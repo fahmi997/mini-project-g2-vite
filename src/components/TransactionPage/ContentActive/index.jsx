@@ -11,8 +11,79 @@ import "./index.css"
 import Label from "./Label"
 import TiketActiveSold from "./tiketSold"
 import TiketActive from "./tiketActive"
+import React from "react"
+import { useDispatch } from "react-redux"
+import { update_inventories } from "../../../redux/slice/checkoutSlice"
+import { useNavigate } from "react-router"
 
 const ContentTransactionActive = () =>{
+    const dispatch = useDispatch()
+    const navigate = useNavigate()
+    const [inTiket, setInTiket] = React.useState([
+        {
+            id: 1,
+            nama: "VIP Denny Caknan @ Pintulangit (Berdiri)",
+            waktu: "03:00 WIB",
+            harga: "Rp. 100.000",
+            status: "ACTIVE",
+        },
+        {
+            id: 2,
+            nama: "DUDUK GANN",
+            waktu: "19:00 WIB",
+            harga: "Rp. 75.000",
+            status: "SOLD OUT",
+        },
+        {
+            id: 3,
+            nama: "Festival Denny Caknan @ Pintulangit",
+            waktu: "03:00 WIB",
+            harga: "Rp. 50.000",
+            status: "ACTIVE",
+        },
+        {
+            id: 4,
+            nama: "Tiket anak-anak (1-10 tahun) ALL CATEGORY",
+            waktu: "03:00 WIB",
+            harga: "Rp. 25.000",
+            status: "ACTIVE",
+        },
+    ])
+    dispatch(update_inventories([
+        {
+            id: 1,
+            nama: "VIP Denny Caknan @ Pintulangit (Berdiri)",
+            waktu: "03:00 WIB",
+            harga: "Rp. 100.000",
+            status: "ACTIVE",
+        },
+        {
+            id: 2,
+            nama: "DUDUK GANN",
+            waktu: "19:00 WIB",
+            harga: "Rp. 75.000",
+            status: "SOLD OUT",
+        },
+        {
+            id: 3,
+            nama: "Festival Denny Caknan @ Pintulangit",
+            waktu: "03:00 WIB",
+            harga: "Rp. 50.000",
+            status: "ACTIVE",
+        },
+        {
+            id: 4,
+            nama: "Tiket anak-anak (1-10 tahun) ALL CATEGORY",
+            waktu: "03:00 WIB",
+            harga: "Rp. 25.000",
+            status: "ACTIVE",
+        },
+    ]))
+    
+    const onCheckout = () => {
+        navigate("/boxCheckout")
+    }
+
     return <>
         <Box display={"flex"} width={"100%"} backgroundColor={"rgb(251, 251, 251)"} height={"445px"} alignItems={"center"} justifyContent={"center"} >
             <Box width={"83%"} height={"85%"} marginBottom={"10px"}>
@@ -57,8 +128,8 @@ const ContentTransactionActive = () =>{
                 </Box>
             </Box>
         </Box>
-        <Box display={"flex"} backgroundColor={"rgb(251, 251, 251)"} width={"100%"} height={"2000px"} justifyContent={"center"}>
-            <Box display={"flex"} justifyContent={"space-between"} backgroundColor={"rgb(251, 251, 251)"} width={"83%"} height={"80%"} marginTop={"20px"}>
+        <Box display={"flex"} backgroundColor={"rgb(251, 251, 251)"} width={"100%"} height={"auto"} justifyContent={"center"}>
+            <Box display={"flex"} justifyContent={"space-between"} backgroundColor={"rgb(251, 251, 251)"} width={"83%"} height={"2000px"} marginTop={"20px"}>
                 <Tabs justifyContent={"center"} width={"63%"} height={"50px"}>
                     
                     <TabList display={"flex"} justifyContent={"center"} width={"100%"}>
@@ -108,26 +179,52 @@ const ContentTransactionActive = () =>{
                         </Box>
 
                         <Box>
-                            <TiketActiveSold judulKeterangan={"VIP Denny Caknan @ Pintulangit (Berdiri)"} waktu={"03:00 WIB"} harga={"Rp 100.000"} status={"SOLD OUT"}/>
+                            {inTiket.map((val, idx)=>{
+                                console.log("INI VAL TIKET BREE", val);
+                                if(val.status === "ACTIVE"){
+                                    return(
+                                        <TiketActive judulKeterangan={val.nama} waktu={val.waktu} harga={val.harga} id={val.id}/>
+                                    )
+                                }else if(val.status === "SOLD OUT"){
+                                    return(
+                                        <TiketActiveSold judulKeterangan={val.nama} waktu={val.waktu} harga={val.harga} status={val.status}/>
+                                    )
+                                }
+                            })}
+                            {/* <TiketActiveSold judulKeterangan={"VIP Denny Caknan @ Pintulangit (Berdiri)"} waktu={"03:00 WIB"} harga={"Rp 100.000"} status={"SOLD OUT"}/>
                             <TiketActive judulKeterangan={"Festival Denny Caknan @ Pintulangit"} waktu={"03:00 WIB"} harga={"Rp 50.000"}/>
                             <TiketActive judulKeterangan={"Tribun Denny Caknan @ Pintulangit (Duduk)"} waktu={"19:00 WIB"} harga={"Rp 75.000"}/>
-                            <TiketActive judulKeterangan={"Tiket anak-anak (1-10 tahun) ALL CATEGORY"} waktu={"15:00 WIB"} harga={"Rp 25.000"}/>
+                            <TiketActive judulKeterangan={"Tiket anak-anak (1-10 tahun) ALL CATEGORY"} waktu={"15:00 WIB"} harga={"Rp 25.000"}/> */}
                         </Box>
                     </TabPanels>
                 </Tabs>
-                <Box width={"33%"} height={"auto"}>
+                <Box width={"33%"} backgroundColor={"red"} height={"75%"}>
                     <Box className="stickyy" backgroundColor={"rgb(251, 251, 251)"} width={"100%"} height={"auto"}>
-                        <Box className="boxShadow" display={"flex"} flexDirection={"column"} width={"100%"} height={"215px"} alignItems={"center"} borderRadius={"8px"}>
-                            <Box width={"86%"} marginTop={"20px"} height={"175px"}>
-                                <Box display={"flex"} borderBottom={"1px solid rgb(219, 223, 231)"} justifyContent={"space-between"} color={"grey"} width={"100%"} height={"30%"} fontSize={"15px"}>
+                        <Box className="boxShadow" display={"flex"} flexDirection={"column"} width={"100%"} height={"auto"} alignItems={"center"} borderRadius={"8px"}>
+                            <Box width={"86%"} marginTop={"15px"} height={"auto"} paddingBottom={"5%"}>
+                                {/* <Box display={"flex"} padding={"10px"} borderBottom={"1px solid rgb(219, 223, 231)"} justifyContent={"space-between"} color={"grey"} width={"100%"} height={"40%"} fontSize={"15px"}>
                                     <Icon color={"rgb(102, 206, 230)"} height={"40px"} width={"40px"}><IoTicket size={"20"}/></Icon>
                                     <Text fontSize={"15px"} height={"45px"} width={"80%"}>Kamu belum memilih tiket. Silakan <br/> pilih lebih dulu di tab menu TIKET.</Text>
+                                </Box> */}
+                                <Box display={"flex"} padding={"10px"} borderBottom={"1px solid rgb(219, 223, 231)"} justifyContent={"space-between"} color={"grey"} width={"100%"} height={"40%"} fontSize={"15px"}>
+                                    <Icon color={"rgb(102, 206, 230)"} height={"50px"} width={"55px"}><IoTicket size={"20"}/></Icon>
+                                    <Box display={"flex"} flexDirection={"column"} gap={"5px"}>
+                                        <Text fontSize={"15px"} height={"45px"} width={"100%"}>VIP Denny Caknan @ Pintulangit (Berdiri) </Text>
+                                        <Box display={"flex"} justifyContent={"space-between"} alignItems={"center"}>
+                                            <Text color={"rgb(155, 158, 166)"} fontSize={"13px"} fontWeight={"500"}>1 Tiket</Text>
+                                            <Text color={"black"} fontSize={"16px"} fontWeight={"700"}>Rp. 25.000</Text>
+                                        </Box>
+                                    </Box>
                                 </Box>
-                                <Box className="judul" display={"flex"} justifyContent={"space-between"} alignItems={"center"} width={"100%"} bottom={"0px"} marginTop={"30px"} height={"30px"} fontSize={"16px"}>
+                                {/* <Box className="judul" display={"flex"} justifyContent={"space-between"} alignItems={"center"} width={"100%"} bottom={"0px"} marginTop={"30px"} height={"30px"} fontSize={"16px"}>
                                     <Text color={"grey"}>Harga mulai dari</Text>
                                     <Text fontWeight={"bold"}>Rp 25.000</Text>
+                                </Box> */}
+                                <Box className="judul" display={"flex"} justifyContent={"space-between"} alignItems={"center"} width={"100%"} bottom={"0px"} marginTop={"30px"} height={"30px"} fontSize={"17px"}>
+                                    <Text color={"grey"}>Total 1 tiket</Text>
+                                    <Text fontWeight={"bold"}>Rp 25.000</Text>
                                 </Box>
-                                <Button onClick={""} _hover={{backgroundColor:"blue"}} fontWeight={"400"} className="button"color={"white"} display={"flex"} justifyContent={"center"} alignItems={"center"} width={"100%"} height={"40px"} borderRadius={"10px"} backgroundColor={"blue"}>Beli Tiket</Button>
+                                <Button onClick={onCheckout} _hover={{backgroundColor:"blue"}} fontWeight={"400"} className="button"color={"white"} display={"flex"} justifyContent={"center"} alignItems={"center"} width={"100%"} height={"40px"} borderRadius={"10px"} backgroundColor={"blue"}>Beli Tiket</Button>
                             </Box>
                         </Box>
                         <Text marginTop={"20px"} fontSize={"16px"} color={"grey"}>Bagikan Event</Text>
