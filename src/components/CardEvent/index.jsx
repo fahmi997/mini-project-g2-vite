@@ -1,8 +1,7 @@
 import { Card, Image, Box, Text } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
-import API_CALL from "../../helper";
 import React, { useState, useEffect } from 'react';
+import API_CALL from "../../helper";
 
 const CardEvent = (props) => {
   const navigate = useNavigate();

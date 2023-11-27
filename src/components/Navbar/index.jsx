@@ -1,4 +1,4 @@
-import { Box, Button, Image, Input, InputGroup, InputRightAddon, Flex, Stack, Text, Popover, PopoverTrigger, PopoverArrow, PopoverCloseButton, PopoverHeader, PopoverBody, PopoverContent, IconButton, Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, ModalBody, ModalFooter, Avatar } from "@chakra-ui/react";
+import { Box, Button, Image, Input, InputGroup, InputRightAddon, Flex, Stack, Text, Popover, PopoverTrigger, PopoverArrow, PopoverCloseButton, PopoverHeader, PopoverBody, PopoverContent, IconButton, Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, ModalBody, ModalFooter, Avatar, Menu, MenuButton, MenuList, MenuItem } from "@chakra-ui/react";
 import { BiSearch } from "react-icons/bi"
 import { FiCompass } from "react-icons/fi"
 import { IoMenuOutline } from "react-icons/io5"
@@ -7,11 +7,11 @@ import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import { useDisclosure } from "@chakra-ui/react";
 import { TbCalendarPlus } from "react-icons/tb";
+import { CiLogout, CiLogin  } from "react-icons/ci";
 
 const Navbar = () => {
 
     const navigate = useNavigate();
-    const { isOpen, onOpen, onClose } = useDisclosure()
 
     const navigateToExplorePage = () => {
         navigate('/');
@@ -68,56 +68,53 @@ const Navbar = () => {
 
 
                 <Link to="/login" onClick={navigateToLogin} >
-                <Button
-                    color={primary}
-                    border={'1px'} borderColor={primary}
-                    bg={'none'}
-                    _hover={{}}
-                    _active={{ bg: primary, color: 'black' }}
-                    display={{ base: "none", md: "block" }}
-                >
-                    Log In
-                </Button>
+                    <Button
+                        color={primary}
+                        border={'1px'} borderColor={primary}
+                        bg={'none'}
+                        _hover={{}}
+                        _active={{ bg: primary, color: 'black' }}
+                        display={{ base: "none", md: "block" }}
+                    >
+                        Log In
+                    </Button>
                 </Link>
 
                 <Link to="/sign-up" onClick={navigateSignUp} >
-                <Button
-                    bg={primary}
-                    color={'black'}
-                    _hover={{}}
-                    _active={{ bg: 'black', color: primary, border: '1px', borderColor: primary }}
-                    display={{ base: "none", md: "block" }}
-                >
-                    Sign Up
-                </Button>
+                    <Button
+                        bg={primary}
+                        color={'black'}
+                        _hover={{}}
+                        _active={{ bg: 'black', color: primary, border: '1px', borderColor: primary }}
+                        display={{ base: "none", md: "block" }}
+                    >
+                        Sign Up
+                    </Button>
                 </Link>
 
                 {/* <Avatar size='sm' src='https://bit.ly/tioluwani-kolawole' display={{ base: "block", md: "none" }} onClick={onOpen} mt={'1'} /> */}
 
-                <IoMenuOutline size='35px' display={{ base: "block", md: "none" }} onClick={onOpen}/>
+                <Box display={{ base: "block", md: "none" }}>
+                    <Menu >
+                        <MenuButton>
+                            <IoMenuOutline size='35px' />
+                        </MenuButton>
+                        <MenuList>
+                            <Link to="/login" onClick={navigateToLogin} >
+                                <MenuItem  textColor={'black'} >
+                                    Log In
+                                </MenuItem>
+                            </Link>
 
-                <Modal isOpen={isOpen} onClose={onClose} isCentered >
-                    <ModalOverlay />
-                    <ModalContent bg={primaryBgColor}>
-                        <ModalHeader color={'white'}>Log In</ModalHeader>
-                        <ModalCloseButton color={'white'} />
-                        <ModalBody>
-                            <Stack spacing={4}>
-                                <Input placeholder="Email" bg="white" />
-                                <Input placeholder="Password" bg="white" />
-                            </Stack>
-                        </ModalBody>
+                            <Link to="/sign-up" onClick={navigateSignUp} >
+                            <MenuItem  textColor={'black'} >
+                                Sign Up
+                            </MenuItem>
+                            </Link>
 
-                        <ModalFooter>
-                            <Button mr={3} onClick={onClose} color={primary}
-                                border={'1px'} borderColor={primary}
-                                bg={'none'}>
-                                Close
-                            </Button>
-                            <Button variant='ghost' bg={primary}>Ok</Button>
-                        </ModalFooter>
-                    </ModalContent>
-                </Modal>
+                        </MenuList>
+                    </Menu>
+                </Box>
             </Stack>
         </Flex>
     </>

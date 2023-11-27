@@ -1,11 +1,12 @@
 /* eslint-disable react/prop-types */
 import { Box, Flex, Heading, Text, Input, Button, HStack, InputGroup, InputRightAddon, Select, InputRightElement } from "@chakra-ui/react"
-import React from "react"
 import { FcGoogle } from "react-icons/fc"
 import { FaFacebook } from "react-icons/fa"
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai"
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import React from "react";
+import axios from "axios";
 import API_CALL from "../../../helper";
 
 
@@ -33,30 +34,37 @@ const SignupCard = (props) => {
     const signUp = async () =>{
         // console.log("tessss");
         try {
-            if(inNamaLengkap === '' || inEmail === '' || inRole === '' || inPassword === '' || inConfirmPassword===''){
+            if(inNamaLengkap === '' || inEmail === '' || inRole === '' || inPassword === '' || inConfirmPassword ===``){
                 alert('Mohon di isi')
+            }else if( inConfirmPassword != inPassword) {
+                alert('Confirm password salah')
             }else{
-                // let response = await axios.post(`http://localhost:2099/account/register`, // Changes to API_CALL
                 let response = await API_CALL.post(`/account/register`,
                 {
-                    nama_Lengkap: inNamaLengkap,
+                    name: inNamaLengkap,
                     email: inEmail,
                     password: inPassword,
                     role: inRole,
-                    refferal_Code: kodeRefferal
+                    refCode: kodeRefferal
                 })
-                console.log(response);
+                console.log("bree ini response signup",response);
                 alert('Register is SUCCES')
                 navigate("/login")
             }
             
         } 
         catch (error) {
-            if(error.response.status === 400){
-                alert('Account is exist')
-            }else{
-                alert('Is error!')
+            console.log(error);
+            if(error.response.data.error === "Validation error: Validation isEmail on email failed"){
+                alert("Penulisan email salah")
+            }else if(error.response.data.error === "Akun sudah ada") {
+                alert("Akun sudah ada")
             }
+            // if(error.response.status === 400){
+            //     alert('Account is exist')
+            // }else{
+            //     alert('Is error!')
+            // }
         }        
     }
 
@@ -87,7 +95,7 @@ const SignupCard = (props) => {
                 <Select onChange={(e) => setInRole(e.target.value)} color="gray.500">
                     <option style={{display:"none"}}>Select your role</option>
                     <option value={`user`}>Attendee</option>
-                    <option value={`promotor`}>Event Organizer</option>
+                    <option value={`eo`}>Event Organizer</option>
                 </Select>
             </Box>
             
