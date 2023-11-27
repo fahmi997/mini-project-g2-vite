@@ -90,7 +90,7 @@ const CardEventExplorePage = (props) => {
             ml={'2'}
             flex={`0 0 calc(${100 / columnCount}% - 10px)`} // Flex basis set to 25%, margin included
         >
-            <Image height={'115px'} objectFit={'cover'} src={props.image} />
+            <Image height={'115px'} objectFit={'cover'} src={`${import.meta.env.VITE_API_URL}/${props.image}`} />
 
             <Box ml={"3"}>
                 <Text textOverflow={'ellipsis'} whiteSpace={'nowrap'} overflow='hidden' mt={"5"} mr={'4'}>{props.name}</Text>
