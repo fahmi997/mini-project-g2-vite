@@ -3,9 +3,6 @@ import CardEvent from "../../components/CardEvent";
 import Carousel from "../../components/Carousel";
 import { useState, useRef, useEffect } from 'react';
 import ButtonScroll from "../../components/ButtonScroll";
-import { API_URL } from "../../helper/helper";
-import axios from "axios";
-
 import { useSelector } from "react-redux";
 // import { selectEventData } from "../../redux/slices/eventSlice";
 import { useDispatch } from "react-redux";
@@ -13,27 +10,19 @@ import { setEventData } from "../../redux/slices/eventSlice";
 import BottomBox from "../../components/BottomBox";
 import FooterMain from "../../components/FooterMain";
 import FooterBottom from "../../components/FooterBottom";
-import Navbar from "../../components/Navbar";
-import NavbarLogIn from "../../components/NavbarLogIn";
+import API_CALL from "../../helper";
 
 const LandingPage = () => {
   const [scrollX, setScrollX] = useState(0);
   const scrollableGridRef = useRef(null);
   const [hideLeft, setHideLeft] = useState(false);
   const [hideRight, setHideRight] = useState(false);
-  const scrollableGridRef2 = useRef(null);
-  const [hideLeft2, setHideLeft2] = useState(false);
-  const [hideRight2, setHideRight2] = useState(false);
-
-  const dataAccount = useSelector((state) => {
-    return state.accountSlice;
-  });
 
   const eventData = useSelector( (state) => {
     return state.eventSlice.eventData
   });
 
-  console.log("INI EVENT DATA",eventData);
+  console.log(eventData);
 
   const dispatch = useDispatch ();  
 
@@ -83,7 +72,7 @@ const LandingPage = () => {
 
   useEffect(() => {
     // Lakukan permintaan ke API untuk mengambil data acara
-    axios.get(API_URL + `/events`)
+    API_CALL.get(`/event`)
     .then ((response) => { 
       dispatch(setEventData(response.data));
     })
@@ -96,7 +85,6 @@ const LandingPage = () => {
 
   return (
     <>
-    {dataAccount.role === ""? <Navbar/> : <NavbarLogIn/>}
       <Flex display={'flex'} flexDirection={'column'} height={'auto'} >
 
         <Carousel />
@@ -173,7 +161,7 @@ const LandingPage = () => {
 
         <Flex ml="5%" mr="5%" mb="6" h="330px" position="relative" overflow="hidden">
           <div
-            ref={scrollableGridRef2}
+            ref={scrollableGridRef}
             style={{
               display: 'flex',
               flexDirection: 'row',
@@ -186,7 +174,7 @@ const LandingPage = () => {
             ))}
           </div>
 
-          <ButtonScroll scrollLeft={() => scrollLeft(scrollableGridRef2)} scrollRight={() => scrollRight(scrollableGridRef2)} hideLeft={hideLeft2} hideRight={hideRight2} />
+          <ButtonScroll scrollLeft={() => scrollLeft(scrollableGridRef)} scrollRight={() => scrollRight(scrollableGridRef)} hideLeft={hideLeft} hideRight={hideRight} />
         </Flex>
 
         <Box mt={'16'} ml={'5%'} mr={'5%'} >
