@@ -1,6 +1,6 @@
 import CreateEventPage from "./pages/CreateEvent";
 import DashboardTiket from "./pages/dashboard/indexTiket";
-import StagingPage from "./pages/staging";
+// import StagingPage from "./pages/staging";
 import DashboardProfile from "./pages/dashboard/indexProfile";
 import TransactionPageEnded from "./pages/transaction/ended";
 import TransactionPageActive from "./pages/transaction/active"
@@ -28,9 +28,9 @@ function App() {
 
 
   console.log("INI local storage", localStorage.getItem("token"));
-  if(!checkLocal){
-    navigate("/login")
-  }
+  // if(!checkLocal){
+  //   navigate("/login")
+  // }
 
   useEffect(() => {
     dispatch(checkDataAccount());

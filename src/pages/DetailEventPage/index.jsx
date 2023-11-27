@@ -44,6 +44,7 @@ const DetailEvent = () => {
 
   return (
     <>
+      <Navbar />
       {eventData && (
         <Flex
           flexDirection={"column"}
@@ -194,7 +195,7 @@ const DetailEvent = () => {
           <Text textAlign={'center'}>Free</Text>
         </Box>
         <Button w={"100%"} mt={4} bg={"#202020"} color={"white"} size={'lg'}>
-          BELI        
+          BELI
         </Button>
       </Box>
     </>

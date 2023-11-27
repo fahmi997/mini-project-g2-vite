@@ -13,9 +13,14 @@ const CardEvent = (props) => {
   const handleCardClick = async () => {
     try {
       const response = await API_CALL.get(`/event`);
-      setEventData(response.data);
-      setIsModalOpen(true);
-      navigate(`/event/${props.id}`);
+      if(response){
+        setEventData(response.data);
+        setIsModalOpen(true);
+        navigate(`/event/${props.id}`);
+      }else{
+        navigate(`/login`);
+      }
+      console.log("INI RESPONSE",response);
     } catch (error) {
       console.log(error);
     }
