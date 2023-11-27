@@ -14,8 +14,13 @@ import LandingPage from "./pages/LandingPage"
 import ExplorePage from "./pages/ExplorePage.jsx"
 import DetailEvent from "./pages/DetailEventPage"
 import Navbar from "./components/Navbar/index.jsx"
+<<<<<<< HEAD
+import MyPromo from "./pages/MyPromo/index.jsx";
+import MyEvent from "./pages/MyEvent/index.jsx";
+=======
 import BoxCheckout from "./components/TransactionPage/ContentActive/BoxCheckout.jsx";
 // import accountSlice from "./redux/slice/accountSlice";
+>>>>>>> develop
 
 function App() {
   const dispatch = useDispatch();
@@ -34,7 +39,11 @@ function App() {
 
   useEffect(() => {
     dispatch(checkDataAccount());
+<<<<<<< HEAD
+    // console.log(loginAcc);
+=======
     console.log("ini loginAcc", loginAcc);
+>>>>>>> develop
   }, []);
 
   return (
@@ -50,7 +59,13 @@ function App() {
         <Route path="/dashProfile" element={<DashboardProfile />} />
         <Route path="/checkoutTiketEnded" element={<TransactionPageEnded />} />
         <Route path="/checkoutTiketActive" element={<TransactionPageActive />} />
+<<<<<<< HEAD
+        <Route path="/my-promo" element={<MyPromo />} />
+        <Route path="/create-event" element={<CreateEventPage />} />
+        <Route path="/my-event" element={<MyEvent />} />
+=======
         <Route path="/boxCheckout" element={<BoxCheckout />} />
+>>>>>>> develop
       </Routes>
     </>
   );

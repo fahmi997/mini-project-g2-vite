@@ -7,6 +7,7 @@ const createEvent = createSlice({
         event: [],
         location: [],
         ticket: [],
+        ticketTypes: [],
     },
     reducers: {
         setLocation: (state, action) => {
@@ -18,12 +19,23 @@ const createEvent = createSlice({
             state.event = action.payload;
         },
         setTicket: (state, action) => {
+            // console.log("action.payload",action.payload);
             state.ticket = action.payload;
+            // console.log("state.ticket",state.ticket);
+        },
+        deleteTicket: (state, action) => {
+            state.ticket.splice(action.payload, 1);
+        },
+        editTicket: (state, action) => {
+            state.ticket[action.payload] = action.payload;
         }
     }
 });
 
-export const { setLocation, setEvent, setTicket } = createEvent.actions;
+export const { setLocation, setEvent, setTicket, deleteTicket, editTicket } = createEvent.actions;
 export default  createEvent.reducer;
 
 //Middlewares
+// export const deleteTicket = (index) => async (dispatch) => {
+//     console.log("Middleware deleteTicket",index);
+// };

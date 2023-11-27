@@ -1,7 +1,7 @@
 import { Box, Button, Icon, Image, Input, InputGroup, InputLeftElement, InputRightElement, Radio, RadioGroup, Select, Stack, Tab, TabList, Tabs, Text } from "@chakra-ui/react"
 import Posisi from "./posisi"
 import "./index.css"
-import {FaPen} from "react-icons/fa"
+import { FaPen } from "react-icons/fa"
 import { HiSelector } from "react-icons/hi";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -130,16 +130,16 @@ const ContentDashProfile = () =>{
       <Tabs width={"92%"} height={"40px"}>
           <TabList>
             <Tab
-            _selected={{
-                borderBottom:"2px solid rgb(226, 232, 240)"
-            }}
+              _selected={{
+                borderBottom: "2px solid rgb(226, 232, 240)"
+              }}
               height={"50px"}
               color={"rgb(89, 89, 99)"}
               fontWeight={"600"}
               fontSize={"19px"}
               padding={"0px 4%"}
               bgColor={"white"}
-              
+
             >
               Informasi Dasar
             </Tab>
