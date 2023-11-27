@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
-import { Flex, Text, Image, Heading, Button, useDisclosure } from "@chakra-ui/react";
-import { MdOutlineDeleteOutline } from "react-icons/md";
+import { Flex, Text, Image, Heading, Button, useDisclosure, Icon } from "@chakra-ui/react";
+import { MdOutlineDeleteOutline, MdDelete } from "react-icons/md";
 import { FiEdit2 } from "react-icons/fi";
 import TicketModal from "./TicketModal";
 
@@ -25,13 +25,11 @@ const Ticket = ({ type, price, stock, startSale, endSale , onEdit, onDelete}) =>
                                 </Flex>
                             </Flex>
                             <Flex flex={'1'} justify={'end'} align={'center'} gap={'3'}>
-                                <Button border={'1px'} boxSize={'40px'} display={'grid'} justifyContent={'center'} alignContent={'center'} fontSize={'20px'} borderRadius={'999px'} cursor={'pointer'} colorScheme={"blue"} onClick={onEdit}>
+                                {/* <Button border={'1px'} boxSize={'40px'} display={'grid'} justifyContent={'center'} alignContent={'center'} fontSize={'20px'} borderRadius={'999px'} cursor={'pointer'} colorScheme={"blue"} onClick={onEdit}>
                                     <FiEdit2 />
-                                </Button>
+                                </Button> */}
                                 {/* <TicketModal/> */}
-                                <Button border={'1px'} boxSize={'40px'} display={'grid'} justifyContent={'center'} alignContent={'center'} fontSize={'20px'} borderRadius={'999px'} cursor={'pointer'} colorScheme={"red"} onClick={onDelete}>
-                                    <MdOutlineDeleteOutline />
-                                </Button>
+                                <Icon as={MdDelete} color={'red'} fontSize={'25px'} onClick={onDelete} cursor={'pointer'} />
                             </Flex>
                         </Flex>
                     </Flex>
